@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InputRange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RanOperation>
+    <string>NSA</string>
+    <string>SA</string>
+  </RanOperation>
+  <Authentication_Key>
+    <string>00112233-44556677-8899AABB-CCDDEEFF</string>
+    <string>4147494C-454E5420-54454348-4E4F0000</string>
+    <string>00010203-04050607-08090A0B-0C0D0E0F</string>
+  </Authentication_Key>
+  <LTE_Channel_BW>
+    <string />
+  </LTE_Channel_BW>
+  <LTE_TPC_Pattern>
+    <string>Auto</string>
+    <string>All -1dB</string>
+    <string>All 0dB</string>
+    <string>All +1dB</string>
+    <string>All +3dB</string>
+    <string>Alt +1/-1dB</string>
+  </LTE_TPC_Pattern>
+  <LTE_UL_Center_Channel_Mode>
+    <string>User</string>
+    <string>Low</string>
+    <string>Mid</string>
+    <string>High</string>
+  </LTE_UL_Center_Channel_Mode>
+  <LTE_DL_MCS_Table>
+    <string>64QAM</string>
+    <string>256QAM</string>
+  </LTE_DL_MCS_Table>
+  <LTE_UL_MCS_Table>
+    <string>64QAM</string>
+    <string>256QAM</string>
+  </LTE_UL_MCS_Table>
+  <NR_Number_Of_DL_SCC>
+    <string>0</string>
+    <string>1</string>
+    <string>2</string>
+    <string>3</string>
+  </NR_Number_Of_DL_SCC>
+  <NR_UL_Center_Channel_Mode>
+    <string>User</string>
+    <string>Low</string>
+    <string>Mid</string>
+    <string>High</string>
+  </NR_UL_Center_Channel_Mode>
+  <NR_Channel_BW>
+    <string />
+  </NR_Channel_BW>
+  <NR_TPC_Pattern>
+    <string>Auto</string>
+    <string>All -1dB</string>
+    <string>All 0dB</string>
+    <string>All +1dB</string>
+    <string>All +3dB</string>
+    <string>Alt +1/-1dB</string>
+  </NR_TPC_Pattern>
+  <NR_DL_MCS_Table>
+    <string>64QAM</string>
+    <string>256QAM</string>
+  </NR_DL_MCS_Table>
+  <NR_UL_Waveform>
+    <string>CP</string>
+    <string>DFT</string>
+  </NR_UL_Waveform>
+  <NR_UL_MCS_Table>
+    <string>64QAM</string>
+    <string>256QAM</string>
+  </NR_UL_MCS_Table>
+  <NR_UL_Scs>
+    <string />
+  </NR_UL_Scs>
+</InputRange>

@@ -1,0 +1,12 @@
+C:\Users\kr000146\Desktop\doc\01.SourceCode\git\newAMS\Instrument\bin\Debug\Instrument.dll
+C:\Users\kr000146\Desktop\doc\01.SourceCode\git\newAMS\Instrument\bin\Debug\Instrument.pdb
+C:\Users\kr000146\Desktop\doc\01.SourceCode\git\newAMS\Instrument\bin\Debug\NationalInstruments.Common.dll
+C:\Users\kr000146\Desktop\doc\01.SourceCode\git\newAMS\Instrument\bin\Debug\NationalInstruments.VisaNS.dll
+C:\Users\kr000146\Desktop\doc\01.SourceCode\git\newAMS\Instrument\bin\Debug\NationalInstruments.Common.Native.dll
+C:\Users\kr000146\Desktop\doc\01.SourceCode\git\newAMS\Instrument\obj\Debug\Common.csproj.AssemblyReference.cache
+C:\Users\kr000146\Desktop\doc\01.SourceCode\git\newAMS\Instrument\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\kr000146\Desktop\doc\01.SourceCode\git\newAMS\Instrument\obj\Debug\Common.csproj.CopyComplete
+C:\Users\kr000146\Desktop\doc\01.SourceCode\git\newAMS\Instrument\obj\Debug\Instrument.dll
+C:\Users\kr000146\Desktop\doc\01.SourceCode\git\newAMS\Instrument\obj\Debug\Instrument.pdb
+C:\Users\kr000146\source\repos\Configurator\Instrument\obj\Debug\Instrument.dll
+C:\Users\kr000146\source\repos\Configurator\Instrument\obj\Debug\Instrument.pdb

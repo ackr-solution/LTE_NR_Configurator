@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33130.400
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configurator", "Configurator\Configurator.csproj", "{5B16A93D-2BA3-4622-8A0E-2DFBCC8D3E1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_Simulation|Any CPU = Debug_Simulation|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B16A93D-2BA3-4622-8A0E-2DFBCC8D3E1A}.Debug_Simulation|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B16A93D-2BA3-4622-8A0E-2DFBCC8D3E1A}.Debug_Simulation|Any CPU.Build.0 = Debug|Any CPU
+		{5B16A93D-2BA3-4622-8A0E-2DFBCC8D3E1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B16A93D-2BA3-4622-8A0E-2DFBCC8D3E1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B16A93D-2BA3-4622-8A0E-2DFBCC8D3E1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B16A93D-2BA3-4622-8A0E-2DFBCC8D3E1A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5B354B1-4E98-4530-A013-41CC15C327C1}
+	EndGlobalSection
+EndGlobal
