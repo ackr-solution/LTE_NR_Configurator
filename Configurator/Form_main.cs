@@ -20,6 +20,8 @@ using AclrLib_BandInfo;
 using DevExpress.XtraSplashScreen;
 using Configurator.Dialog;
 using NationalInstruments.VisaNS;
+using System.Threading;
+
 
 namespace Configurator
 {
@@ -31,16 +33,17 @@ namespace Configurator
         List<string[]> Nr_ScsList = new List<string[]>();
         List<BandInfo_Nr> Nr_BwList = new List<BandInfo_Nr>();
         List<string[]> Lte_BwList = new List<string[]>();
-
+        Thread trd = null;
+        string measurement_type = null;
         string[] cur_NR_OperBand_value = new string[] { "78", "78", "78", "78" };
         string[] cur_NR_SCS_value = new string[] { "30kHz", "30kHz", "30kHz", "30kHz" };
         string[] cur_NR_Bandwidth_value = new string[] { "100MHz", "100MHz", "100MHz", "100MHz" };
         string[] cur_NR_Lmh_value = new string[] { "Low", "Low", "Low", "Low" };
-        string[] cur_Nr_CsiRs_value = new string[] { "", "", "", "" };
+        string[] cur_Nr_CsiRs_value = new string[] { "OFF" , "OFF" , "OFF" , "OFF" };
         //bool is_init = false;
         //string first_reset_command = "PRESET\n";//처음 또는 RAN Operation 변경 시 PRESET Command 실행
         string old_changed_ran_operation = "";
-        MessageBasedSession NrMbSession, LteMbSession;
+        MessageBasedSession NrMbSession; //, LteMbSession;
 
         Dictionary<string, string> dict_OperBand = new Dictionary<string, string>()
         {
@@ -48,10 +51,10 @@ namespace Configurator
             {"12", "FDD_NotSupport"},
             {"20", "FDD"},{"25", "FDD"},{"26", "FDD"},{"28", "FDD"},
             {"30", "FDD_NotSupport"},{"34", "TDD_NotSupport"},{"38", "TDD_NotSupport"},{"39", "TDD_NotSupport"},
-            {"40", "TDD"},{"41", "TDD"},{"48", "TDD"},
+            {"40", "TDD_NotSupport"},{"41", "TDD"},{"48", "TDD"},
             {"50", "TDD_NotSupport"},{"51", "TDD_NotSupport"},
             {"65", "FDD"},{"66", "FDD"},
-            {"70", "FDD"},{"71", "FDD"},{"74", "FDD"},{"77", "TDD"},{"78", "TDD"},{"79", "TDD"},
+            {"70", "FDD_NotSupport"},{"71", "FDD"},{"74", "FDD"},{"77", "TDD"},{"78", "TDD"},{"79", "TDD"},
             {"257", "TDD_NotSupport"},{"258", "TDD_NotSupport"},{"259", "TDD_NotSupport"},
             {"260", "TDD_NotSupport"},{"261", "TDD_NotSupport"}
         };
@@ -76,8 +79,6 @@ namespace Configurator
             tmpclass.CreateXmlFile_InitialValue("Initial");
             tmpclass.CreateXmlFile_InitialRange();
 
-
-            
             foreach (RepositoryItem ri in vGridControl_NR_Menu.RepositoryItems)
             {
                 if (ri.EditorTypeName == "ComboBoxEdit")
@@ -105,8 +106,9 @@ namespace Configurator
                     row.PropertiesCollection[j].ReadOnly = true;
                     if (row.PropertiesCollection[j].RowEdit == null) continue;
                     //Console.WriteLine(string.Format("Change color {0}", row.PropertiesCollection[j].RowEditName.ToString()));
-                    row.PropertiesCollection[j].RowEdit.AppearanceReadOnly.BackColor = Color.Red;
-                    row.PropertiesCollection[j].RowEdit.AppearanceReadOnly.ForeColor = Color.Blue;
+                    
+                    row.PropertiesCollection[j].RowEdit.Appearance.BackColor = Color.Yellow;
+                    row.PropertiesCollection[j].RowEdit.Appearance.ForeColor = Color.Black;
                 }
             }
 
@@ -178,29 +180,31 @@ namespace Configurator
                 if (row.Name == "mrow_NR_ColName") continue;
                 for (int j = 0; j < row.RowPropertiesCount; j++)
                 {
+                    if (j != 0 )
+                    {
+                        row.PropertiesCollection[j].AllowEdit = false;
+                    }
                     //Cell 색상 변경 ...
                     if (j <= cnt)
                     {
-                        row.PropertiesCollection[j].AllowEdit = true;
                         row.PropertiesCollection[j].ReadOnly = false;
-                        if (j != 0 && row.PropertiesCollection[j].Value == null)
+                        if (j != 0 ) //&& row.PropertiesCollection[j].Value != null)
                         {
-                            row.PropertiesCollection[j].Value = row.PropertiesCollection[j - 1].Value;
-                            cur_NR_OperBand_value[j] = cur_NR_OperBand_value[j - 1];
-                            cur_NR_SCS_value[j] = cur_NR_SCS_value[j - 1];
-                            cur_NR_Bandwidth_value[j] = cur_NR_Bandwidth_value[j - 1];
-                            cur_NR_Lmh_value[j] = cur_NR_Lmh_value[j - 1];
+                            row.PropertiesCollection[j].Value = row.PropertiesCollection[0].Value;
+                            cur_NR_OperBand_value[j] = cur_NR_OperBand_value[0];
+                            cur_NR_SCS_value[j] = cur_NR_SCS_value[0];
+                            cur_NR_Bandwidth_value[j] = cur_NR_Bandwidth_value[0];
+                            cur_NR_Lmh_value[j] = cur_NR_Lmh_value[0];
                         }
                     }
                     else
                     {
-                        row.PropertiesCollection[j].AllowEdit = false;
                         row.PropertiesCollection[j].ReadOnly = true;
                         row.PropertiesCollection[j].Value = null;
                     }
                 }
             }
-            vGridControl_NR_Menu.SetCellValue(row_NR_NumOfDlScc, 0, cnt.ToString());
+            //vGridControl_NR_Menu.SetCellValue(row_NR_NumOfDlScc, 0, cnt.ToString());
             //is_init = false;
         }
 
@@ -278,11 +282,6 @@ namespace Configurator
                 }
             }
         }
-        private void Check_LTE_SpinEdit_MinMax_StartRB()
-        {
-
-        }
-
         private void Check_NR_SpinEdit_MinMax_StartRB()
         {
             for (int i = 0; i < vGridControl_NR_Menu.Rows.Count; i++)
@@ -298,27 +297,103 @@ namespace Configurator
                     else if (row.PropertiesCollection[j].RowEdit.EditorTypeName == "SpinEdit")
                     {
                         RepositoryItemSpinEdit rispin = (RepositoryItemSpinEdit)row.PropertiesCollection[j].RowEdit;
-                        if (row.PropertiesCollection[j].Name.Contains("NumOfRB"))
+                        //if (row.PropertiesCollection[j].Name.Contains("MCSIndex"))
+                        if(row == mrow_NR_DL_MCSIndex)
                         {
-                            rispin.MinValue = 0; rispin.MaxValue = 273;
-                        }
-                        else if (row.PropertiesCollection[j].Name.Contains("MCSIndex"))
-                        {
+                            // Downlink MCS Index 설정
                             rispin.MinValue = -1; rispin.MaxValue = 28;
+                            
+                            string tmpMcsTable= mrow_NR_DL_MCSTable.PropertiesCollection[j].Value?.ToString() ?? "64QAM";
+                            if (tmpMcsTable == "256QAM")
+                            {
+                                rispin.MaxValue = 27;
+                                if ( int.Parse(mrow_NR_DL_MCSIndex.PropertiesCollection[j].Value.ToString())== 28)
+                                    mrow_NR_DL_MCSIndex.PropertiesCollection[j].Value = 27;
+                            }
                         }
+                        else if (row == mrow_NR_UL_MCSIndex)
+                        {
+                            // Uplink MCS Index 설정
+                            rispin.MinValue = -1; rispin.MaxValue = 28;
+
+                            string tmpMcsTable = mrow_NR_DL_MCSTable.PropertiesCollection[j].Value?.ToString() ?? "64QAM";
+                            string tmpWaveform = mrow_NR_UL_Waveform.PropertiesCollection[j].Value?.ToString() ?? "CP";
+                            if (tmpMcsTable == "256QAM" || tmpWaveform == "DFT")
+                            {
+                                rispin.MinValue = 1; rispin.MaxValue = 27;
+                                int value = int.Parse(mrow_NR_DL_MCSIndex.PropertiesCollection[j].Value.ToString());
+                                if (value == 28) mrow_NR_DL_MCSIndex.PropertiesCollection[j].Value = 27;
+                                if( value < 1) mrow_NR_DL_MCSIndex.PropertiesCollection[j].Value = 1;
+                            }
+                        }
+                        else if (row == mrow_NR_DL_NumOfRB)
+                        {
+                            string operBand = mrow_NR_OperationBW.PropertiesCollection[j].Value?.ToString() ?? cur_NR_OperBand_value[j];
+                            string duplex = dict_OperBand[operBand];
+                            rispin.MinValue = 0;
+                            
+                            if (duplex == "FDD") rispin.MaxValue = 106;
+                            else if (duplex == "TDD") rispin.MaxValue = 273;
+
+                            int value = int.Parse(mrow_NR_DL_NumOfRB.PropertiesCollection[j].Value?.ToString() ?? "0");
+                            if (value > int.Parse(rispin.MaxValue.ToString()))
+                            {
+                                mrow_NR_DL_NumOfRB.PropertiesCollection[j].Value = rispin.MaxValue;
+                                mrow_NR_DL_StartingRB.PropertiesCollection[j].Value = 0;
+                            }
+                        }
+
+                        else if (row == mrow_NR_UL_NumOfRB)
+                        {
+                            string operBand = mrow_NR_OperationBW.PropertiesCollection[j].Value?.ToString() ?? cur_NR_OperBand_value[j];
+                            string waveform = mrow_NR_UL_Waveform.PropertiesCollection[j].Value?.ToString() ?? "CP";
+                            string duplex = dict_OperBand[operBand];
+
+                            rispin.MinValue = 0;
+
+                            if (duplex == "FDD")
+                            {
+                                if (waveform == "CP") rispin.MaxValue = 106;
+                                else rispin.MaxValue = 100;
+                            }
+                            else if (duplex == "TDD")
+                            {
+                                if (waveform == "CP") rispin.MaxValue = 273;
+                                else rispin.MaxValue = 270; //DFT
+                            }
+
+                            int value = int.Parse(mrow_NR_UL_NumOfRB.PropertiesCollection[j].Value?.ToString() ?? "0");
+                            if (value > int.Parse(rispin.MaxValue.ToString()))
+                            {
+                                mrow_NR_UL_NumOfRB.PropertiesCollection[j].Value = rispin.MaxValue;
+                                mrow_NR_UL_StartingRB.PropertiesCollection[j].Value = 0;
+
+                            }
+                        }
+
                         else if (row.PropertiesCollection[j].Name.Contains("StartingRB"))
                         {
                             if (row.PropertiesCollection[j].Name.Contains("UL"))
                             {
-                                SpinRow = vGridControl_NR_Menu.Rows["mrow_NR_UL_NumOfRB"] as MultiEditorRow;
+                                //SpinRow = vGridControl_NR_Menu.Rows["mrow_NR_UL_NumOfRB"] as MultiEditorRow;
+                                SpinRow = mrow_NR_UL_NumOfRB as MultiEditorRow;
                             }
                             else
                             {
-                                SpinRow = vGridControl_NR_Menu.Rows["mrow_NR_DL_NumOfRB"] as MultiEditorRow;
+                                //SpinRow = vGridControl_NR_Menu.Rows["mrow_NR_DL_NumOfRB"] as MultiEditorRow;
+                                SpinRow = mrow_NR_DL_NumOfRB as MultiEditorRow;
                             }
-                            int value = int.Parse(SpinRow.PropertiesCollection[j].Value.ToString());
-                            rispin.MinValue = 0; rispin.MaxValue = 273 - value;
-                            if (273 - value == 0) row.PropertiesCollection[j].AllowEdit = false;
+                            RepositoryItemSpinEdit SpinRowEdit = SpinRow.PropertiesCollection[j].RowEdit as RepositoryItemSpinEdit;
+                            int value = int.Parse(SpinRow.PropertiesCollection[j].Value?.ToString()??"0");
+                            int max_value = int.Parse(SpinRowEdit.MaxValue.ToString());
+                            rispin.MinValue = 0; rispin.MaxValue = max_value - value;
+                            value = int.Parse(row.PropertiesCollection[j].Value?.ToString() ?? "0");
+                            
+                            max_value = int.Parse(rispin.MaxValue.ToString());
+                            if (value > int.Parse(rispin.MaxValue.ToString())) row.PropertiesCollection[j].Value = rispin.MaxValue;
+                            else if (value < int.Parse(rispin.MinValue.ToString())) row.PropertiesCollection[j].Value = rispin.MinValue;
+
+                            if (max_value - value == 0) row.PropertiesCollection[j].AllowEdit = false;
                             else row.PropertiesCollection[j].AllowEdit = true;
                         }
                     }
@@ -329,14 +404,15 @@ namespace Configurator
         private void SetConfiguratorParam_by_InputValue(InputValue inputInfo)
         {
 
-            cur_NR_OperBand_value = new string[] { "", "", "", "" };
+            //cur_NR_OperBand_value = Enumerable.Repeat<string>(inputInfo.LTE_Operation_Band, 4).ToArray<string>();
+            cur_NR_OperBand_value = inputInfo.NR_Operation_Band;
             cur_NR_SCS_value = new string[] { "", "", "", "" };
             cur_NR_Bandwidth_value = new string[] { "", "", "", "" };
             cur_NR_Lmh_value = new string[] { "", "", "", "" };
 
             //Common
             textEdit_RemoteAddr_MT8000A.Text = inputInfo.RemoteAddr_MT8000A;
-            textEdit_RemoteAddr_MT8821C.Text = inputInfo.RemoteAddr_MT8821C;
+            //textEdit_RemoteAddr_MT8821C.Text = inputInfo.RemoteAddr_MT8821C;
             comboBoxEdit_RanOperation.Text = inputInfo.RanOperation;
             comboBoxEdit_AuthenticationKey.Text = inputInfo.Authentication_Key;
 
@@ -349,16 +425,17 @@ namespace Configurator
             vGridControl_LTE_Menu.SetCellValue(row_Lte_ChBW_MHZ, 0, inputInfo.LTE_Channel_BW);
             vGridControl_LTE_Menu.SetCellValue(row_Lte_TpcPattern, 0, inputInfo.LTE_TPC_Pattern);
             vGridControl_LTE_Menu.SetCellValue(row_Lte_DLNumOfRB, 0, inputInfo.LTE_DL_Number_Of_RB);
-            vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, inputInfo.LTE_DL_Starting_RB);
+            vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
             vGridControl_LTE_Menu.SetCellValue(row_Lte_DLMcsTable, 0, inputInfo.LTE_DL_MCS_Table);
             vGridControl_LTE_Menu.SetCellValue(row_Lte_DLMcsIndex, 0, inputInfo.LTE_DL_MCS_Index);
             vGridControl_LTE_Menu.SetCellValue(row_Lte_ULNumOfRB, 0, inputInfo.LTE_UL_Number_Of_RB);
-            vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, inputInfo.LTE_UL_Starting_RB);
+            vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
             vGridControl_LTE_Menu.SetCellValue(row_Lte_ULMcsTable, 0, inputInfo.LTE_UL_MCS_Table);
             vGridControl_LTE_Menu.SetCellValue(row_Lte_ULMcsIndex, 0, inputInfo.LTE_UL_MCS_Index);
 
             //NR
             vGridControl_NR_Menu.SetCellValue(row_NR_NumOfDlScc, 0, inputInfo.NR_Number_Of_DL_SCC);
+            //SetNRmenuByNumSCC(int.Parse(inputInfo.NR_Number_Of_DL_SCC.ToString()));
             for (int i = 0; i < vGridControl_NR_Menu.Rows.Count; i++)
             {
                 MultiEditorRow row = vGridControl_NR_Menu.Rows[i] as MultiEditorRow;
@@ -418,9 +495,10 @@ namespace Configurator
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_pMax"))
                         row.PropertiesCollection[j].Value = inputInfo.NR_pMax.Length > j ? inputInfo.NR_pMax[j] : null;
 
-                    if (j > int.Parse(inputInfo.NR_Number_Of_DL_SCC))
+                    //if (j > int.Parse(inputInfo.NR_Number_Of_DL_SCC))
+                    if (j > 0)
                     {
-                        row.PropertiesCollection[j].Value = null;
+                        //row.PropertiesCollection[j].Value = null;
                         row.PropertiesCollection[j].AllowEdit = false;
                         row.PropertiesCollection[j].ReadOnly = true;
                     }
@@ -434,17 +512,20 @@ namespace Configurator
         }
         private void vGridControl_NR_Menu_CellValueChanging(object sender, DevExpress.XtraVerticalGrid.Events.CellValueChangedEventArgs e)
         {
-            if (e.Row.Name.ToString() == "row_NR_NumOfDlScc")
-            {
-                SetNRmenuByNumSCC(int.Parse(e.Value.ToString()));
-            }
+            //if (e.Row.Name.ToString() == "row_NR_NumOfDlScc")
+            //{
+            //    SetNRmenuByNumSCC(int.Parse(e.Value.ToString()));
+            //}
 
 
             VGridControl vGrid = sender as VGridControl;
-            if (e.Row == mrow_NR_OperationBW ||
+            if (e.Row == row_NR_NumOfDlScc || 
+                e.Row == mrow_NR_OperationBW ||
                 e.Row == mrow_NR_UL_Scs ||
                 e.Row == mrow_NR_ChBw ||
                 e.Row == mrow_NR_UlCenterChMode ||
+                e.Row == mrow_NR_DL_MCSTable||
+                e.Row == mrow_NR_UL_Waveform ||
                 e.Row == mrow_NR_CsiRs)
             {
                 vGrid.BeginInvoke(new MethodInvoker(delegate
@@ -536,7 +617,7 @@ namespace Configurator
             }
             //Common
             inputInfo.RemoteAddr_MT8000A = textEdit_RemoteAddr_MT8000A.Text;
-            inputInfo.RemoteAddr_MT8821C = textEdit_RemoteAddr_MT8821C.Text;
+            //inputInfo.RemoteAddr_MT8821C = textEdit_RemoteAddr_MT8821C.Text;
             inputInfo.RanOperation = comboBoxEdit_RanOperation.Text;
             inputInfo.Authentication_Key = comboBoxEdit_AuthenticationKey.Text;
 
@@ -631,8 +712,109 @@ namespace Configurator
         {
             if (e.Value == null) return;
 
-            VGridControl vGrid = sender as VGridControl;
+            int n_DL_Scc = int.Parse(vGridControl_NR_Menu.GetCellValue(row_NR_NumOfDlScc, 0)?.ToString() ?? "0");
+            SetNRmenuByNumSCC(n_DL_Scc);
+            if (e.Row == mrow_NR_DL_NumOfRB     ||
+                e.Row == mrow_NR_UL_NumOfRB     ||
+                e.Row == mrow_NR_DL_StartingRB  ||
+                e.Row == mrow_NR_UL_StartingRB  ||
+                e.Row == mrow_NR_UL_MCSIndex    ||
+                e.Row == mrow_NR_DL_MCSIndex    ||
+                e.Row == mrow_NR_UlCenterCh     ||
+                e.Row == mrow_NR_pMax )
+            {
+                // 정수형 식별 및 변환 값이 실수형인 경우 정수형으로 재 변환
+                MultiEditorRow row = (MultiEditorRow) e.Row;
+                if (!int.TryParse(e.Value.ToString(), out int n))
+                {
+                    int value;
+                    if (float.TryParse(e.Value.ToString(), out float nf))
+                    {
+                        value = (int)Math.Round(nf, 0);
+                    }
+                    else
+                    {
+                        value = 0;
+                    }
+                    for (int i = 0; i < row.PropertiesCollection.Count; i++)
+                    {
+                        if (row.PropertiesCollection[i].Value.ToString() == e.Value.ToString())
+                        {
+                            row.PropertiesCollection[i].Value = value;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (e.Row == mrow_NR_OutputLvl ||
+                e.Row == mrow_NR_InputLvl)
+            {
+                // 변환값에 대해 실수형 소숫점 1자리까지 적용
+                MultiEditorRow row = (MultiEditorRow)e.Row;
+                string[] tmp = e.Value.ToString().Split('.');
+                if ( tmp.Length > 1 )
+                {
+                    double value;
+                    if (tmp[1].Length > 1 && float.TryParse(e.Value.ToString(), out float nf))
+                    {
+                        value = Math.Round(nf, 1);
+
+                        for (int i = 0; i < row.PropertiesCollection.Count; i++)
+                        {
+                            if (row.PropertiesCollection[i].Value.ToString() == e.Value.ToString())
+                            {
+                                row.PropertiesCollection[i].Value = value;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+                VGridControl vGrid = sender as VGridControl;
             string band = null, scs = null, bw = null;
+
+            if(e.Row == mrow_NR_OperationBW || e.Row == mrow_NR_UL_Waveform)
+            {
+                
+                for (int i = 0; i < mrow_NR_OperationBW.PropertiesCollection.Count; i++)
+                {
+                    //if (cur_NR_OperBand_value[i] == mrow_NR_OperationBW.PropertiesCollection[i].Value.ToString()) continue;
+                    string checkBand = mrow_NR_OperationBW.PropertiesCollection[i].Value?.ToString();
+                    if (dict_OperBand[checkBand].Contains("NotSupport"))
+                    {
+                        XtraMessageBox.Show(string.Format("Band{0} does not support TIS/TRP.", checkBand));
+                        mrow_NR_OperationBW.PropertiesCollection[i].Value = cur_NR_OperBand_value[i];
+                        return;
+                    }
+                    //RepositoryItemSpinEdit ri_UL_Nrb = mrow_NR_UL_NumOfRB.PropertiesCollection[i].RowEdit as RepositoryItemSpinEdit;
+                    //RepositoryItemSpinEdit ri_DL_Nrb = mrow_NR_DL_NumOfRB.PropertiesCollection[i].RowEdit as RepositoryItemSpinEdit;
+
+                    //string duplex = dict_OperBand[checkBand];
+                    //string waveform = mrow_NR_UL_Waveform.PropertiesCollection[i].Value.ToString();
+                    //if (duplex == "FDD" )
+                    //{
+                    //    ri_DL_Nrb.MaxValue = 106;
+                    //    if (waveform == "CP") ri_UL_Nrb.MaxValue = 106;
+                    //    else ri_UL_Nrb.MaxValue = 100; //DFT
+                        
+                    //}
+                    //else if (duplex == "TDD")
+                    //{
+                    //    ri_DL_Nrb.MaxValue = 273;
+                    //    if (waveform == "CP") ri_UL_Nrb.MaxValue = 273;
+                    //    else ri_UL_Nrb.MaxValue = 270; //DFT
+                    //}
+                    //int value = int.Parse(mrow_NR_UL_NumOfRB.PropertiesCollection[i].Value.ToString());
+                    //if (value > ri_UL_Nrb.MaxValue)
+                    //    mrow_NR_UL_NumOfRB.PropertiesCollection[i].Value = ri_UL_Nrb.MaxValue;
+                    //value = int.Parse(mrow_NR_DL_NumOfRB.PropertiesCollection[i].Value.ToString());
+                    //if (value > ri_UL_Nrb.MaxValue)
+                    //    mrow_NR_UL_NumOfRB.PropertiesCollection[i].Value = ri_DL_Nrb.MaxValue;
+                }
+                Check_NR_SpinEdit_MinMax_StartRB();
+            }
 
             if (e.Row == mrow_NR_OperationBW)
             {
@@ -648,12 +830,12 @@ namespace Configurator
                     {
                         //TIS/TRP 모드 지원하지 않는 밴드일 경우
                         string checkBand = OperRow.PropertiesCollection[i].Value.ToString();
-                        if (dict_OperBand[checkBand].Contains("NotSupport"))
-                        {
-                            XtraMessageBox.Show(string.Format("Band{0} does not support TIS/TRP.", OperRow.PropertiesCollection[i].Value.ToString()));
-                            OperRow.PropertiesCollection[i].Value = cur_NR_OperBand_value[i];
-                            break;
-                        }
+                        //if (dict_OperBand[checkBand].Contains("NotSupport"))
+                        //{
+                        //    XtraMessageBox.Show(string.Format("Band{0} does not support TIS/TRP.", OperRow.PropertiesCollection[i].Value.ToString()));
+                        //    OperRow.PropertiesCollection[i].Value = cur_NR_OperBand_value[i];
+                        //    break;
+                        //}
                         cur_NR_OperBand_value[i] = OperRow.PropertiesCollection[i].Value.ToString();
                         band = cur_NR_OperBand_value[i];
 
@@ -707,6 +889,7 @@ namespace Configurator
                         cur_NR_SCS_value[i] = scs;
                         cur_NR_Bandwidth_value[i] = bw;
                         cur_NR_Lmh_value[i] = "Mid";
+                        UpdateChannel_Nr(2, band, scs, bw, i);
                         break;
                     }
                 }
@@ -795,6 +978,52 @@ namespace Configurator
             {
                 Check_NR_SpinEdit_MinMax_StartRB();
             }
+
+
+            else if(e.Row == mrow_NR_DL_MCSTable)
+            {
+                for (int i = 0; i<mrow_NR_DL_MCSTable.PropertiesCollection.Count;i++)
+                {
+                    RepositoryItemSpinEdit ri = mrow_NR_DL_MCSIndex.PropertiesCollection[i].RowEdit as RepositoryItemSpinEdit;
+                    
+                    string tmp = mrow_NR_DL_MCSTable.PropertiesCollection[i].Value.ToString();
+                    if(tmp == "256QAM")
+                    {
+                        ri.MaxValue = 27;
+                        if (int.Parse(mrow_NR_DL_MCSIndex.PropertiesCollection[i].Value.ToString()) == 28)
+                            mrow_NR_DL_MCSIndex.PropertiesCollection[i].Value = 27;
+                    }
+                    else if (tmp == "64QAM")
+                    {
+                        ri.MaxValue = 28;
+                    }
+                }
+            }
+            else if (e.Row == mrow_NR_UL_MCSTable)
+            {
+                for (int i = 0; i < mrow_NR_UL_MCSTable.PropertiesCollection.Count; i++)
+                {
+                    RepositoryItemSpinEdit ri = mrow_NR_UL_MCSIndex.PropertiesCollection[i].RowEdit as RepositoryItemSpinEdit;
+
+                    string tmp = mrow_NR_UL_MCSTable.PropertiesCollection[i].Value.ToString();
+                    if (tmp == "256QAM")
+                    {
+                        if (ri.MaxValue == 28)
+                        {
+                            ri.MaxValue = 27;
+                            mrow_NR_UL_MCSIndex.PropertiesCollection[i].Value = 0;
+                        }
+                    }
+                    else if (tmp == "64QAM")
+                    {
+                        if (ri.MaxValue == 27)
+                        {
+                            ri.MaxValue = 28;
+                            mrow_NR_UL_MCSIndex.PropertiesCollection[i].Value = 0;
+                        }
+                    }
+                }
+            }
         }
         private void simpleButton_InitializeParam_Click(object sender, EventArgs e)
         {
@@ -845,6 +1074,51 @@ namespace Configurator
         private void vGridControl_LTE_Menu_CellValueChanged(object sender, DevExpress.XtraVerticalGrid.Events.CellValueChangedEventArgs e)
         {
             if (e.Value == null) return;
+
+            if (e.Row == row_Lte_ULCenterCh     ||
+                e.Row == row_Lte_ULNumOfRB      ||
+                e.Row == row_Lte_ULStartRb      ||
+                e.Row == row_Lte_ULMcsIndex     ||
+                e.Row == row_Lte_DLNumOfRB      ||
+                e.Row == row_Lte_DLStartRb      ||
+                e.Row == row_Lte_DLMcsIndex )
+            {
+                // 정수형 식별 및 변환 값이 실수형인 경우 정수형으로 재 변환
+                EditorRow row = (EditorRow)e.Row;
+                if (!int.TryParse(e.Value.ToString(), out int n))
+                {
+                    int value;
+                    if (float.TryParse(e.Value.ToString(), out float nf))
+                    {
+                        value = (int)Math.Round(nf, 0);
+                    }
+                    else
+                    {
+                        value = 0;
+                    }
+
+                    vGridControl_LTE_Menu.SetCellValue(row, 0, value);
+                }
+            }
+
+            if (e.Row == row_Lte_OulputLvl ||
+                e.Row == row_Lte_InputLvl)
+            {
+                // 변환값에 대해 실수형 소숫점 1자리까지 적용
+                EditorRow row = (EditorRow)e.Row;
+                string[] tmp = e.Value.ToString().Split('.');
+                if (tmp.Length > 1)
+                {
+                    double value;
+                    if (tmp[1].Length > 1 && float.TryParse(e.Value.ToString(), out float nf))
+                    {
+                        value = Math.Round(nf, 1);
+                        vGridControl_LTE_Menu.SetCellValue(row, 0, value);
+                    }
+                }
+            }
+
+
             string band = null, bw = null;
             VGridControl vGrid = sender as VGridControl;
             if (e.Row == row_Lte_OperationBand)
@@ -864,7 +1138,7 @@ namespace Configurator
                 //bw = e.Value.ToString();
                 //UpdateChannel_Lte(2, band, bw);
                 string tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ChBW_MHZ, 0).ToString();
-                int max = 6, val;
+                int max = 6;
 
                 //if (tmp.Contains("1.4MHz")) max = 6;
                 if (tmp.Contains("3MHz")) max = 15;
@@ -897,40 +1171,39 @@ namespace Configurator
 
             else if (e.Row == row_Lte_DLNumOfRB)
             {
-                int max_value = int.Parse(riSpinEdit_LTE_DlNumOfRB.MaxValue.ToString()) - int.Parse(vGridControl_LTE_Menu.GetCellValue(row_Lte_DLNumOfRB, 0).ToString());
-                riSpinEdit_LTE_DlStartRb.MaxValue = max_value;
-                if (riSpinEdit_LTE_DlStartRb.MaxValue == riSpinEdit_LTE_DlStartRb.MinValue)
-                    row_Lte_DLStartRb.Properties.AllowEdit = false;
-                else row_Lte_DLStartRb.Properties.AllowEdit = true;
+                Check_NR_SpinEdit_MinMax_StartRB();
 
-                int value;
-                var tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLStartRb, 0);
-                if (tmp != null)
-                {
-                    value = int.Parse(tmp.ToString());
-                    if(value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
-                }
+                //int max_value = int.Parse(riSpinEdit_LTE_DlNumOfRB.MaxValue.ToString()) - int.Parse(vGridControl_LTE_Menu.GetCellValue(row_Lte_DLNumOfRB, 0).ToString());
+                //riSpinEdit_LTE_DlStartRb.MaxValue = max_value;
+                //if (riSpinEdit_LTE_DlStartRb.MaxValue == riSpinEdit_LTE_DlStartRb.MinValue)
+                //    row_Lte_DLStartRb.Properties.AllowEdit = false;
+                //else row_Lte_DLStartRb.Properties.AllowEdit = true;
+
+                //int value;
+                //var tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLStartRb, 0);
+                //if (tmp != null)
+                //{
+                //    value = int.Parse(tmp.ToString());
+                //    if(value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
+                //}
             }
             else if (e.Row == row_Lte_ULNumOfRB)
-            { 
-                int max_value = int.Parse(riSpinEdit_LTE_UlNumOfRB.MaxValue.ToString()) - int.Parse(vGridControl_LTE_Menu.GetCellValue(row_Lte_ULNumOfRB, 0).ToString());
-                riSpinEdit_LTE_UlStartRb.MaxValue = max_value;
-                if (riSpinEdit_LTE_UlStartRb.MaxValue == riSpinEdit_LTE_UlStartRb.MinValue)
-                    row_Lte_ULStartRb.Properties.AllowEdit = false;
-                else row_Lte_ULStartRb.Properties.AllowEdit = true;
-                int value;
-                var tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLStartRb, 0);
-                if (tmp != null)
-                {
-                    value = int.Parse(tmp.ToString());
-                    if (value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
-                }
+            {
+                Check_NR_SpinEdit_MinMax_StartRB();
+                //int max_value = int.Parse(riSpinEdit_LTE_UlNumOfRB.MaxValue.ToString()) - int.Parse(vGridControl_LTE_Menu.GetCellValue(row_Lte_ULNumOfRB, 0).ToString());
+                //riSpinEdit_LTE_UlStartRb.MaxValue = max_value;
+                //if (riSpinEdit_LTE_UlStartRb.MaxValue == riSpinEdit_LTE_UlStartRb.MinValue)
+                //    row_Lte_ULStartRb.Properties.AllowEdit = false;
+                //else row_Lte_ULStartRb.Properties.AllowEdit = true;
+                //int value;
+                //var tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLStartRb, 0);
+                //if (tmp != null)
+                //{
+                //    value = int.Parse(tmp.ToString());
+                //    if (value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
+                //}
             }
-
-
         }
-        
-
         private void UpdateChannel_Lte(int lmh, string band, string bw)
         {
             try
@@ -968,7 +1241,6 @@ namespace Configurator
                 }));
             }
         }
-
         private bool checkLteParameter()
         {
             int i;
@@ -977,14 +1249,14 @@ namespace Configurator
                 EditorRow row = (EditorRow)vGridControl_LTE_Menu.Rows[i];
                 if (vGridControl_NR_Menu.GetCellValue(row, 0) == null)
                 {
-                    XtraMessageBox.Show("Null value is included in LTE Menu"); 
+                    if (row.Name.Contains("StartRb")) continue;
+                    XtraMessageBox.Show(string.Format("Null value is included in LTE Menu____{0}",row.Name.ToString()));
+                    Console.WriteLine(string.Format("Null value is included in LTE Menu____{0}", row.Name.ToString()));
                     return false;
                 }
             }
             return true;
-
         }
-
 
         private bool checkNrParameter()
         {
@@ -1033,25 +1305,20 @@ namespace Configurator
                 }
             }
             return true;
-
         }
         private void applyLTEParameterToInst()
         {
             List<string> command_list = new List<string>();
             string tmp;
 
-            tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_OulputLvl, 0).ToString();
-            command_list.Add(string.Format("OLVL {0}\n",tmp));
-
-            tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_InputLvl, 0).ToString();
-            command_list.Add(string.Format("ILVL {0}\n", tmp));
+            command_list.Add("REM_DEST 8821C\n");
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_TpcPattern, 0).ToString();
-            if (tmp == "Auto") command_list.Add(string.Format("TPCPAT AUTO\n"));
-            else if (tmp == "All -1dB") command_list.Add(string.Format("TPCPAT ALLM1\n"));
-            else if (tmp == "All 0dB") command_list.Add(string.Format("TPCPAT ALL0\n"));
-            else if (tmp == "All +1dB") command_list.Add(string.Format("TPCPAT ALL1\n"));
-            else if (tmp == "Alt +1/-1dB") command_list.Add(string.Format("TPCPAT AUTOTARGET\n"));
+            if (tmp == "Auto")              command_list.Add(string.Format("TPCPAT AUTO\n"));
+            else if (tmp == "All -1dB")     command_list.Add(string.Format("TPCPAT ALLM1\n"));
+            else if (tmp == "All 0dB")      command_list.Add(string.Format("TPCPAT ALL0\n"));
+            else if (tmp == "All +1dB")     command_list.Add(string.Format("TPCPAT ALL1\n"));
+            else if (tmp == "Alt +1/-1dB")  command_list.Add(string.Format("TPCPAT AUTOTARGET\n"));
             else command_list.Add(string.Format("TPCPAT ALL3 \n"));
             //else if (tmp == "All +3dB") command_list.Add(string.Format("TPCPAT {0},ALL3 \n", ccName));
 
@@ -1060,7 +1327,7 @@ namespace Configurator
             command_list.Add(string.Format("BAND {0}\n", tmp));
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ChBW_MHZ, 0).ToString();
-            command_list.Add(string.Format("BANDWIDTH {0},{0},{0},{0}\n", tmp.ToUpper()));
+            command_list.Add(string.Format("BANDWIDTH {0}\n", tmp.ToUpper()));
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULCenterCh, 0).ToString();
             command_list.Add(string.Format("ULCHAN {0},{0}\n", tmp));
@@ -1068,7 +1335,8 @@ namespace Configurator
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULNumOfRB, 0).ToString();
             command_list.Add(string.Format("ULRMC_RB {0}\n", tmp));
 
-            tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULStartRb, 0).ToString();
+            tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULStartRb, 0)?.ToString() ?? null;
+            if (tmp == null) tmp = "0";
             command_list.Add(string.Format("ULRB_START {0}\n", tmp));
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULMcsTable, 0).ToString();
@@ -1080,7 +1348,8 @@ namespace Configurator
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLNumOfRB, 0).ToString();
             command_list.Add(string.Format("DLRMC_RB {0}\n", tmp));
 
-            tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLStartRb, 0).ToString();
+            tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLStartRb, 0)?.ToString() ?? null;
+            if (tmp == null) tmp = "0";
             command_list.Add(string.Format("DLRB_START {0}\n", tmp));
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLMcsTable, 0).ToString();
@@ -1089,13 +1358,18 @@ namespace Configurator
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLMcsIndex, 0).ToString();
             command_list.Add(string.Format("DLIMCS {0}\n", tmp));
 
+            tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_OulputLvl, 0).ToString();
+            command_list.Add(string.Format("OLVL {0}\n", tmp));
+
+            tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_InputLvl, 0).ToString();
+            command_list.Add(string.Format("ILVL {0}\n", tmp));
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             sendCommandLine(command_list, "LTE");
             stopwatch.Stop();
-            //Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds);
-            XtraMessageBox.Show(string.Format("LTE Command Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds));
+            Console.WriteLine("Elapsed time for LTE setting is {0} ms", stopwatch.ElapsedMilliseconds);
+            //XtraMessageBox.Show(string.Format("LTE Command Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds));
 
 
         }
@@ -1112,10 +1386,12 @@ namespace Configurator
             //NR
             //create command line 
             List<string> command_list = new List<string>();
+            command_list.Add("REM_DEST 8000A\n");
+            command_list.Add("PRESET\n"); // Preset
             if (old_changed_ran_operation != comboBoxEdit_RanOperation.Text.ToString())
             {
                 old_changed_ran_operation = comboBoxEdit_RanOperation.Text.ToString();
-                command_list.Add("PRESET\n");       // Preset
+                //command_list.Add("PRESET\n"); // Preset
             }
             
             if (comboBoxEdit_RanOperation.Text.ToString() == "SA") command_list.Add("RANOP SA\n");     // RAN Operation
@@ -1129,7 +1405,7 @@ namespace Configurator
             tmp = vGridControl_NR_Menu.GetCellValue(row_NR_Mnc, 0)?.ToString() ?? null; // MNC
             if (tmp != null) command_list.Add(string.Format("MNC {0}\n", tmp));
 
-            int NumOfScc, i, j;
+            int NumOfScc, i;
             string operband = ""; string duplex = "";
             string[] ccName_ary = new string[]
             {
@@ -1141,7 +1417,8 @@ namespace Configurator
 
             for (i=0;i< NumOfScc; i++)
             {
-                operband = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_OperationBW, i, 0).ToString();
+                //operband = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_OperationBW, i, 0).ToString();
+                operband = cur_NR_OperBand_value[i];
                 ccName = ccName_ary[i];
                 command_list.Add(string.Format("BAND {0},{1}\n", ccName,operband));   // Operation Band
                 duplex = dict_OperBand[operband];
@@ -1152,48 +1429,136 @@ namespace Configurator
                     return;
                 }
 
+                // Set user parameter
+
+
+                
+                tmp = mrow_NR_UL_NumOfRB.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("ULRMC_RB {0},{1}\n", ccName, tmp));
+
+                
+                tmp = mrow_NR_UL_StartingRB.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("ULRB_START {0},{1}\n", ccName, tmp));
+
+                
+                tmp = mrow_NR_DL_NumOfRB.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("DLRMC_RB {0},{1}\n", ccName, tmp));
+
+                
+                tmp = mrow_NR_DL_StartingRB.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("DLRB_START {0},{1}\n", ccName, tmp));
+                
+                if (i == 0)
+                {
+                    tmp = mrow_NR_UL_Waveform.PropertiesCollection[i].Value.ToString();
+                    if (tmp == "CP") command_list.Add(string.Format("ULWAVEFORM {0},CPOFDM\n", ccName));  //UL  Waveform
+                    else command_list.Add(string.Format("ULWAVEFORM {0},DFTOFDM\n", ccName));
+
+                    tmp = mrow_NR_InputLvl.PropertiesCollection[i].Value.ToString();
+                    command_list.Add(string.Format("ILVL {0},{1}\n", ccName, tmp));
+
+                    tmp = mrow_NR_OutputLvl.PropertiesCollection[i].Value.ToString();
+                    command_list.Add(string.Format("OLVL {0},{1}\n", ccName, tmp));
+
+                    //tmp = mrow_NR_CsiRs.PropertiesCollection[i].Value.ToString();
+
+                    if (mode == "TRP") 
+                    {
+                        command_list.Add(string.Format("CSIRS {0},OFF\n", ccName));
+                        //command_list.Add(string.Format("AVOIDCSIRSFORREFSENS {0},OFF\n", ccName)); // Undefined??!
+                    }
+                    else
+                    {
+                        command_list.Add(string.Format("CSIRS {0},{1}\n", ccName, cur_Nr_CsiRs_value[i]));
+                        //command_list.Add(string.Format("AVOIDCSIRSFORREFSENS {0},{1}\n", ccName, cur_Nr_CsiRs_value[i]));
+                    }
+                    
+                    //tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_TpcPattern, i, 0).ToString();
+                    tmp = mrow_NR_TpcPattern.PropertiesCollection[i].Value.ToString();
+                    if (tmp == "Auto") command_list.Add(string.Format("TPCPAT {0},AUTO\n", ccName));
+                    else if (tmp == "All -1dB") command_list.Add(string.Format("TPCPAT {0},ALLM1\n", ccName));
+                    else if (tmp == "All 0dB") command_list.Add(string.Format("TPCPAT {0},ALL0\n", ccName));
+                    else if (tmp == "All +1dB") command_list.Add(string.Format("TPCPAT {0},ALL1\n", ccName));
+                    else if (tmp == "Alt +1/-1dB") command_list.Add(string.Format("TPCPAT {0},AUTOTARGET\n", ccName));
+                    else command_list.Add(string.Format("TPCPAT {0},ALL3 \n", ccName));
+                    //else if (tmp == "All +3dB") command_list.Add(string.Format("TPCPAT {0},ALL3 \n", ccName));
+
+                    tmp = mrow_NR_pMax.PropertiesCollection[i].Value.ToString();
+                    command_list.Add(string.Format("MAXULPWR {0},{1} \n", ccName, tmp));
+                }
+
+
+                tmp = mrow_NR_UlCenterCh.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("ULCHAN {0},{1} \n", ccName, tmp));
+
+                tmp = mrow_NR_UL_MCSTable.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("ULMCS_TABLE {0},{1} \n", ccName, tmp));
+
+                tmp = mrow_NR_UL_MCSIndex.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("ULIMCS {0},{1} \n", ccName, tmp));
+
+                tmp = mrow_NR_DL_MCSTable.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("DLMCS_TABLE {0},{1} \n", ccName, tmp));
+
+                tmp = mrow_NR_DL_MCSIndex.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("DLIMCS {0},{1} \n", ccName, tmp));
+
                 if (duplex == "TDD") 
                 {
-                    command_list.Add(string.Format("DLSCS {0},30KHZ\n", ccName));                   // DL Subcarrier Spacing(data)
                     command_list.Add(string.Format("DLBANDWIDTH {0},100MHZ\n", ccName));            // DL Channel Bandwidth
-                    command_list.Add(string.Format("DLULPERIOD {0},5MS\n", ccName));                // DL/UL Periodicity
-                    command_list.Add(string.Format("DLDURATION {0},8\n", ccName));                  // Common DL Duration
-                    command_list.Add(string.Format("DLSYMBOLS {0},6\n", ccName));                   // Common DL Symbols
-                    command_list.Add(string.Format("ULDURATION {0},2\n", ccName));                  // UL Duration
-                    command_list.Add(string.Format("ULSYMBOLS {0},4\n", ccName));                   // Common UL Symbols
-                    command_list.Add(string.Format("GUARDPERIOD {0},4\n", ccName));                 // Common Guard Period
-                    command_list.Add(string.Format("ULAGGLVL {0},8\n", ccName));                    // UL Aggregation Level
-                    command_list.Add(string.Format("DLAGGLVL {0},8\n", ccName));                    // DL Aggregation Level
-                    command_list.Add(string.Format("SSBSCS {0},30KHZ\n", ccName));                  // SS Block Subcarrier Spacing
-                    command_list.Add(string.Format("DLNUMHARQPROCESS {0},N8\n", ccName));           // nrofHARQ-ProcessesForPDSCH
-                    if(i==0)command_list.Add(string.Format("PREAMBLEFORMAT FORMAT_B4\n", ccName));  // Preamble Format
+                    if (i == 0)
+                    {
+                        command_list.Add(string.Format("DLSCS {0},30KHZ\n", ccName));                   // DL Subcarrier Spacing(data)
+                        command_list.Add(string.Format("DLULPERIOD {0},5MS\n", ccName));                // DL/UL Periodicity
+                        command_list.Add(string.Format("DLDURATION {0},8\n", ccName));                  // Common DL Duration
+                        command_list.Add(string.Format("DLSYMBOLS {0},6\n", ccName));                   // Common DL Symbols
+                        command_list.Add(string.Format("ULDURATION {0},2\n", ccName));                  // UL Duration
+                        command_list.Add(string.Format("ULSYMBOLS {0},4\n", ccName));                   // Common UL Symbols
+                        command_list.Add(string.Format("GUARDPERIOD {0},4\n", ccName));                 // Common Guard Period
+                        command_list.Add(string.Format("ULAGGLVL {0},LEVEL8\n", ccName));                    // UL Aggregation Level
+                        command_list.Add(string.Format("DLAGGLVL {0},LEVEL8\n", ccName));                    // DL Aggregation Level
+                        command_list.Add(string.Format("SSBSCS {0},30KHZ\n", ccName));                  // SS Block Subcarrier Spacing
+                        command_list.Add(string.Format("DLNUMHARQPROCESS {0},N8\n", ccName));           // nrofHARQ-ProcessesForPDSCH
+                        command_list.Add(string.Format("PREAMBLEFORMAT FORMAT_B4\n", ccName));  // Preamble Format
+                    }
                 }
-                else if (duplex == "FDD")
+                else if (duplex == "FDD" )
                 {
-                    command_list.Add(string.Format("DLSCS {0},15KHZ\n", ccName));                       // DL Subcarrier Spacing(data)
                     command_list.Add(string.Format("DLBANDWIDTH {0},20MHZ\n", ccName));                 // DL Channel Bandwidth
-                    command_list.Add(string.Format("ULAGGLVL {0},4\n", ccName));                        // UL Aggregation Level
-                    command_list.Add(string.Format("DLAGGLVL {0},4\n", ccName));                        // DL Aggregation Level
-                    command_list.Add(string.Format("SSBSCS {0},15KHZ\n", ccName));                      // SS Block Subcarrier Spacing
-                    command_list.Add(string.Format("DLNUMHARQPROCESS {0},N4\n", ccName));               //nrofHARQ-ProcessesForPDSCH
-                    if (i == 0) command_list.Add(string.Format("PREAMBLEFORMAT FORMAT_A3\n", ccName));  // Preamble Format
+                    if (i==0)
+                    {
+                        command_list.Add(string.Format("DLSCS {0},15KHZ\n", ccName));                       // DL Subcarrier Spacing(data)
+                        command_list.Add(string.Format("ULAGGLVL {0},LEVEL4\n", ccName));                        // UL Aggregation Level
+                        command_list.Add(string.Format("DLAGGLVL {0},LEVEL4\n", ccName));                        // DL Aggregation Level
+                        command_list.Add(string.Format("SSBSCS {0},15KHZ\n", ccName));                      // SS Block Subcarrier Spacing
+                        command_list.Add(string.Format("DLNUMHARQPROCESS {0},N4\n", ccName));               //nrofHARQ-ProcessesForPDSCH
+                        command_list.Add(string.Format("PREAMBLEFORMAT FORMAT_A3\n", ccName));  // Preamble Format
+                    }
                 }
                 // TDD || FDD
-                command_list.Add(string.Format("SSCANDIDATE_AL2 {0},4\n", ccName));         // Aggregation Level2
-                command_list.Add(string.Format("SSCANDIDATE_AL4 {0},2\n", ccName));         // Aggregation Level4
-                command_list.Add(string.Format("SSCANDIDATE_AL8 {0},2\n", ccName));         // Aggregation Level8
-                command_list.Add(string.Format("NUMRBCORESET {0},FULLBW\n", ccName));       // Num of CORESET RB
-                command_list.Add(string.Format("DLHARQACKCODEBOOK {0},DYNAMIC\n",ccName));  // PDSCH-HARQ-ACK-Codebook
-                command_list.Add(string.Format("CSIRSNRB {0},52,0\n", ccName));             // nofRBs
-                command_list.Add(string.Format("CSIRSNRB {0},52,1\n", ccName));             // nofRBs
-                command_list.Add(string.Format("CSIRSNRB {0},52,2\n", ccName));             // nofRBs
-                command_list.Add(string.Format("CSIRSNRB {0},52,3\n", ccName));             // nofRBs
-                command_list.Add(string.Format("TXCONFIG {0},CODEBOOK\n", ccName));         // Tx Config
+                if (i==0)
+                {
+                    command_list.Add(string.Format("SSCANDIDATE_AL2 {0},4\n", ccName));         // Aggregation Level2
+                    command_list.Add(string.Format("SSCANDIDATE_AL4 {0},2\n", ccName));         // Aggregation Level4
+                    command_list.Add(string.Format("SSCANDIDATE_AL8 {0},2\n", ccName));         // Aggregation Level8
+                    command_list.Add(string.Format("TXCONFIG {0},CODEBOOK\n", ccName));         // Tx Config
+                    command_list.Add(string.Format("NUMRBCORESET {0},FULLBW\n", ccName));       // Num of CORESET RB
+                    command_list.Add(string.Format("DLHARQACKCODEBOOK {0},DYNAMIC\n", ccName)); // PDSCH-HARQ-ACK-Codebook
+
+                    if (mode != "TRP" && cur_Nr_CsiRs_value[i]== "ON")
+                    {
+                        command_list.Add(string.Format("CSIRSRESOURCE {0},4\n", ccName));           // nofRBs
+                        command_list.Add(string.Format("CSIRSNRB {0},52,0\n", ccName));             // nofRBs
+                        command_list.Add(string.Format("CSIRSNRB {0},52,1\n", ccName));             // nofRBs
+                        command_list.Add(string.Format("CSIRSNRB {0},52,2\n", ccName));             // nofRBs
+                        command_list.Add(string.Format("CSIRSNRB {0},52,3\n", ccName));             // nofRBs
+                    }
+                }
 
                 if (mode == "TRP")
                 {
                     command_list.Add(string.Format("OCNG OFF\n"));              // OCNG
-                    command_list.Add(string.Format("TPUT_UNIT FRAME\n"));       // Throughput Sample Unit
+                    //command_list.Add(string.Format("TPUT_UNIT FRAME\n"));     // 설정불가! Throughput Sample Unit
                     command_list.Add(string.Format("TPUT_SAMPLE 200\n"));       // Number of Sample
                     command_list.Add(string.Format("EARLY_DECISION OFF\n"));    // Early Decision
                     command_list.Add(string.Format("EARLY_DECISION ON\n"));     // Early Decision
@@ -1209,63 +1574,9 @@ namespace Configurator
                     command_list.Add(string.Format("PWR_MEAS OFF\n"));          // PWR_MEAS OFF
                     command_list.Add(string.Format("TPUT_MEAS ON\n"));          // Throuput ON
                 }
-
-                // Set user parameter
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_UL_Waveform, i, 0).ToString();
-                if(tmp == "CP") command_list.Add(string.Format("ULWAVEFORM {0},CPOFDM\n",ccName));  //UL  Waveform
-                else command_list.Add(string.Format("ULWAVEFORM {0},DFTOFDM\n", ccName));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_UL_NumOfRB, i, 0).ToString();
-                command_list.Add(string.Format("ULRMC_RB {0},{1}\n", ccName,tmp));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_UL_StartingRB, i, 0).ToString();
-                command_list.Add(string.Format("ULRB_START {0},{1}\n", ccName, tmp));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_DL_StartingRB, i, 0).ToString();
-                command_list.Add(string.Format("DLRMC_RB {0},{1}\n", ccName, tmp));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_DL_StartingRB, i, 0).ToString();
-                command_list.Add(string.Format("DLRB_START {0},{1}\n", ccName, tmp));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_InputLvl, i, 0).ToString();
-                command_list.Add(string.Format("ILVL {0},{1}\n", ccName, tmp));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_OutputLvl, i, 0).ToString();
-                command_list.Add(string.Format("OLVL {0},{1}\n", ccName, tmp));
-
-                //tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_CsiRs, i, 0).ToString();
-                if(mode == "TRP") command_list.Add(string.Format("CSIRS {0},OFF\n", ccName));
-                else command_list.Add(string.Format("CSIRS {0},{1}\n", ccName, cur_Nr_CsiRs_value[i]));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_TpcPattern, i, 0).ToString();
-                if (tmp == "Auto")command_list.Add(string.Format("TPCPAT {0},AUTO\n", ccName));
-                else if (tmp == "All -1dB") command_list.Add(string.Format("TPCPAT {0},ALLM1\n", ccName));
-                else if (tmp == "All 0dB") command_list.Add(string.Format("TPCPAT {0},ALL0\n", ccName));
-                else if (tmp == "All +1dB") command_list.Add(string.Format("TPCPAT {0},ALL1\n", ccName));
-                else if (tmp == "Alt +1/-1dB") command_list.Add(string.Format("TPCPAT {0},AUTOTARGET\n", ccName));
-                else command_list.Add(string.Format("TPCPAT {0},ALL3 \n", ccName));
-                //else if (tmp == "All +3dB") command_list.Add(string.Format("TPCPAT {0},ALL3 \n", ccName));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_UlCenterCh, i, 0).ToString();
-                command_list.Add(string.Format("ULCHAN {0},{1} \n", ccName,tmp));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_UL_MCSTable, i, 0).ToString();
-                command_list.Add(string.Format("ULMCS_TABLE {0},{1} \n", ccName, tmp));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_UL_MCSIndex, i, 0).ToString();
-                command_list.Add(string.Format("ULIMCS {0},{1} \n", ccName, tmp));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_DL_MCSTable, i, 0).ToString();
-                command_list.Add(string.Format("DLMCS_TABLE {0},{1} \n", ccName, tmp));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_DL_MCSIndex, i, 0).ToString();
-                command_list.Add(string.Format("DLIMCS {0},{1} \n", ccName, tmp));
-
-                tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_pMax, i, 0).ToString();
-                command_list.Add(string.Format("MAXULPWR {0},{1} \n", ccName, tmp));
             }
             // Always TDD||FDD & TIP||TRP & No CCname
-            command_list.Add(string.Format("DCIFORMAT FORMAT0_0_AND_1_1\n"));   // DCI Format
+            command_list.Add(string.Format("DCIFORMAT FORMAT0_1_AND_1_1\n"));   // DCI Format
             command_list.Add(string.Format("CHANSETMODE LOWESTGSCN\n"));        // Channel Setting Mode
             command_list.Add(string.Format("PRACHCONFIGINDEX 160\n"));          // PRACH Configuration Index
             command_list.Add(string.Format("PREAMBLEMAX N7\n"));                // PreambleTransMax
@@ -1276,29 +1587,31 @@ namespace Configurator
             stopwatch.Start();
             sendCommandLine(command_list, "NR");
             stopwatch.Stop();
-            //Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds);
-            XtraMessageBox.Show(string.Format("Command Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds));
+            Console.WriteLine("Elapsed time for NR is {0} ms", stopwatch.ElapsedMilliseconds);
+            //XtraMessageBox.Show(string.Format("Command Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds));
 
         }
         private void sendCommandLine(List<string> command_list, string mode)
         {
             try
             {
+                //EN-DC mode
                 if (mode == "NR" || mode == "LTE")
                 {
-                    NrMbSession.Timeout = 1000*60*10;
+                    NrMbSession.Timeout = 1000*60*20;
 
                     foreach (string command in command_list)
                     {
                         NrMbSession.Write(command);
-                        Console.WriteLine(command);
+                        Console.Write(command);
                         NrMbSession.Write("*OPC?\n");
-                        
+
                         //Read the response
                         string responseString = NrMbSession.ReadString();
-                        Console.WriteLine(responseString);
+                        //Console.Write(responseString);
                     }
                 }
+                //SA mode
                 //if (mode == "LTE")
                 //{
                 //    foreach (string command in command_list)
@@ -1315,6 +1628,7 @@ namespace Configurator
             catch (Exception e)
             {
                 XtraMessageBox.Show(string.Format("Command Error___ {0}", e.Message.ToString()));
+                //simpleLabelItem_8000A_ConnStatus.Text = "Disconnected";
                 return;
             }
 
@@ -1340,33 +1654,58 @@ namespace Configurator
             SplashScreenManager.CloseForm(false);
         }
 
-        private void simpleButton_MT8821C_Conn_Click(object sender, EventArgs e)
+        //private void simpleButton_MT8821C_Conn_Click(object sender, EventArgs e)
+        //{
+        //    SplashScreenManager.ShowForm(this, typeof(WaitForm_Loading), true, true, false);
+
+        //    var conn = new Connect();
+        //    LteMbSession = conn.Connect_Instruments(textEdit_RemoteAddr_MT8821C.Text);
+
+        //    if (LteMbSession == null)
+        //    {
+        //        XtraMessageBox.Show("Connection failed", "Error");
+        //        simpleLabelItem_8821C_ConnStatus.Text = "Disconnected";
+        //    }
+        //    else
+        //    {
+        //        simpleLabelItem_8821C_ConnStatus.Text = "Connected";
+        //    }
+        //    SplashScreenManager.CloseForm(false);
+        //}
+
+        private void simpleButton_Trp_Click(object sender, EventArgs e)
         {
-            SplashScreenManager.ShowForm(this, typeof(WaitForm_Loading), true, true, false);
 
-            var conn = new Connect();
-            LteMbSession = conn.Connect_Instruments(textEdit_RemoteAddr_MT8821C.Text);
-
-            if (LteMbSession == null)
+            if (trd == null || !trd.IsAlive)
             {
-                XtraMessageBox.Show("Connection failed", "Error");
-                simpleLabelItem_8821C_ConnStatus.Text = "Disconnected";
+                measurement_type = "TRP";
+                trd = new Thread(() => applyParameter("TRP"));
+                trd.Start();
             }
             else
             {
-                simpleLabelItem_8821C_ConnStatus.Text = "Connected";
+                XtraMessageBox.Show(string.Format("{0} is already applied to simulator",measurement_type));
             }
-            SplashScreenManager.CloseForm(false);
-        }
 
-        private void simpleButton_Trp_Click(object sender, EventArgs e)
+            //SplashScreenManager.ShowForm(this, typeof(WaitForm_Loading), true, true, false);
+            //if (checkNrParameter())
+            //{
+            //    applyNrParameterToInst("TRP");
+
+            //    string tmp = comboBoxEdit_RanOperation.Text.ToString();
+            //    if (checkLteParameter() && tmp == "NSA")
+            //        applyLTEParameterToInst();
+            //}
+            //SplashScreenManager.CloseForm(false);
+        }
+        private void applyParameter(string mode)
         {
             SplashScreenManager.ShowForm(this, typeof(WaitForm_Loading), true, true, false);
             if (checkNrParameter())
             {
-                applyNrParameterToInst("TRP");
+                applyNrParameterToInst(mode);
 
-                string tmp = textEdit_RanOperation.Text.ToString();
+                string tmp = comboBoxEdit_RanOperation.Text.ToString();
                 if (checkLteParameter() && tmp == "NSA")
                     applyLTEParameterToInst();
             }
@@ -1375,16 +1714,26 @@ namespace Configurator
 
         private void simpleButton_Tis_Click(object sender, EventArgs e)
         {
-            SplashScreenManager.ShowForm(this, typeof(WaitForm_Loading), true, true, false);
-            if (checkNrParameter())
+            if (trd == null || !trd.IsAlive)
             {
-                applyNrParameterToInst("TIS");
-
-                string tmp = textEdit_RanOperation.Text.ToString();
-                if(checkLteParameter() && tmp == "NSA")
-                    applyLTEParameterToInst();
+                measurement_type = "TIS";
+                trd = new Thread(() => applyParameter("TIS"));
+                trd.Start();
             }
-            SplashScreenManager.CloseForm(false);
+            else
+            {
+                XtraMessageBox.Show(string.Format("{0} is already applied to simulator", measurement_type));
+            }
+            //SplashScreenManager.ShowForm(this, typeof(WaitForm_Loading), true, true, false);
+            //if (checkNrParameter())
+            //{
+            //    applyNrParameterToInst("TIS");
+
+            //    string tmp = comboBoxEdit_RanOperation.Text.ToString();
+            //    if(checkLteParameter() && tmp == "NSA")
+            //        applyLTEParameterToInst();
+            //}
+            //SplashScreenManager.CloseForm(false);
         }
 
         private void riToggleSwitch_NR_CsiRs1_Toggled(object sender, EventArgs e)
@@ -1416,11 +1765,27 @@ namespace Configurator
             string filepath = Environment.CurrentDirectory + "\\Compare_tool.exe";
             Process.Start(filepath);
         }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.anritsu.com/");
+        }
+
+        private void vGridControl_NR_Menu_RecordCellStyle(object sender, DevExpress.XtraVerticalGrid.Events.GetCustomRowCellStyleEventArgs e)
+        {
+            if ( e.RecordIndex > 0)
+            {
+                e.Appearance.BackColor = Color.Red;
+                e.Appearance.ForeColor = Color.Black;
+                e.Appearance.FontStyleDelta = FontStyle.Bold;
+            }
+        }
     }
 
 
     public class InputValue
     {
+        // XML 파일 생성을 위한 클래스 정의 
         //Common Menu
         public string RanOperation;
         public string Authentication_Key;
