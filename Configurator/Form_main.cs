@@ -786,6 +786,8 @@ namespace Configurator
                     {
                         XtraMessageBox.Show(string.Format("Band{0} does not support TIS/TRP.", checkBand));
                         mrow_NR_OperationBW.PropertiesCollection[i].Value = cur_NR_OperBand_value[i];
+                        int tmp = int.Parse(vGridControl_NR_Menu.GetCellValue(row_NR_NumOfDlScc, 0)?.ToString() ?? "0");
+                        SetNRmenuByNumSCC(tmp);
                         return;
                     }
                     //RepositoryItemSpinEdit ri_UL_Nrb = mrow_NR_UL_NumOfRB.PropertiesCollection[i].RowEdit as RepositoryItemSpinEdit;
@@ -1118,7 +1120,6 @@ namespace Configurator
                 }
             }
 
-
             string band = null, bw = null;
             VGridControl vGrid = sender as VGridControl;
             if (e.Row == row_Lte_OperationBand)
@@ -1154,6 +1155,14 @@ namespace Configurator
 
                 riSpinEdit_LTE_UlNumOfRB.MaxValue = max;
                 riSpinEdit_LTE_DlNumOfRB.MaxValue = max;
+                
+                tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLNumOfRB, 0)?.ToString() ?? "0";
+                if (int.Parse(tmp) > max)
+                    vGridControl_LTE_Menu.SetCellValue(row_Lte_DLNumOfRB, 0, max);
+
+                tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULNumOfRB, 0)?.ToString() ?? "0";
+                if (int.Parse(tmp) > max)
+                    vGridControl_LTE_Menu.SetCellValue(row_Lte_ULNumOfRB, 0, max);
 
                 vGridControl_LTE_Menu.SetCellValue(row_Lte_ULCenterChMode, 0, "Mid");
             }
@@ -1171,7 +1180,7 @@ namespace Configurator
 
             else if (e.Row == row_Lte_DLNumOfRB)
             {
-                Check_NR_SpinEdit_MinMax_StartRB();
+                //Check_NR_SpinEdit_MinMax_StartRB();
 
                 //int max_value = int.Parse(riSpinEdit_LTE_DlNumOfRB.MaxValue.ToString()) - int.Parse(vGridControl_LTE_Menu.GetCellValue(row_Lte_DLNumOfRB, 0).ToString());
                 //riSpinEdit_LTE_DlStartRb.MaxValue = max_value;
@@ -1184,12 +1193,13 @@ namespace Configurator
                 //if (tmp != null)
                 //{
                 //    value = int.Parse(tmp.ToString());
-                //    if(value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
+                //    if (value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
                 //}
             }
             else if (e.Row == row_Lte_ULNumOfRB)
             {
-                Check_NR_SpinEdit_MinMax_StartRB();
+                //Check_NR_SpinEdit_MinMax_StartRB();
+
                 //int max_value = int.Parse(riSpinEdit_LTE_UlNumOfRB.MaxValue.ToString()) - int.Parse(vGridControl_LTE_Menu.GetCellValue(row_Lte_ULNumOfRB, 0).ToString());
                 //riSpinEdit_LTE_UlStartRb.MaxValue = max_value;
                 //if (riSpinEdit_LTE_UlStartRb.MaxValue == riSpinEdit_LTE_UlStartRb.MinValue)
@@ -1202,6 +1212,21 @@ namespace Configurator
                 //    value = int.Parse(tmp.ToString());
                 //    if (value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
                 //}
+            }
+            else if (e.Row == row_Lte_DLMcsTable)
+            {
+                string tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLMcsTable, 0)?.ToString()?? "256QAM OFF";
+                if(tmp == "256QAM OFF")
+                {
+                    riSpinEdit_LTE_DlMcsIndex.MaxValue = 28;
+                }
+                else //256QAM ON
+                {
+                    riSpinEdit_LTE_DlMcsIndex.MaxValue = 27;
+                    tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLMcsIndex, 0)?.ToString() ?? "0";
+                    if (int.Parse(tmp) > 27)
+                        vGridControl_LTE_Menu.SetCellValue(row_Lte_DLMcsIndex, 0, 27);
+                }
             }
         }
         private void UpdateChannel_Lte(int lmh, string band, string bw)
@@ -1250,8 +1275,8 @@ namespace Configurator
                 if (vGridControl_NR_Menu.GetCellValue(row, 0) == null)
                 {
                     if (row.Name.Contains("StartRb")) continue;
-                    XtraMessageBox.Show(string.Format("Null value is included in LTE Menu____{0}",row.Name.ToString()));
-                    Console.WriteLine(string.Format("Null value is included in LTE Menu____{0}", row.Name.ToString()));
+                    XtraMessageBox.Show(string.Format("Null value is included in LTE Menu _ {0}",row.Name.ToString()));
+                    Console.WriteLine(string.Format("Null value is included in LTE Menu _ {0}", row.Name.ToString()));
                     return false;
                 }
             }
@@ -1340,7 +1365,21 @@ namespace Configurator
             command_list.Add(string.Format("ULRB_START {0}\n", tmp));
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULMcsTable, 0).ToString();
-            command_list.Add(string.Format("ULRMC_MOD {0}\n", tmp));
+            if(tmp == "16QAM")
+            {
+                command_list.Add(string.Format("ULRMC_64QAM DISABLED\n"));
+                command_list.Add(string.Format("ULRMC_256QAM DISABLED\n"));
+            }
+            else if (tmp == "64QAM")
+            {
+                command_list.Add(string.Format("ULRMC_64QAM ENABLED\n"));
+                command_list.Add(string.Format("ULRMC_256QAM DISABLED\n"));
+            }
+            else if (tmp == "256QAM")
+            {
+                command_list.Add(string.Format("ULRMC_64QAM DISABLED\n"));
+                command_list.Add(string.Format("ULRMC_256QAM ENABLED\n"));
+            }
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULMcsIndex, 0).ToString();
             command_list.Add(string.Format("ULIMCS {0}\n", tmp));
@@ -1353,10 +1392,17 @@ namespace Configurator
             command_list.Add(string.Format("DLRB_START {0}\n", tmp));
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLMcsTable, 0).ToString();
-            command_list.Add(string.Format("DLRMC_MOD {0}\n", tmp));
+            if(tmp == "256QAM ON")
+            {
+                command_list.Add(string.Format("DLRMC_256QAM ENABLED\n"));
+            }
+            else // tmp == 256QAM OFF
+            {
+                command_list.Add(string.Format("DLRMC_256QAM DISABLED\n", tmp));
+            }
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLMcsIndex, 0).ToString();
-            command_list.Add(string.Format("DLIMCS {0}\n", tmp));
+            command_list.Add(string.Format("DLIMCS_ALLSF {0}\n", tmp));
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_OulputLvl, 0).ToString();
             command_list.Add(string.Format("OLVL {0}\n", tmp));

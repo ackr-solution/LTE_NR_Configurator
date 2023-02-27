@@ -40,7 +40,7 @@ namespace Configurator
                     xp.LTE_TPC_Pattern = "Auto";
                     xp.LTE_DL_Number_Of_RB = "25";
                     xp.LTE_DL_Starting_RB = "0";
-                    xp.LTE_DL_MCS_Table = "64QAM";
+                    xp.LTE_DL_MCS_Table = "256QAM OFF";
                     xp.LTE_DL_MCS_Index = "5";
                     xp.LTE_UL_Number_Of_RB = "25";
                     xp.LTE_UL_Starting_RB = "0";
@@ -96,8 +96,8 @@ namespace Configurator
             xp.LTE_Channel_BW = new string[]    { "" };
             xp.LTE_TPC_Pattern = new string[]   { "Auto", "All -1dB", "All 0dB", "All +1dB", "All +3dB", "Alt +1/-1dB" };
             xp.LTE_UL_Center_Channel_Mode = new string[] { "User", "Low", "Mid", "High" };
-            xp.LTE_DL_MCS_Table = new string[]  { "64QAM", "256QAM" };
-            xp.LTE_UL_MCS_Table = new string[]  { "64QAM", "256QAM" };
+            xp.LTE_UL_MCS_Table = new string[]  { "16QAM", "64QAM", "256QAM" };
+            xp.LTE_DL_MCS_Table = new string[]  { "256QAM ON", "256QAM OFF" };
             //NR
             xp.NR_Number_Of_DL_SCC = new string[] { "0", "1", "2", "3" };
             xp.NR_UL_Center_Channel_Mode = new string[] { "User", "Low", "Mid", "High" };

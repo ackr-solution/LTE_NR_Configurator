@@ -13,7 +13,7 @@
   <LTE_TPC_Pattern>Auto</LTE_TPC_Pattern>
   <LTE_DL_Number_Of_RB>25</LTE_DL_Number_Of_RB>
   <LTE_DL_Starting_RB>0</LTE_DL_Starting_RB>
-  <LTE_DL_MCS_Table>64QAM</LTE_DL_MCS_Table>
+  <LTE_DL_MCS_Table>256QAM OFF</LTE_DL_MCS_Table>
   <LTE_DL_MCS_Index>5</LTE_DL_MCS_Index>
   <LTE_UL_Number_Of_RB>25</LTE_UL_Number_Of_RB>
   <LTE_UL_Starting_RB>0</LTE_UL_Starting_RB>

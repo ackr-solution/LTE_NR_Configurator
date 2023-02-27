@@ -27,10 +27,11 @@
     <string>High</string>
   </LTE_UL_Center_Channel_Mode>
   <LTE_DL_MCS_Table>
-    <string>64QAM</string>
-    <string>256QAM</string>
+    <string>256QAM ON</string>
+    <string>256QAM OFF</string>
   </LTE_DL_MCS_Table>
   <LTE_UL_MCS_Table>
+    <string>16QAM</string>
     <string>64QAM</string>
     <string>256QAM</string>
   </LTE_UL_MCS_Table>

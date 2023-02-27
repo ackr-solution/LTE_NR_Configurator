@@ -31,18 +31,18 @@ namespace Configurator.Dialog
         {
             this.components = new System.ComponentModel.Container();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.textEdit_SettingName = new DevExpress.XtraEditors.TextEdit();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.simpleButton_AddSetting = new DevExpress.XtraEditors.SimpleButton();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.simpleButton_CancelSetting = new DevExpress.XtraEditors.SimpleButton();
+            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit_SettingName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
@@ -61,6 +61,35 @@ namespace Configurator.Dialog
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // textEdit_SettingName
+            // 
+            this.textEdit_SettingName.Location = new System.Drawing.Point(12, 29);
+            this.textEdit_SettingName.Name = "textEdit_SettingName";
+            this.textEdit_SettingName.Size = new System.Drawing.Size(314, 20);
+            this.textEdit_SettingName.StyleController = this.layoutControl1;
+            this.textEdit_SettingName.TabIndex = 4;
+            this.textEdit_SettingName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textEdit_SettingName_KeyDown);
+            // 
+            // simpleButton_AddSetting
+            // 
+            this.simpleButton_AddSetting.Location = new System.Drawing.Point(12, 53);
+            this.simpleButton_AddSetting.Name = "simpleButton_AddSetting";
+            this.simpleButton_AddSetting.Size = new System.Drawing.Size(155, 22);
+            this.simpleButton_AddSetting.StyleController = this.layoutControl1;
+            this.simpleButton_AddSetting.TabIndex = 5;
+            this.simpleButton_AddSetting.Text = "Add";
+            this.simpleButton_AddSetting.Click += new System.EventHandler(this.simpleButton_AddSetting_Click);
+            // 
+            // simpleButton_CancelSetting
+            // 
+            this.simpleButton_CancelSetting.Location = new System.Drawing.Point(171, 53);
+            this.simpleButton_CancelSetting.Name = "simpleButton_CancelSetting";
+            this.simpleButton_CancelSetting.Size = new System.Drawing.Size(155, 22);
+            this.simpleButton_CancelSetting.StyleController = this.layoutControl1;
+            this.simpleButton_CancelSetting.TabIndex = 6;
+            this.simpleButton_CancelSetting.Text = "Cancel";
+            this.simpleButton_CancelSetting.Click += new System.EventHandler(this.simpleButton_CancelSetting_Click);
+            // 
             // Root
             // 
             this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -73,20 +102,6 @@ namespace Configurator.Dialog
             this.Root.Size = new System.Drawing.Size(338, 87);
             this.Root.TextVisible = false;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // textEdit_SettingName
-            // 
-            this.textEdit_SettingName.Location = new System.Drawing.Point(12, 29);
-            this.textEdit_SettingName.Name = "textEdit_SettingName";
-            this.textEdit_SettingName.Size = new System.Drawing.Size(314, 20);
-            this.textEdit_SettingName.StyleController = this.layoutControl1;
-            this.textEdit_SettingName.TabIndex = 4;
-            this.textEdit_SettingName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textEdit_SettingName_KeyDown);
-            // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.textEdit_SettingName;
@@ -97,16 +112,6 @@ namespace Configurator.Dialog
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(129, 14);
             // 
-            // simpleButton_AddSetting
-            // 
-            this.simpleButton_AddSetting.Location = new System.Drawing.Point(12, 53);
-            this.simpleButton_AddSetting.Name = "simpleButton_AddSetting";
-            this.simpleButton_AddSetting.Size = new System.Drawing.Size(155, 22);
-            this.simpleButton_AddSetting.StyleController = this.layoutControl1;
-            this.simpleButton_AddSetting.TabIndex = 5;
-            this.simpleButton_AddSetting.Text = "Add";
-            this.simpleButton_AddSetting.Click += new System.EventHandler(this.simpleButton_AddSetting_Click);
-            // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.simpleButton_AddSetting;
@@ -116,16 +121,6 @@ namespace Configurator.Dialog
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
-            // simpleButton_CancelSetting
-            // 
-            this.simpleButton_CancelSetting.Location = new System.Drawing.Point(171, 53);
-            this.simpleButton_CancelSetting.Name = "simpleButton_CancelSetting";
-            this.simpleButton_CancelSetting.Size = new System.Drawing.Size(155, 22);
-            this.simpleButton_CancelSetting.StyleController = this.layoutControl1;
-            this.simpleButton_CancelSetting.TabIndex = 6;
-            this.simpleButton_CancelSetting.Text = "Cancel";
-            this.simpleButton_CancelSetting.Click += new System.EventHandler(this.simpleButton_CancelSetting_Click);
-            // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.simpleButton_CancelSetting;
@@ -134,6 +129,11 @@ namespace Configurator.Dialog
             this.layoutControlItem3.Size = new System.Drawing.Size(159, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // Configurator_Add_Setting
             // 
@@ -145,8 +145,8 @@ namespace Configurator.Dialog
             this.Text = "Add setting information";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit_SettingName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();

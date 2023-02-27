@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AckrLib_Common, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -139,6 +142,7 @@
   <ItemGroup>
     <Content Include="AckrLib_Common.dll" />
     <Content Include="AclrLib_BandInfo.dll" />
+    <Content Include="logo.ico" />
     <Content Include="NationalInstruments.Common.dll" />
     <Content Include="NationalInstruments.Common.Native.dll" />
     <Content Include="NationalInstruments.VisaNS.dll" />
