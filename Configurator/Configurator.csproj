@@ -73,6 +73,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Instrument\lib\NationalInstruments.VisaNS.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\RecoveryTool\bin\Debug\Serilog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -146,6 +149,12 @@
     <Content Include="NationalInstruments.Common.dll" />
     <Content Include="NationalInstruments.Common.Native.dll" />
     <Content Include="NationalInstruments.VisaNS.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RecoveryTool\RecoveryTool.csproj">
+      <Project>{535555E0-559F-4302-AC48-1637705AE461}</Project>
+      <Name>RecoveryTool</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -69,6 +69,8 @@ namespace Configurator
             bandInfo = new AclrLib_BandInfo.BandInfo();
             InitializeConfig();
             InitializeConfigValue();
+
+            tab_Main.SelectedTabPage = tabPage_Configurator;
         }
 
         #region Method
@@ -1807,6 +1809,7 @@ namespace Configurator
             }
             else
             {
+                ucRecovery1.SetInst(textEdit_RemoteAddr_MT8000A.Text);
                 simpleLabelItem_8000A_ConnStatus.Text = "Connected";
             }
             SplashScreenManager.CloseForm(false);
@@ -1937,6 +1940,38 @@ namespace Configurator
                 e.Appearance.ForeColor = Color.Black;
                 e.Appearance.FontStyleDelta = FontStyle.Bold;
             }
+        }
+
+        private void tab_Main_SelectedPageChanged(object sender, DevExpress.XtraLayout.LayoutTabPageChangedEventArgs e)
+        {
+            if (e.Page == tabPage_Configurator)
+            {
+                UpdateControlEnable(true);
+                this.Width = 915;
+                this.Height = 750;
+            }
+            else
+            {
+                UpdateControlEnable(false);
+                this.Width = 610;
+                this.Height = 550;
+            }
+        }
+
+        private void UpdateControlEnable(bool enable)
+        {
+            simpleLabelItem5.Enabled = enable;  // default setting
+            layoutControlItem_DefaultSetting.Enabled = enable;  // comboBoxEdit_DefaultSetting
+            layoutControlItem2.Enabled = enable;    // add
+            layoutControlItem5.Enabled = enable;    // remove
+            layoutControlItem7.Enabled = enable;    // initialize
+
+            simpleLabelItem1.Enabled = enable;  // measurement type
+            layoutControlItem11.Enabled = enable;   // trp
+            layoutControlItem12.Enabled = enable;   // tis
+
+            simpleLabelItem4.Enabled = enable;  // external tool
+            layoutControlItem8.Enabled = enable;    // compare
         }
     }
 
