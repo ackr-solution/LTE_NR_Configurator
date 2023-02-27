@@ -44,7 +44,7 @@ namespace Configurator
         //string first_reset_command = "PRESET\n";//처음 또는 RAN Operation 변경 시 PRESET Command 실행
         string old_changed_ran_operation = "";
         MessageBasedSession NrMbSession; //, LteMbSession;
-
+        Dictionary<string, string> dict_QueryAns = new Dictionary<string, string>();
         Dictionary<string, string> dict_OperBand = new Dictionary<string, string>()
         {
             {"1", "FDD"},{"2", "FDD"},{"3", "FDD"},{"5", "FDD"},{"7", "FDD"},{"8", "FDD"},
@@ -289,7 +289,8 @@ namespace Configurator
                 MultiEditorRow row = vGridControl_NR_Menu.Rows[i] as MultiEditorRow;
                 MultiEditorRow SpinRow;
                 if (row == null) continue;
-                for (int j = 0; j < row.RowPropertiesCount; j++)
+                int count = int.Parse(vGridControl_NR_Menu.GetCellValue(row_NR_NumOfDlScc,0)?.ToString() ?? "0");
+                for (int j = 0; j < count; j++) // row.RowPropertiesCount -> count
                 {
                     if (row.PropertiesCollection[j].RowEdit == null) break;
                     if (row.PropertiesCollection[j].RowEdit.EditorTypeName == "TextEdit") break;
@@ -385,16 +386,17 @@ namespace Configurator
                             }
                             RepositoryItemSpinEdit SpinRowEdit = SpinRow.PropertiesCollection[j].RowEdit as RepositoryItemSpinEdit;
                             int value = int.Parse(SpinRow.PropertiesCollection[j].Value?.ToString()??"0");
-                            int max_value = int.Parse(SpinRowEdit.MaxValue.ToString());
-                            rispin.MinValue = 0; rispin.MaxValue = max_value - value;
+                            int max_value_NRu = int.Parse(SpinRowEdit.MaxValue.ToString());
+                            rispin.MinValue = 0; rispin.MaxValue = max_value_NRu - value;
                             value = int.Parse(row.PropertiesCollection[j].Value?.ToString() ?? "0");
                             
-                            max_value = int.Parse(rispin.MaxValue.ToString());
-                            if (value > int.Parse(rispin.MaxValue.ToString())) row.PropertiesCollection[j].Value = rispin.MaxValue;
-                            else if (value < int.Parse(rispin.MinValue.ToString())) row.PropertiesCollection[j].Value = rispin.MinValue;
+                            int max_value_StartRb = int.Parse(rispin.MaxValue.ToString());
+                            int min_value_StartRb = int.Parse(rispin.MinValue.ToString());
+                            if (value > max_value_StartRb) row.PropertiesCollection[j].Value = max_value_StartRb;
+                            else if (value < min_value_StartRb) row.PropertiesCollection[j].Value = min_value_StartRb;
 
-                            if (max_value - value == 0) row.PropertiesCollection[j].AllowEdit = false;
-                            else row.PropertiesCollection[j].AllowEdit = true;
+                            if (max_value_StartRb == min_value_StartRb ) row.PropertiesCollection[j].AllowEdit = false;
+                            else if(j==0)row.PropertiesCollection[j].AllowEdit = true;
                         }
                     }
                 }
@@ -465,34 +467,34 @@ namespace Configurator
                         row.PropertiesCollection[j].Value = inputInfo.NR_Channel_BW.Length > j ? inputInfo.NR_Channel_BW[j] : null;
                         cur_NR_Bandwidth_value[j] = inputInfo.NR_Channel_BW[j];
                     }
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_TpcPattern"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_TpcPattern") && inputInfo.NR_TPC_Pattern != null )
                         row.PropertiesCollection[j].Value = inputInfo.NR_TPC_Pattern.Length > j ? inputInfo.NR_TPC_Pattern[j] : null;
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_NumOfRB"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_NumOfRB") && inputInfo.NR_DL_Number_Of_RB != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_DL_Number_Of_RB.Length > j ? inputInfo.NR_DL_Number_Of_RB[j] : null;
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_StartingRB"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_StartingRB") && inputInfo.NR_DL_StartingRB != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_DL_StartingRB.Length > j ? inputInfo.NR_DL_StartingRB[j] : null;
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_MCSTable"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_MCSTable") && inputInfo.NR_DL_MCS_Table != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_DL_MCS_Table.Length > j ? inputInfo.NR_DL_MCS_Table[j] : null;
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_MCSIndex"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_MCSIndex") && inputInfo.NR_DL_MCS_Index != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_DL_MCS_Index.Length > j ? inputInfo.NR_DL_MCS_Index[j] : null;
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_Waveform"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_Waveform") && inputInfo.NR_UL_Waveform != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_UL_Waveform.Length > j ? inputInfo.NR_UL_Waveform[j] : null;
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_NumOfRB"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_NumOfRB") && inputInfo.NR_UL_Number_Of_RB != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_UL_Number_Of_RB.Length > j ? inputInfo.NR_UL_Number_Of_RB[j] : null;
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_StartingRB"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_StartingRB") && inputInfo.NR_UL_StartingRB != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_UL_StartingRB.Length > j ? inputInfo.NR_UL_StartingRB[j] : null;
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_MCSTable"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_MCSTable") && inputInfo.NR_UL_MCS_Table != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_UL_MCS_Table.Length > j ? inputInfo.NR_UL_MCS_Table[j] : null;
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_MCSIndex"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_MCSIndex") && inputInfo.NR_UL_MCS_Index != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_UL_MCS_Index.Length > j ? inputInfo.NR_UL_MCS_Index[j] : null;
                     //else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_CsiRs"))
                     //    row.PropertiesCollection[j].Value = inputInfo.NR_CsiRs.Length > j ? inputInfo.NR_CsiRs[j] : null;
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_Scs"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_Scs") && inputInfo.NR_UL_Scs != null)
                     {
                         row.PropertiesCollection[j].Value = inputInfo.NR_UL_Scs.Length > j ? inputInfo.NR_UL_Scs[j] : null;
                         cur_NR_SCS_value[j] = inputInfo.NR_UL_Scs[j];
                     }
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_pMax"))
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_pMax") && inputInfo.NR_pMax != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_pMax.Length > j ? inputInfo.NR_pMax[j] : null;
 
                     //if (j > int.Parse(inputInfo.NR_Number_Of_DL_SCC))
@@ -507,6 +509,10 @@ namespace Configurator
                         row.PropertiesCollection[j].AllowEdit = true;
                         row.PropertiesCollection[j].ReadOnly = false;
                     }
+
+                    SetNRmenuByNumSCC(int.Parse(inputInfo.NR_Number_Of_DL_SCC));
+                    Check_NR_SpinEdit_MinMax_StartRB();
+
                 }
             }
         }
@@ -648,10 +654,12 @@ namespace Configurator
             inputInfo.NR_Channel_BW = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
             inputInfo.NR_TPC_Pattern = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
             inputInfo.NR_DL_Number_Of_RB = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
+            inputInfo.NR_DL_StartingRB = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
             inputInfo.NR_DL_MCS_Table = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
             inputInfo.NR_DL_MCS_Index = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
             inputInfo.NR_UL_Waveform = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
             inputInfo.NR_UL_Number_Of_RB = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
+            inputInfo.NR_UL_StartingRB = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
             inputInfo.NR_UL_MCS_Table = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
             inputInfo.NR_UL_MCS_Index = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
             inputInfo.NR_UL_Scs = Enumerable.Repeat<string>("", MAX_Num_Of_Scc + 1).ToArray<string>();
@@ -681,6 +689,8 @@ namespace Configurator
                         inputInfo.NR_TPC_Pattern[j] = row.PropertiesCollection[j].Value.ToString() ?? string.Empty;
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_NumOfRB"))
                         inputInfo.NR_DL_Number_Of_RB[j] = row.PropertiesCollection[j].Value.ToString() ?? string.Empty;
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_StartingRB"))
+                        inputInfo.NR_DL_StartingRB[j] = row.PropertiesCollection[j].Value.ToString() ?? string.Empty;
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_MCSTable"))
                         inputInfo.NR_DL_MCS_Table[j] = row.PropertiesCollection[j].Value.ToString() ?? string.Empty;
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_MCSIndex"))
@@ -689,6 +699,8 @@ namespace Configurator
                         inputInfo.NR_UL_Waveform[j] = row.PropertiesCollection[j].Value.ToString() ?? string.Empty;
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_NumOfRB"))
                         inputInfo.NR_UL_Number_Of_RB[j] = row.PropertiesCollection[j].Value.ToString() ?? string.Empty;
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_StartingRB"))
+                        inputInfo.NR_UL_StartingRB[j] = row.PropertiesCollection[j].Value.ToString() ?? string.Empty;
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_MCSTable"))
                         inputInfo.NR_UL_MCS_Table[j] = row.PropertiesCollection[j].Value.ToString() ?? string.Empty;
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_MCSIndex"))
@@ -777,8 +789,9 @@ namespace Configurator
 
             if(e.Row == mrow_NR_OperationBW || e.Row == mrow_NR_UL_Waveform)
             {
-                
-                for (int i = 0; i < mrow_NR_OperationBW.PropertiesCollection.Count; i++)
+
+                //for (int i = 0; i < mrow_NR_OperationBW.PropertiesCollection.Count; i++)
+                int i = 0;
                 {
                     //if (cur_NR_OperBand_value[i] == mrow_NR_OperationBW.PropertiesCollection[i].Value.ToString()) continue;
                     string checkBand = mrow_NR_OperationBW.PropertiesCollection[i].Value?.ToString();
@@ -988,7 +1001,7 @@ namespace Configurator
                 {
                     RepositoryItemSpinEdit ri = mrow_NR_DL_MCSIndex.PropertiesCollection[i].RowEdit as RepositoryItemSpinEdit;
                     
-                    string tmp = mrow_NR_DL_MCSTable.PropertiesCollection[i].Value.ToString();
+                    string tmp = mrow_NR_DL_MCSTable.PropertiesCollection[i]?.Value?.ToString() ?? "QAM";
                     if(tmp == "256QAM")
                     {
                         ri.MaxValue = 27;
@@ -1007,7 +1020,7 @@ namespace Configurator
                 {
                     RepositoryItemSpinEdit ri = mrow_NR_UL_MCSIndex.PropertiesCollection[i].RowEdit as RepositoryItemSpinEdit;
 
-                    string tmp = mrow_NR_UL_MCSTable.PropertiesCollection[i].Value.ToString();
+                    string tmp = mrow_NR_UL_MCSTable.PropertiesCollection[i]?.Value?.ToString() ?? "QAM";
                     if (tmp == "256QAM")
                     {
                         if (ri.MaxValue == 28)
@@ -1416,8 +1429,6 @@ namespace Configurator
             stopwatch.Stop();
             Console.WriteLine("Elapsed time for LTE setting is {0} ms", stopwatch.ElapsedMilliseconds);
             //XtraMessageBox.Show(string.Format("LTE Command Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds));
-
-
         }
 
         private void applyNrParameterToInst(string mode)
@@ -1429,9 +1440,13 @@ namespace Configurator
                 return;
             }
 
-            //NR
-            //create command line 
+            // NR
+            // create command line 
+            
             List<string> command_list = new List<string>();
+            List<string> query_list = new List<string>();
+            string value;
+
             command_list.Add("REM_DEST 8000A\n");
             command_list.Add("PRESET\n"); // Preset
             if (old_changed_ran_operation != comboBoxEdit_RanOperation.Text.ToString())
@@ -1439,17 +1454,38 @@ namespace Configurator
                 old_changed_ran_operation = comboBoxEdit_RanOperation.Text.ToString();
                 //command_list.Add("PRESET\n"); // Preset
             }
-            
-            if (comboBoxEdit_RanOperation.Text.ToString() == "SA") command_list.Add("RANOP SA\n");     // RAN Operation
-            else  command_list.Add("RANOP ENDC\n");   // RAN Operation
-            
+
+            if (comboBoxEdit_RanOperation.Text.ToString() == "SA")
+            {
+                command_list.Add("RANOP SA\n");     // RAN Operation
+                value = "SA";
+            }
+            else
+            {
+                command_list.Add("RANOP ENDC\n");   // RAN Operation
+                value = "ENDC";
+            }
+            query_list.Add("RANOP?\n"); dict_QueryAns.Add("RANOP?\n", value);
+
             string tmp = comboBoxEdit_AuthenticationKey.Text.ToString(); string[] tmpary = tmp.Split('-');
             command_list.Add(string.Format("AUTHENT_KEYALL {0},{1},{2},{3}\n",tmpary[0], tmpary[1], tmpary[2], tmpary[3]));   // Authentication Key
+            value = string.Format("{0},{1},{2},{3}", tmpary[0], tmpary[1], tmpary[2], tmpary[3]);
+            query_list.Add("AUTHENT_KEYALL?\n"); dict_QueryAns.Add("AUTHENT_KEYALL?\n", value);
 
             tmp = vGridControl_NR_Menu.GetCellValue(row_NR_Mcc, 0)?.ToString() ?? null; // MCC
-            if (tmp != null) command_list.Add(string.Format("MCC {0}\n", tmp));   
+            if (tmp != null)
+            {
+                command_list.Add(string.Format("MCC {0}\n", tmp));
+                query_list.Add("MCC?\n"); dict_QueryAns.Add("MCC?\n", tmp);
+            }
+
             tmp = vGridControl_NR_Menu.GetCellValue(row_NR_Mnc, 0)?.ToString() ?? null; // MNC
-            if (tmp != null) command_list.Add(string.Format("MNC {0}\n", tmp));
+            if (tmp != null)
+            {
+                command_list.Add(string.Format("MNC {0}\n", tmp));
+                query_list.Add("MNC?\n"); dict_QueryAns.Add("MNC?\n", tmp);
+
+            }
 
             int NumOfScc, i;
             string operband = ""; string duplex = "";
@@ -1460,6 +1496,8 @@ namespace Configurator
             string ccName = null;
             NumOfScc = int.Parse(vGridControl_NR_Menu.GetCellValue(row_NR_NumOfDlScc, 0).ToString())+1;
             command_list.Add(string.Format("DLSCC {0}\n", NumOfScc-1));      // DLSCC 
+            value = string.Format("{0}", NumOfScc - 1);
+            query_list.Add("DLSCC?\n"); dict_QueryAns.Add("DLSCC?\n", value);
 
             for (i=0;i< NumOfScc; i++)
             {
@@ -1467,6 +1505,8 @@ namespace Configurator
                 operband = cur_NR_OperBand_value[i];
                 ccName = ccName_ary[i];
                 command_list.Add(string.Format("BAND {0},{1}\n", ccName,operband));   // Operation Band
+                //query_list.Add(string.Format("BAND? {0}\n",ccName)); dict_QueryAns.Add(string.Format("BAND? {0}\n", ccName), operband);
+
                 duplex = dict_OperBand[operband];
 
                 if (duplex != "TDD" && duplex != "FDD")
@@ -1476,9 +1516,6 @@ namespace Configurator
                 }
 
                 // Set user parameter
-
-
-                
                 tmp = mrow_NR_UL_NumOfRB.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("ULRMC_RB {0},{1}\n", ccName, tmp));
 
@@ -1537,17 +1574,8 @@ namespace Configurator
                 tmp = mrow_NR_UlCenterCh.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("ULCHAN {0},{1} \n", ccName, tmp));
 
-                tmp = mrow_NR_UL_MCSTable.PropertiesCollection[i].Value.ToString();
-                command_list.Add(string.Format("ULMCS_TABLE {0},{1} \n", ccName, tmp));
+                
 
-                tmp = mrow_NR_UL_MCSIndex.PropertiesCollection[i].Value.ToString();
-                command_list.Add(string.Format("ULIMCS {0},{1} \n", ccName, tmp));
-
-                tmp = mrow_NR_DL_MCSTable.PropertiesCollection[i].Value.ToString();
-                command_list.Add(string.Format("DLMCS_TABLE {0},{1} \n", ccName, tmp));
-
-                tmp = mrow_NR_DL_MCSIndex.PropertiesCollection[i].Value.ToString();
-                command_list.Add(string.Format("DLIMCS {0},{1} \n", ccName, tmp));
 
                 if (duplex == "TDD") 
                 {
@@ -1620,6 +1648,17 @@ namespace Configurator
                     command_list.Add(string.Format("PWR_MEAS OFF\n"));          // PWR_MEAS OFF
                     command_list.Add(string.Format("TPUT_MEAS ON\n"));          // Throuput ON
                 }
+                tmp = mrow_NR_UL_MCSTable.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("ULMCS_TABLE {0},{1} \n", ccName, tmp));
+
+                tmp = mrow_NR_UL_MCSIndex.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("ULIMCS {0},{1} \n", ccName, tmp));
+
+                tmp = mrow_NR_DL_MCSTable.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("DLMCS_TABLE {0},{1} \n", ccName, tmp));
+
+                tmp = mrow_NR_DL_MCSIndex.PropertiesCollection[i].Value.ToString();
+                command_list.Add(string.Format("DLIMCS {0},{1} \n", ccName, tmp));
             }
             // Always TDD||FDD & TIP||TRP & No CCname
             command_list.Add(string.Format("DCIFORMAT FORMAT0_1_AND_1_1\n"));   // DCI Format
@@ -1656,30 +1695,103 @@ namespace Configurator
                         string responseString = NrMbSession.ReadString();
                         //Console.Write(responseString);
                     }
+                    int cmd_start_line = mode == "NR" ? 5 : 1;
+                    for (int i = cmd_start_line; i<command_list.Count;i++)
+                    {
+                        NrMbSession.Write(command_list[i]);
+                        Console.Write(command_list[i]);
+                        NrMbSession.Write("*OPC?\n");
+
+                        //Read the response
+                        string responseString = NrMbSession.ReadString();
+                        //Console.Write(responseString);
+                    }
                 }
-                //SA mode
-                //if (mode == "LTE")
-                //{
-                //    foreach (string command in command_list)
-                //    {
-                //        NrMbSession.Write(command);
-                //        Console.WriteLine(command);
-                //        NrMbSession.Write("*OPC?\n");
-                //        ////Read the response
-                //        string responseString = NrMbSession.ReadString();
-                //        Console.WriteLine(responseString);
-                //    }
-                //}
-            }
+             }
             catch (Exception e)
             {
                 XtraMessageBox.Show(string.Format("Command Error___ {0}", e.Message.ToString()));
                 //simpleLabelItem_8000A_ConnStatus.Text = "Disconnected";
                 return;
             }
-
-
+            //sendQueryLine("NR");
         }
+
+        //private void sendQueryLine(string mode)
+        //{
+        //    if (mode == "NR")
+        //    {
+        //        List<string> query_list_NR = new List<string>()
+        //        {
+        //            "RANOP?\n",
+        //            "AUTHENT_KEYALL\n",
+        //            "DLSCC?\n",
+
+        //            BAND PCC,71
+        //            ULRMC_RB PCC,106
+        //            ULRB_START PCC,0
+        //            DLRMC_RB PCC,104
+        //            DLRB_START PCC,2
+        //            ULWAVEFORM PCC,CPOFDM
+        //            ILVL PCC,23
+        //            OLVL PCC,-49.8
+        //            CSIRS PCC,OFF
+        //            TPCPAT PCC,ALL3
+        //            MAXULPWR PCC,33
+        //            ULCHAN PCC,136100
+        //            DLBANDWIDTH PCC,20MHZ
+        //            DLSCS PCC,15KHZ
+        //            ULAGGLVL PCC,LEVEL4
+        //            DLAGGLVL PCC,LEVEL4
+        //            SSBSCS PCC,15KHZ
+        //            DLNUMHARQPROCESS PCC,N4
+        //            PREAMBLEFORMAT FORMAT_A3
+        //            SSCANDIDATE_AL2 PCC,4
+        //            SSCANDIDATE_AL4 PCC,2
+        //            SSCANDIDATE_AL8 PCC,2
+        //            TXCONFIG PCC,CODEBOOK
+        //            NUMRBCORESET PCC,FULLBW
+        //            DLHARQACKCODEBOOK PCC,DYNAMIC
+        //            OCNG OFF
+        //            TPUT_SAMPLE 200
+        //            EARLY_DECISION OFF
+        //            EARLY_DECISION ON
+        //            PWR_MEAS ON
+        //            TPUT_MEAS OFF
+        //            ULMCS_TABLE PCC,64QAM
+        //            ULIMCS PCC,6
+        //            DLMCS_TABLE PCC,256QAM
+        //            DLIMCS PCC,4
+
+
+        //            BAND SCC1,71
+        //            ULRMC_RB SCC1,106
+        //            ULRB_START SCC1,0
+        //            DLRMC_RB SCC1,104
+        //            DLRB_START SCC1,2
+        //            ULCHAN SCC1,136100
+        //            DLBANDWIDTH SCC1,20MHZ
+        //            OCNG OFF
+        //            TPUT_SAMPLE 200
+        //            EARLY_DECISION OFF
+        //            EARLY_DECISION ON
+        //            PWR_MEAS ON
+        //            TPUT_MEAS OFF
+        //            ULMCS_TABLE SCC1,64QAM
+        //            ULIMCS SCC1,6
+        //            DLMCS_TABLE SCC1,256QAM
+        //            DLIMCS SCC1,4
+
+
+        //            DCIFORMAT FORMAT0_1_AND_1_1
+        //            CHANSETMODE LOWESTGSCN
+        //            PRACHCONFIGINDEX 160
+        //            PREAMBLEMAX N7
+        //        }
+        //    }
+        //}
+
+
 
         private void simpleButton_MT8000A_Conn_Click(object sender, EventArgs e)
         {
