@@ -1173,11 +1173,19 @@ namespace Configurator
                 
                 tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLNumOfRB, 0)?.ToString() ?? "0";
                 if (int.Parse(tmp) > max)
+                {
                     vGridControl_LTE_Menu.SetCellValue(row_Lte_DLNumOfRB, 0, max);
+                    vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
+                    row_Lte_DLStartRb.Properties.AllowEdit = false;
+                }
 
                 tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULNumOfRB, 0)?.ToString() ?? "0";
                 if (int.Parse(tmp) > max)
+                {
                     vGridControl_LTE_Menu.SetCellValue(row_Lte_ULNumOfRB, 0, max);
+                    vGridControl_LTE_Menu.SetCellValue(row_Lte_ULStartRb, 0, 0);
+                    row_Lte_ULStartRb.Properties.AllowEdit = false;
+                }
 
                 vGridControl_LTE_Menu.SetCellValue(row_Lte_ULCenterChMode, 0, "Mid");
             }
@@ -1195,38 +1203,34 @@ namespace Configurator
 
             else if (e.Row == row_Lte_DLNumOfRB)
             {
-                //Check_NR_SpinEdit_MinMax_StartRB();
+                int max_value = int.Parse(riSpinEdit_LTE_DlNumOfRB.MaxValue.ToString()) - int.Parse(vGridControl_LTE_Menu.GetCellValue(row_Lte_DLNumOfRB, 0).ToString());
+                riSpinEdit_LTE_DlStartRb.MaxValue = max_value;
+                if (riSpinEdit_LTE_DlStartRb.MaxValue == riSpinEdit_LTE_DlStartRb.MinValue)
+                    row_Lte_DLStartRb.Properties.AllowEdit = false;
+                else row_Lte_DLStartRb.Properties.AllowEdit = true;
 
-                //int max_value = int.Parse(riSpinEdit_LTE_DlNumOfRB.MaxValue.ToString()) - int.Parse(vGridControl_LTE_Menu.GetCellValue(row_Lte_DLNumOfRB, 0).ToString());
-                //riSpinEdit_LTE_DlStartRb.MaxValue = max_value;
-                //if (riSpinEdit_LTE_DlStartRb.MaxValue == riSpinEdit_LTE_DlStartRb.MinValue)
-                //    row_Lte_DLStartRb.Properties.AllowEdit = false;
-                //else row_Lte_DLStartRb.Properties.AllowEdit = true;
-
-                //int value;
-                //var tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLStartRb, 0);
-                //if (tmp != null)
-                //{
-                //    value = int.Parse(tmp.ToString());
-                //    if (value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
-                //}
+                int value;
+                var tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLStartRb, 0);
+                if (tmp != null && int.Parse(tmp.ToString()) > max_value)
+                {
+                    value = int.Parse(tmp.ToString());
+                    if (value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
+                }
             }
             else if (e.Row == row_Lte_ULNumOfRB)
             {
-                //Check_NR_SpinEdit_MinMax_StartRB();
-
-                //int max_value = int.Parse(riSpinEdit_LTE_UlNumOfRB.MaxValue.ToString()) - int.Parse(vGridControl_LTE_Menu.GetCellValue(row_Lte_ULNumOfRB, 0).ToString());
-                //riSpinEdit_LTE_UlStartRb.MaxValue = max_value;
-                //if (riSpinEdit_LTE_UlStartRb.MaxValue == riSpinEdit_LTE_UlStartRb.MinValue)
-                //    row_Lte_ULStartRb.Properties.AllowEdit = false;
-                //else row_Lte_ULStartRb.Properties.AllowEdit = true;
-                //int value;
-                //var tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLStartRb, 0);
-                //if (tmp != null)
-                //{
-                //    value = int.Parse(tmp.ToString());
-                //    if (value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_DLStartRb, 0, 0);
-                //}
+                int max_value = int.Parse(riSpinEdit_LTE_UlNumOfRB.MaxValue.ToString()) - int.Parse(vGridControl_LTE_Menu.GetCellValue(row_Lte_ULNumOfRB, 0).ToString());
+                riSpinEdit_LTE_UlStartRb.MaxValue = max_value;
+                if (riSpinEdit_LTE_UlStartRb.MaxValue == riSpinEdit_LTE_UlStartRb.MinValue)
+                    row_Lte_ULStartRb.Properties.AllowEdit = false;
+                else row_Lte_ULStartRb.Properties.AllowEdit = true;
+                int value;
+                var tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULStartRb, 0);
+                if (tmp != null && int.Parse(tmp.ToString()) > max_value)
+                {
+                    value = int.Parse(tmp.ToString());
+                    if (value > max_value) vGridControl_LTE_Menu.SetCellValue(row_Lte_ULStartRb, 0, 0);
+                }
             }
             else if (e.Row == row_Lte_DLMcsTable)
             {
@@ -1349,89 +1353,167 @@ namespace Configurator
         private void applyLTEParameterToInst()
         {
             List<string> command_list = new List<string>();
+            List<string> query_list = new List<string>();
+            string value;
             string tmp;
 
             command_list.Add("REM_DEST 8821C\n");
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_TpcPattern, 0).ToString();
-            if (tmp == "Auto")              command_list.Add(string.Format("TPCPAT AUTO\n"));
-            else if (tmp == "All -1dB")     command_list.Add(string.Format("TPCPAT ALLM1\n"));
-            else if (tmp == "All 0dB")      command_list.Add(string.Format("TPCPAT ALL0\n"));
-            else if (tmp == "All +1dB")     command_list.Add(string.Format("TPCPAT ALL1\n"));
-            else if (tmp == "Alt +1/-1dB")  command_list.Add(string.Format("TPCPAT AUTOTARGET\n"));
-            else command_list.Add(string.Format("TPCPAT ALL3 \n"));
+            if (tmp == "Auto")
+            {
+                command_list.Add(string.Format("TPCPAT AUTO\n"));
+                value = "AUTO";
+            }
+            else if (tmp == "All -1dB")
+            {
+                command_list.Add(string.Format("TPCPAT ALLM1\n"));
+                value = "ALLM1";
+            }
+            else if (tmp == "All 0dB")
+            {
+                command_list.Add(string.Format("TPCPAT ALL0\n"));
+                value = "ALL0";
+            }
+            else if (tmp == "All +1dB")
+            {
+                command_list.Add(string.Format("TPCPAT ALL1\n"));
+                value = "ALL1";
+            }
+            else if (tmp == "Alt +1/-1dB")
+            {
+                command_list.Add(string.Format("TPCPAT AUTOTARGET\n"));
+                value = "AUTOTARGET";
+            }
+            else
+            {
+                command_list.Add(string.Format("TPCPAT ALL3 \n"));
+                value = "ALL3";
+            }
             //else if (tmp == "All +3dB") command_list.Add(string.Format("TPCPAT {0},ALL3 \n", ccName));
+            query_list.Add("TPCPAT?\n"); dict_QueryAns.Add("TPCPAT?\n", value);
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_OperationBand, 0).ToString();
             tmp = tmp.Replace("Band", "");
             command_list.Add(string.Format("BAND {0}\n", tmp));
+            query_list.Add("BAND?\n");
+            dict_QueryAns.Add("BAND?\n", tmp);
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ChBW_MHZ, 0).ToString();
             command_list.Add(string.Format("BANDWIDTH {0}\n", tmp.ToUpper()));
+            query_list.Add("BANDWIDTH?\n");
+            dict_QueryAns.Add("BANDWIDTH?\n", tmp.ToUpper());
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULCenterCh, 0).ToString();
-            command_list.Add(string.Format("ULCHAN {0},{0}\n", tmp));
+            //command_list.Add(string.Format("ULCHAN {0},{0}\n", tmp));
+            command_list.Add(string.Format("ULCHAN {0}\n", tmp));
+            query_list.Add("ULCHAN?\n");
+            dict_QueryAns.Add("ULCHAN?\n", tmp);
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULNumOfRB, 0).ToString();
             command_list.Add(string.Format("ULRMC_RB {0}\n", tmp));
+            query_list.Add("ULRMC_RB?\n");
+            dict_QueryAns.Add("ULRMC_RB?\n", tmp);
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULStartRb, 0)?.ToString() ?? null;
             if (tmp == null) tmp = "0";
             command_list.Add(string.Format("ULRB_START {0}\n", tmp));
+            query_list.Add("ULRB_START?\n");
+            dict_QueryAns.Add("ULRB_START?\n", tmp);
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULMcsTable, 0).ToString();
-            if(tmp == "16QAM")
+            if (tmp == "16QAM")
             {
                 command_list.Add(string.Format("ULRMC_64QAM DISABLED\n"));
                 command_list.Add(string.Format("ULRMC_256QAM DISABLED\n"));
+                query_list.Add("ULRMC_64QAM?\n");
+                dict_QueryAns.Add("ULRMC_64QAM?\n", "DISABLED");
+                query_list.Add("ULRMC_256QAM?\n");
+                dict_QueryAns.Add("ULRMC_256QAM?\n", "DISABLED");
             }
             else if (tmp == "64QAM")
             {
                 command_list.Add(string.Format("ULRMC_64QAM ENABLED\n"));
                 command_list.Add(string.Format("ULRMC_256QAM DISABLED\n"));
+                query_list.Add("ULRMC_64QAM?\n");
+                dict_QueryAns.Add("ULRMC_64QAM?\n", "ENABLED");
+                query_list.Add("ULRMC_256QAM?\n");
+                dict_QueryAns.Add("ULRMC_256QAM?\n", "DISABLED");
             }
             else if (tmp == "256QAM")
             {
                 command_list.Add(string.Format("ULRMC_64QAM DISABLED\n"));
                 command_list.Add(string.Format("ULRMC_256QAM ENABLED\n"));
+                query_list.Add("ULRMC_64QAM?\n");
+                dict_QueryAns.Add("ULRMC_64QAM?\n", "DISABLED");
+                query_list.Add("ULRMC_256QAM?\n");
+                dict_QueryAns.Add("ULRMC_256QAM?\n", "ENABLED");
             }
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULMcsIndex, 0).ToString();
             command_list.Add(string.Format("ULIMCS {0}\n", tmp));
+            query_list.Add("ULIMCS?\n");
+            dict_QueryAns.Add("ULIMCS?\n", tmp);
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLNumOfRB, 0).ToString();
             command_list.Add(string.Format("DLRMC_RB {0}\n", tmp));
+            query_list.Add("DLRMC_RB?\n");
+            dict_QueryAns.Add("DLRMC_RB?\n", tmp);
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLStartRb, 0)?.ToString() ?? null;
             if (tmp == null) tmp = "0";
             command_list.Add(string.Format("DLRB_START {0}\n", tmp));
+            query_list.Add("DLRB_START?\n");
+            dict_QueryAns.Add("DLRB_START?\n", tmp);
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLMcsTable, 0).ToString();
-            if(tmp == "256QAM ON")
+            if (tmp == "256QAM ON")
             {
                 command_list.Add(string.Format("DLRMC_256QAM ENABLED\n"));
+                query_list.Add("DLRMC_256QAM?\n");
+                dict_QueryAns.Add("DLRMC_256QAM?\n", "ENABLED");
             }
             else // tmp == 256QAM OFF
             {
-                command_list.Add(string.Format("DLRMC_256QAM DISABLED\n", tmp));
+                command_list.Add(string.Format("DLRMC_256QAM DISABLED\n"));
+                query_list.Add("DLRMC_256QAM?\n");
+                dict_QueryAns.Add("DLRMC_256QAM?\n", "DISABLED");
             }
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_DLMcsIndex, 0).ToString();
             command_list.Add(string.Format("DLIMCS_ALLSF {0}\n", tmp));
+            query_list.Add("DLIMCS_ALLSF?\n");
+            dict_QueryAns.Add("DLIMCS_ALLSF?\n", tmp);
+
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_OulputLvl, 0).ToString();
+            float nf = float.Parse(tmp);
+            tmp = Math.Round(nf, 1).ToString();
+            if (!tmp.Contains(".")) tmp = tmp + ".0";
+
             command_list.Add(string.Format("OLVL {0}\n", tmp));
+            query_list.Add("OLVL?\n");
+            dict_QueryAns.Add("OLVL?\n", tmp);
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_InputLvl, 0).ToString();
+            nf = float.Parse(tmp);
+            tmp = Math.Round(nf, 1).ToString();
+            if (!tmp.Contains(".")) tmp = tmp + ".0";
+
             command_list.Add(string.Format("ILVL {0}\n", tmp));
+            query_list.Add("ILVL?\n");
+            dict_QueryAns.Add("ILVL?\n", tmp);
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             sendCommandLine(command_list, "LTE");
+            sendQueryLine(query_list, "LTE", 1);
+            dict_QueryAns.Clear();
             stopwatch.Stop();
             Console.WriteLine("Elapsed time for LTE setting is {0} ms", stopwatch.ElapsedMilliseconds);
             //XtraMessageBox.Show(string.Format("LTE Command Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds));
         }
+
 
         private void applyNrParameterToInst(string mode)
         {
@@ -1444,7 +1526,7 @@ namespace Configurator
 
             // NR
             // create command line 
-            
+
             List<string> command_list = new List<string>();
             List<string> query_list = new List<string>();
             string value;
@@ -1470,7 +1552,7 @@ namespace Configurator
             query_list.Add("RANOP?\n"); dict_QueryAns.Add("RANOP?\n", value);
 
             string tmp = comboBoxEdit_AuthenticationKey.Text.ToString(); string[] tmpary = tmp.Split('-');
-            command_list.Add(string.Format("AUTHENT_KEYALL {0},{1},{2},{3}\n",tmpary[0], tmpary[1], tmpary[2], tmpary[3]));   // Authentication Key
+            command_list.Add(string.Format("AUTHENT_KEYALL {0},{1},{2},{3}\n", tmpary[0], tmpary[1], tmpary[2], tmpary[3]));   // Authentication Key
             value = string.Format("{0},{1},{2},{3}", tmpary[0], tmpary[1], tmpary[2], tmpary[3]);
             query_list.Add("AUTHENT_KEYALL?\n"); dict_QueryAns.Add("AUTHENT_KEYALL?\n", value);
 
@@ -1496,18 +1578,18 @@ namespace Configurator
                 "PCC", "SCC1", "SCC2","SCC3"
             };
             string ccName = null;
-            NumOfScc = int.Parse(vGridControl_NR_Menu.GetCellValue(row_NR_NumOfDlScc, 0).ToString())+1;
-            command_list.Add(string.Format("DLSCC {0}\n", NumOfScc-1));      // DLSCC 
+            NumOfScc = int.Parse(vGridControl_NR_Menu.GetCellValue(row_NR_NumOfDlScc, 0).ToString()) + 1;
+            command_list.Add(string.Format("DLSCC {0}\n", NumOfScc - 1));      // DLSCC 
             value = string.Format("{0}", NumOfScc - 1);
             query_list.Add("DLSCC?\n"); dict_QueryAns.Add("DLSCC?\n", value);
 
-            for (i=0;i< NumOfScc; i++)
+            for (i = 0; i < NumOfScc; i++)
             {
                 //operband = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_OperationBW, i, 0).ToString();
                 operband = cur_NR_OperBand_value[i];
                 ccName = ccName_ary[i];
-                command_list.Add(string.Format("BAND {0},{1}\n", ccName,operband));   // Operation Band
-                //query_list.Add(string.Format("BAND? {0}\n",ccName)); dict_QueryAns.Add(string.Format("BAND? {0}\n", ccName), operband);
+                command_list.Add(string.Format("BAND {0},{1}\n", ccName, operband));   // Operation Band
+                query_list.Add(string.Format("BAND? {0}\n", ccName)); dict_QueryAns.Add(string.Format("BAND? {0}\n", ccName), operband);
 
                 duplex = dict_OperBand[operband];
 
@@ -1520,163 +1602,416 @@ namespace Configurator
                 // Set user parameter
                 tmp = mrow_NR_UL_NumOfRB.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("ULRMC_RB {0},{1}\n", ccName, tmp));
+                query_list.Add(string.Format("ULRMC_RB? {0}\n", ccName));
+                dict_QueryAns.Add(string.Format("ULRMC_RB? {0}\n", ccName), tmp);
 
-                
                 tmp = mrow_NR_UL_StartingRB.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("ULRB_START {0},{1}\n", ccName, tmp));
+                query_list.Add(string.Format("ULRB_START? {0}\n", ccName));
+                dict_QueryAns.Add(string.Format("ULRB_START? {0}\n", ccName), tmp);
 
-                
                 tmp = mrow_NR_DL_NumOfRB.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("DLRMC_RB {0},{1}\n", ccName, tmp));
+                query_list.Add(string.Format("DLRMC_RB? {0}\n", ccName));
+                dict_QueryAns.Add(string.Format("DLRMC_RB? {0}\n", ccName), tmp);
 
-                
                 tmp = mrow_NR_DL_StartingRB.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("DLRB_START {0},{1}\n", ccName, tmp));
-                
+                query_list.Add(string.Format("DLRB_START? {0}\n", ccName));
+                dict_QueryAns.Add(string.Format("DLRB_START? {0}\n", ccName), tmp);
+
                 if (i == 0)
                 {
                     tmp = mrow_NR_UL_Waveform.PropertiesCollection[i].Value.ToString();
-                    if (tmp == "CP") command_list.Add(string.Format("ULWAVEFORM {0},CPOFDM\n", ccName));  //UL  Waveform
-                    else command_list.Add(string.Format("ULWAVEFORM {0},DFTOFDM\n", ccName));
+                    if (tmp == "CP")
+                    {
+                        command_list.Add(string.Format("ULWAVEFORM {0},CPOFDM\n", ccName));  //UL  Waveform
+                        query_list.Add(string.Format("ULWAVEFORM? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("ULWAVEFORM? {0}\n", ccName), "CPOFDM");
+                    }
+
+                    else
+                    {
+                        command_list.Add(string.Format("ULWAVEFORM {0},DFTOFDM\n", ccName));
+                        query_list.Add(string.Format("ULWAVEFORM? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("ULWAVEFORM? {0}\n", ccName), "DFTOFDM");
+                    }
 
                     tmp = mrow_NR_InputLvl.PropertiesCollection[i].Value.ToString();
+                    float nf = float.Parse(tmp);
+                    tmp = Math.Round(nf, 1).ToString();
+                    if (!tmp.Contains(".")) tmp = tmp + ".0";
+
                     command_list.Add(string.Format("ILVL {0},{1}\n", ccName, tmp));
+                    query_list.Add(string.Format("ILVL? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("ILVL? {0}\n", ccName), tmp);
 
                     tmp = mrow_NR_OutputLvl.PropertiesCollection[i].Value.ToString();
+                    nf = float.Parse(tmp);
+                    tmp = Math.Round(nf, 1).ToString();
+                    if (!tmp.Contains(".")) tmp = tmp + ".0";
                     command_list.Add(string.Format("OLVL {0},{1}\n", ccName, tmp));
+                    query_list.Add(string.Format("OLVL? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("OLVL? {0}\n", ccName), tmp);
 
-                    //tmp = mrow_NR_CsiRs.PropertiesCollection[i].Value.ToString();
-
-                    if (mode == "TRP") 
+                    if (mode == "TRP")
                     {
                         command_list.Add(string.Format("CSIRS {0},OFF\n", ccName));
-                        //command_list.Add(string.Format("AVOIDCSIRSFORREFSENS {0},OFF\n", ccName)); // Undefined??!
+                        query_list.Add(string.Format("CSIRS? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("CSIRS? {0}\n", ccName), "OFF");
                     }
                     else
                     {
                         command_list.Add(string.Format("CSIRS {0},{1}\n", ccName, cur_Nr_CsiRs_value[i]));
-                        //command_list.Add(string.Format("AVOIDCSIRSFORREFSENS {0},{1}\n", ccName, cur_Nr_CsiRs_value[i]));
+                        query_list.Add(string.Format("CSIRS? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("CSIRS? {0}\n", ccName), cur_Nr_CsiRs_value[i]);
                     }
-                    
+
                     //tmp = vGridControl_NR_Menu.GetCellValue((MultiEditorRow)mrow_NR_TpcPattern, i, 0).ToString();
                     tmp = mrow_NR_TpcPattern.PropertiesCollection[i].Value.ToString();
-                    if (tmp == "Auto") command_list.Add(string.Format("TPCPAT {0},AUTO\n", ccName));
-                    else if (tmp == "All -1dB") command_list.Add(string.Format("TPCPAT {0},ALLM1\n", ccName));
-                    else if (tmp == "All 0dB") command_list.Add(string.Format("TPCPAT {0},ALL0\n", ccName));
-                    else if (tmp == "All +1dB") command_list.Add(string.Format("TPCPAT {0},ALL1\n", ccName));
-                    else if (tmp == "Alt +1/-1dB") command_list.Add(string.Format("TPCPAT {0},AUTOTARGET\n", ccName));
-                    else command_list.Add(string.Format("TPCPAT {0},ALL3 \n", ccName));
+                    if (tmp == "Auto")
+                    {
+                        command_list.Add(string.Format("TPCPAT {0},AUTO\n", ccName));
+                        value = "AUTO";
+                    }
+                    else if (tmp == "All -1dB")
+                    {
+                        command_list.Add(string.Format("TPCPAT {0},ALLM1\n", ccName));
+                        value = "ALLM1";
+                    }
+                    else if (tmp == "All 0dB")
+                    {
+                        command_list.Add(string.Format("TPCPAT {0},ALL0\n", ccName));
+                        value = "ALL0";
+                    }
+                    else if (tmp == "All +1dB")
+                    {
+                        command_list.Add(string.Format("TPCPAT {0},ALL1\n", ccName));
+                        value = "ALL1";
+                    }
+                    else if (tmp == "Alt +1/-1dB")
+                    {
+                        command_list.Add(string.Format("TPCPAT {0},AUTOTARGET\n", ccName));
+                        value = "AUTOTARGET";
+                    }
+                    else
+                    {
+                        command_list.Add(string.Format("TPCPAT {0},ALL3 \n", ccName));
+                        value = "ALL3";
+                    }
                     //else if (tmp == "All +3dB") command_list.Add(string.Format("TPCPAT {0},ALL3 \n", ccName));
+
+                    query_list.Add(string.Format("TPCPAT? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("TPCPAT? {0}\n", ccName), value);
 
                     tmp = mrow_NR_pMax.PropertiesCollection[i].Value.ToString();
                     command_list.Add(string.Format("MAXULPWR {0},{1} \n", ccName, tmp));
+                    query_list.Add(string.Format("MAXULPWR? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("MAXULPWR? {0}\n", ccName), tmp);
+
                 }
 
 
                 tmp = mrow_NR_UlCenterCh.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("ULCHAN {0},{1} \n", ccName, tmp));
+                query_list.Add(string.Format("ULCHAN? {0}\n", ccName));
+                dict_QueryAns.Add(string.Format("ULCHAN? {0}\n", ccName), tmp);
 
-                
 
 
-                if (duplex == "TDD") 
+                if (duplex == "TDD")
                 {
                     command_list.Add(string.Format("DLBANDWIDTH {0},100MHZ\n", ccName));            // DL Channel Bandwidth
+                    query_list.Add(string.Format("DLBANDWIDTH? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("DLBANDWIDTH? {0}\n", ccName), "100MHZ");
                     if (i == 0)
                     {
                         command_list.Add(string.Format("DLSCS {0},30KHZ\n", ccName));                   // DL Subcarrier Spacing(data)
+                        query_list.Add(string.Format("DLSCS? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("DLSCS? {0}\n", ccName), "30KHZ");
+
                         command_list.Add(string.Format("DLULPERIOD {0},5MS\n", ccName));                // DL/UL Periodicity
+                        query_list.Add(string.Format("DLULPERIOD? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("DLULPERIOD? {0}\n", ccName), "5MS");
+
                         command_list.Add(string.Format("DLDURATION {0},8\n", ccName));                  // Common DL Duration
+                        query_list.Add(string.Format("DLDURATION? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("DLDURATION? {0}\n", ccName), "8");
+
                         command_list.Add(string.Format("DLSYMBOLS {0},6\n", ccName));                   // Common DL Symbols
+                        query_list.Add(string.Format("DLSYMBOLS? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("DLSYMBOLS? {0}\n", ccName), "6");
+
                         command_list.Add(string.Format("ULDURATION {0},2\n", ccName));                  // UL Duration
+                        query_list.Add(string.Format("ULDURATION? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("ULDURATION? {0}\n", ccName), "2");
+
                         command_list.Add(string.Format("ULSYMBOLS {0},4\n", ccName));                   // Common UL Symbols
+                        query_list.Add(string.Format("ULSYMBOLS? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("ULSYMBOLS? {0}\n", ccName), "4");
+
                         command_list.Add(string.Format("GUARDPERIOD {0},4\n", ccName));                 // Common Guard Period
+                        query_list.Add(string.Format("GUARDPERIOD? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("GUARDPERIOD? {0}\n", ccName), "4");
+
                         command_list.Add(string.Format("ULAGGLVL {0},LEVEL8\n", ccName));                    // UL Aggregation Level
+                        query_list.Add(string.Format("ULAGGLVL? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("ULAGGLVL? {0}\n", ccName), "LEVEL8");
+
                         command_list.Add(string.Format("DLAGGLVL {0},LEVEL8\n", ccName));                    // DL Aggregation Level
+                        query_list.Add(string.Format("DLAGGLVL? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("DLAGGLVL? {0}\n", ccName), "LEVEL8");
+
                         command_list.Add(string.Format("SSBSCS {0},30KHZ\n", ccName));                  // SS Block Subcarrier Spacing
+                        query_list.Add(string.Format("SSBSCS? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("SSBSCS? {0}\n", ccName), "30KHZ");
+
                         command_list.Add(string.Format("DLNUMHARQPROCESS {0},N8\n", ccName));           // nrofHARQ-ProcessesForPDSCH
+                        query_list.Add(string.Format("DLNUMHARQPROCESS? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("DLNUMHARQPROCESS? {0}\n", ccName), "N8");
+
                         command_list.Add(string.Format("PREAMBLEFORMAT FORMAT_B4\n", ccName));  // Preamble Format
+                        //query_list.Add(string.Format("PREAMBLEFORMAT? {0}\n", ccName));
+                        //dict_QueryAns.Add(string.Format("PREAMBLEFORMAT? {0}\n", ccName), "FORMAT_B4");
                     }
                 }
-                else if (duplex == "FDD" )
+                else if (duplex == "FDD")
                 {
                     command_list.Add(string.Format("DLBANDWIDTH {0},20MHZ\n", ccName));                 // DL Channel Bandwidth
-                    if (i==0)
+                    query_list.Add(string.Format("DLBANDWIDTH? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("DLBANDWIDTH? {0}\n", ccName), "20MHZ");
+                    if (i == 0)
                     {
                         command_list.Add(string.Format("DLSCS {0},15KHZ\n", ccName));                       // DL Subcarrier Spacing(data)
+                        query_list.Add(string.Format("DLSCS? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("DLSCS? {0}\n", ccName), "15KHZ");
+
                         command_list.Add(string.Format("ULAGGLVL {0},LEVEL4\n", ccName));                        // UL Aggregation Level
+                        query_list.Add(string.Format("ULAGGLVL? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("ULAGGLVL? {0}\n", ccName), "LEVEL4");
+
                         command_list.Add(string.Format("DLAGGLVL {0},LEVEL4\n", ccName));                        // DL Aggregation Level
+                        query_list.Add(string.Format("DLAGGLVL? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("DLAGGLVL? {0}\n", ccName), "LEVEL4");
+
                         command_list.Add(string.Format("SSBSCS {0},15KHZ\n", ccName));                      // SS Block Subcarrier Spacing
+                        query_list.Add(string.Format("SSBSCS? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("SSBSCS? {0}\n", ccName), "15KHZ");
+
                         command_list.Add(string.Format("DLNUMHARQPROCESS {0},N4\n", ccName));               //nrofHARQ-ProcessesForPDSCH
+                        query_list.Add(string.Format("DLNUMHARQPROCESS? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("DLNUMHARQPROCESS? {0}\n", ccName), "N4");
+
                         command_list.Add(string.Format("PREAMBLEFORMAT FORMAT_A3\n", ccName));  // Preamble Format
+                        //query_list.Add(string.Format("PREAMBLEFORMAT? {0}\n", ccName));
+                        //dict_QueryAns.Add(string.Format("PREAMBLEFORMAT? {0}\n", ccName), "FORMAT_A3");
                     }
                 }
                 // TDD || FDD
-                if (i==0)
+                if (i == 0)
                 {
                     command_list.Add(string.Format("SSCANDIDATE_AL2 {0},4\n", ccName));         // Aggregation Level2
-                    command_list.Add(string.Format("SSCANDIDATE_AL4 {0},2\n", ccName));         // Aggregation Level4
-                    command_list.Add(string.Format("SSCANDIDATE_AL8 {0},2\n", ccName));         // Aggregation Level8
-                    command_list.Add(string.Format("TXCONFIG {0},CODEBOOK\n", ccName));         // Tx Config
-                    command_list.Add(string.Format("NUMRBCORESET {0},FULLBW\n", ccName));       // Num of CORESET RB
-                    command_list.Add(string.Format("DLHARQACKCODEBOOK {0},DYNAMIC\n", ccName)); // PDSCH-HARQ-ACK-Codebook
+                    query_list.Add(string.Format("SSCANDIDATE_AL2? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("SSCANDIDATE_AL2? {0}\n", ccName), "4");
 
-                    if (mode != "TRP" && cur_Nr_CsiRs_value[i]== "ON")
+                    command_list.Add(string.Format("SSCANDIDATE_AL4 {0},2\n", ccName));         // Aggregation Level4
+                    query_list.Add(string.Format("SSCANDIDATE_AL4? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("SSCANDIDATE_AL4? {0}\n", ccName), "2");
+
+                    command_list.Add(string.Format("SSCANDIDATE_AL8 {0},2\n", ccName));         // Aggregation Level8
+                    query_list.Add(string.Format("SSCANDIDATE_AL8? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("SSCANDIDATE_AL8? {0}\n", ccName), "2");
+
+                    command_list.Add(string.Format("TXCONFIG {0},CODEBOOK\n", ccName));         // Tx Config
+                    query_list.Add(string.Format("TXCONFIG? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("TXCONFIG? {0}\n", ccName), "CODEBOOK");
+
+                    command_list.Add(string.Format("NUMRBCORESET {0},FULLBW\n", ccName));       // Num of CORESET RB
+                    query_list.Add(string.Format("NUMRBCORESET? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("NUMRBCORESET? {0}\n", ccName), "FULLBW");
+
+                    command_list.Add(string.Format("DLHARQACKCODEBOOK {0},DYNAMIC\n", ccName)); // PDSCH-HARQ-ACK-Codebook
+                    query_list.Add(string.Format("DLHARQACKCODEBOOK? {0}\n", ccName));
+                    dict_QueryAns.Add(string.Format("DLHARQACKCODEBOOK? {0}\n", ccName), "DYNAMIC");
+
+                    if (mode != "TRP" && cur_Nr_CsiRs_value[i] == "ON")
                     {
                         command_list.Add(string.Format("CSIRSRESOURCE {0},4\n", ccName));           // nofRBs
+                        query_list.Add(string.Format("CSIRSRESOURCE? {0}\n", ccName));
+                        dict_QueryAns.Add(string.Format("CSIRSRESOURCE? {0}\n", ccName), "4");
+
                         command_list.Add(string.Format("CSIRSNRB {0},52,0\n", ccName));             // nofRBs
+                        query_list.Add(string.Format("CSIRSNRB? {0},0\n", ccName));
+                        dict_QueryAns.Add(string.Format("CSIRSNRB? {0},0\n", ccName), "52");
+
                         command_list.Add(string.Format("CSIRSNRB {0},52,1\n", ccName));             // nofRBs
+                        query_list.Add(string.Format("CSIRSNRB? {0},1\n", ccName));
+                        dict_QueryAns.Add(string.Format("CSIRSNRB? {0},1\n", ccName), "52");
+
                         command_list.Add(string.Format("CSIRSNRB {0},52,2\n", ccName));             // nofRBs
+                        query_list.Add(string.Format("CSIRSNRB? {0},2\n", ccName));
+                        dict_QueryAns.Add(string.Format("CSIRSNRB? {0},2\n", ccName), "52");
+
                         command_list.Add(string.Format("CSIRSNRB {0},52,3\n", ccName));             // nofRBs
+                        query_list.Add(string.Format("CSIRSNRB? {0},3\n", ccName));
+                        dict_QueryAns.Add(string.Format("CSIRSNRB? {0},3\n", ccName), "52");
+
                     }
+
                 }
 
-                if (mode == "TRP")
+                if (mode == "TRP" && i == 0)
                 {
                     command_list.Add(string.Format("OCNG OFF\n"));              // OCNG
+                    query_list.Add(string.Format("OCNG?\n"));
+                    dict_QueryAns.Add(string.Format("OCNG?\n"), "OFF");
+
                     //command_list.Add(string.Format("TPUT_UNIT FRAME\n"));     // 설정불가! Throughput Sample Unit
+
                     command_list.Add(string.Format("TPUT_SAMPLE 200\n"));       // Number of Sample
+                    query_list.Add(string.Format("TPUT_SAMPLE?\n"));
+                    dict_QueryAns.Add(string.Format("TPUT_SAMPLE?\n"), "200");
+
                     command_list.Add(string.Format("EARLY_DECISION OFF\n"));    // Early Decision
-                    command_list.Add(string.Format("EARLY_DECISION ON\n"));     // Early Decision
+                    query_list.Add(string.Format("EARLY_DECISION?\n"));
+                    dict_QueryAns.Add(string.Format("EARLY_DECISION?\n"), "OFF");
+
                     command_list.Add(string.Format("PWR_MEAS ON\n"));           // PWR_MEAS ON
+                    query_list.Add(string.Format("PWR_MEAS?\n"));
+                    dict_QueryAns.Add(string.Format("PWR_MEAS?\n"), "ON");
+
                     command_list.Add(string.Format("TPUT_MEAS OFF\n"));         // Throuput OFF
+                    query_list.Add(string.Format("TPUT_MEAS?\n"));
+                    dict_QueryAns.Add(string.Format("TPUT_MEAS?\n"), "OFF");
                 }
-                else if (mode == "TIS")
+                else if (mode == "TIS" && i == 0)
                 {
                     command_list.Add(string.Format("OCNG ON\n"));               // OCNG
+                    query_list.Add(string.Format("OCNG?\n"));
+                    dict_QueryAns.Add(string.Format("OCNG?\n"), "ON");
+
                     command_list.Add(string.Format("TPUT_UNIT BLOCK\n"));       // Throughput Sample Unit
+                    query_list.Add(string.Format("TPUT_UNIT?\n"));
+                    dict_QueryAns.Add(string.Format("TPUT_UNIT?\n"), "BLOCK");
+
                     command_list.Add(string.Format("TPUT_SAMPLE 2466\n"));      // Number of Sample
+                    query_list.Add(string.Format("TPUT_SAMPLE?\n"));
+                    dict_QueryAns.Add(string.Format("TPUT_SAMPLE?\n"), "2466");
+
                     command_list.Add(string.Format("EARLY_DECISION ON\n"));     // Early Decision
+                    query_list.Add(string.Format("EARLY_DECISION?\n"));
+                    dict_QueryAns.Add(string.Format("EARLY_DECISION?\n"), "ON");
+
                     command_list.Add(string.Format("PWR_MEAS OFF\n"));          // PWR_MEAS OFF
+                    query_list.Add(string.Format("PWR_MEAS?\n"));
+                    dict_QueryAns.Add(string.Format("PWR_MEAS?\n"), "OFF");
+
                     command_list.Add(string.Format("TPUT_MEAS ON\n"));          // Throuput ON
+                    query_list.Add(string.Format("TPUT_MEAS?\n"));
+                    dict_QueryAns.Add(string.Format("TPUT_MEAS?\n"), "ON");
                 }
                 tmp = mrow_NR_UL_MCSTable.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("ULMCS_TABLE {0},{1} \n", ccName, tmp));
+                query_list.Add(string.Format("ULMCS_TABLE? {0}\n", ccName));
+                dict_QueryAns.Add(string.Format("ULMCS_TABLE? {0}\n", ccName), tmp);
 
                 tmp = mrow_NR_UL_MCSIndex.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("ULIMCS {0},{1} \n", ccName, tmp));
+                query_list.Add(string.Format("ULIMCS? {0}\n", ccName));
+                dict_QueryAns.Add(string.Format("ULIMCS? {0}\n", ccName), tmp);
 
                 tmp = mrow_NR_DL_MCSTable.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("DLMCS_TABLE {0},{1} \n", ccName, tmp));
+                query_list.Add(string.Format("DLMCS_TABLE? {0}\n", ccName));
+                dict_QueryAns.Add(string.Format("DLMCS_TABLE? {0}\n", ccName), tmp);
 
                 tmp = mrow_NR_DL_MCSIndex.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("DLIMCS {0},{1} \n", ccName, tmp));
+                query_list.Add(string.Format("DLIMCS? {0}\n", ccName));
+                dict_QueryAns.Add(string.Format("DLIMCS? {0}\n", ccName), tmp);
             }
             // Always TDD||FDD & TIP||TRP & No CCname
             command_list.Add(string.Format("DCIFORMAT FORMAT0_1_AND_1_1\n"));   // DCI Format
+            query_list.Add(string.Format("DCIFORMAT?\n"));
+            dict_QueryAns.Add(string.Format("DCIFORMAT?\n"), "FORMAT0_1_AND_1_1");
+
             command_list.Add(string.Format("CHANSETMODE LOWESTGSCN\n"));        // Channel Setting Mode
+            query_list.Add(string.Format("CHANSETMODE?\n"));
+            dict_QueryAns.Add(string.Format("CHANSETMODE?\n"), "LOWESTGSCN");
+
             command_list.Add(string.Format("PRACHCONFIGINDEX 160\n"));          // PRACH Configuration Index
+            query_list.Add(string.Format("PRACHCONFIGINDEX?\n"));
+            dict_QueryAns.Add(string.Format("PRACHCONFIGINDEX?\n"), "160");
+
             command_list.Add(string.Format("PREAMBLEMAX N7\n"));                // PreambleTransMax
+            query_list.Add(string.Format("PREAMBLEMAX?\n"));
+            dict_QueryAns.Add(string.Format("PREAMBLEMAX?\n"), "N7");
 
             //band = 
             //duplex = dict_OperBand[band];
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             sendCommandLine(command_list, "NR");
+            sendQueryLine(query_list, "NR", 1);
+            dict_QueryAns.Clear();
             stopwatch.Stop();
             Console.WriteLine("Elapsed time for NR is {0} ms", stopwatch.ElapsedMilliseconds);
             //XtraMessageBox.Show(string.Format("Command Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds));
 
+        }
+        private void sendQueryLine(List<string> query_list, string mode, int count)
+        {
+            if (count > 100)
+            {
+                XtraMessageBox.Show(string.Format("{0} parameters are not fully applied.", mode));
+                return;
+            }
+            if (mode == "NR") NrMbSession.Write("REM_DEST 8000A\n");
+            else NrMbSession.Write("REM_DEST 8821C\n");
+
+            List<string> requery_list = new List<string>();
+
+
+            foreach (string command in query_list)
+            {
+                NrMbSession.Write(command);
+                //Console.Write(command);
+
+                //Read the response
+                string responseString = NrMbSession.ReadString();
+                string correct_value = dict_QueryAns[command];
+
+                //Console.Write("ANS : " + responseString + "// Correct value = " + correct_value);
+
+                string[] new_command_ary = command.Replace("\n", "").Split('?');
+                string new_command = "";
+                if (new_command_ary.Length == 2 && new_command_ary[1] == "")
+                {
+                    new_command = new_command_ary[0] + " " + correct_value;
+                }
+                else
+                {
+
+                    if (new_command_ary[1].Split(',').Length == 1)
+                    {
+                        new_command = new_command_ary[0] + "" + new_command_ary[1] + "," + correct_value + "\n";
+                    }
+                    else
+                    {
+                        new_command = new_command_ary[0];
+                    }
+
+                }
+                //Console.WriteLine(string.Format("\nquery = {0} , command = {1}",command,  new_command));
+                if (responseString != correct_value + "\n")
+                {
+                    //Console.Write("ANS : " + responseString + "// Correct value = " + correct_value);
+                    NrMbSession.Write(new_command);
+                    Console.WriteLine(string.Format("Re Command {0} : {1}", count, new_command));
+                    requery_list.Add(command);
+                }
+            }
+            if (requery_list.Count != 0) sendQueryLine(requery_list, mode, count + 1);
         }
         private void sendCommandLine(List<string> command_list, string mode)
         {
