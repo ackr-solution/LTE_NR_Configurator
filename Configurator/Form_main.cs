@@ -234,6 +234,10 @@ namespace Configurator
             riComboBox_LTE_UlMcsTable.Items.AddRange(info.LTE_UL_MCS_Table);
 
             //NR
+            riComboBox_NR_FreqBandListFilter.Items.AddRange(info.NR_FreqBandListFilter);
+            riComboBox_LTE_FreqBandListFilter.Items.AddRange(info.NR_LteFreqBandListFilter);
+            riComboBox_PDUSessEstab.Items.AddRange(info.NR_PDUSessEstab);
+            
             riComboBox_NumOfDL_SCC.Items.AddRange(info.NR_Number_Of_DL_SCC);
             for (int i = 0; i < vGridControl_NR_Menu.Rows.Count; i++)
             {
@@ -438,6 +442,12 @@ namespace Configurator
             vGridControl_LTE_Menu.SetCellValue(row_Lte_ULMcsIndex, 0, inputInfo.LTE_UL_MCS_Index);
 
             //NR
+            vGridControl_NR_Menu.SetCellValue(row_NR_Mcc, 0, inputInfo.NR_Mcc);
+            vGridControl_NR_Menu.SetCellValue(row_NR_Mnc, 0, inputInfo.NR_Mnc);
+
+            vGridControl_NR_Menu.SetCellValue(row_NR_PDUSessionEstablishment, 0, inputInfo.NR_PDUSessEstab);
+            vGridControl_NR_Menu.SetCellValue(row_NR_FrequencyBandListFilter, 0, inputInfo.NR_FreqBandListFilter);
+            vGridControl_NR_Menu.SetCellValue(row_NR_LTEFrequencyBandListFilter, 0, inputInfo.NR_LteFreqBandListFilter);
             vGridControl_NR_Menu.SetCellValue(row_NR_NumOfDlScc, 0, inputInfo.NR_Number_Of_DL_SCC);
             //SetNRmenuByNumSCC(int.Parse(inputInfo.NR_Number_Of_DL_SCC.ToString()));
             for (int i = 0; i < vGridControl_NR_Menu.Rows.Count; i++)
@@ -645,6 +655,13 @@ namespace Configurator
             inputInfo.LTE_UL_MCS_Index = vGridControl_LTE_Menu.GetCellValue(row_Lte_ULMcsIndex, 0).ToString() ?? string.Empty;
 
             //NR
+            inputInfo.NR_Mcc = vGridControl_LTE_Menu.GetCellValue(row_NR_Mcc, 0).ToString() ?? string.Empty;
+            inputInfo.NR_Mnc = vGridControl_LTE_Menu.GetCellValue(row_NR_Mnc, 0).ToString() ?? string.Empty;
+
+            inputInfo.NR_FreqBandListFilter     = vGridControl_LTE_Menu.GetCellValue(row_NR_FrequencyBandListFilter, 0).ToString() ?? string.Empty;
+            inputInfo.NR_LteFreqBandListFilter  = vGridControl_LTE_Menu.GetCellValue(row_NR_LTEFrequencyBandListFilter, 0).ToString() ?? string.Empty;
+            inputInfo.NR_PDUSessEstab           = vGridControl_LTE_Menu.GetCellValue(row_NR_PDUSessionEstablishment, 0).ToString() ?? string.Empty;
+
             inputInfo.NR_Number_Of_DL_SCC = vGridControl_LTE_Menu.GetCellValue(row_NR_NumOfDlScc, 0).ToString() ?? string.Empty;
             if (inputInfo.NR_Number_Of_DL_SCC == null) return;
             int count = int.Parse(inputInfo.NR_Number_Of_DL_SCC);
@@ -1542,14 +1559,78 @@ namespace Configurator
             if (comboBoxEdit_RanOperation.Text.ToString() == "SA")
             {
                 command_list.Add("RANOP SA\n");     // RAN Operation
-                value = "SA";
+                query_list.Add("RANOP?\n"); 
+                dict_QueryAns.Add("RANOP?\n", "SA");
+
+                value = vGridControl_NR_Menu.GetCellValue(row_NR_FrequencyBandListFilter, 0)?.ToString() ?? "";
+                //"Enable", "Disable", "Connected Band Only", "All Band"
+                if (value != "" && value == "Enable") value = "ENABLE";
+                else if (value != "" && value == "Disable") value = "DISABLE";
+                else if (value != "" && value == "Connected Band Only") value = "CONNECTED";
+                else if (value != "" && value == "All Band") value = "ALL";
+                
+                if(value != "")
+                {
+                    command_list.Add(string.Format("FREQBANDLISTFILTER {0}\n",value));
+                    query_list.Add("FREQBANDLISTFILTER?\n"); 
+                    dict_QueryAns.Add("FREQBANDLISTFILTER?\n", value);
+
+                }
+                value = vGridControl_NR_Menu.GetCellValue(row_NR_LTEFrequencyBandListFilter, 0)?.ToString() ?? "";
+                //"Enable", "Disable", "Connected Band Only", "All Band"
+                if (value != "" && value == "Enable") value = "ENABLE";
+                else if (value != "" && value == "Disable") value = "DISABLE";
+                else if (value != "" && value == "Connected Band Only") value = "CONNECTED";
+                else if (value != "" && value == "All Band") value = "ALL";
+
+                if (value != "")
+                {
+                    command_list.Add(string.Format("FREQBANDLISTFILTERLTE {0}\n", value));
+                    query_list.Add("FREQBANDLISTFILTERLTE?\n");
+                    dict_QueryAns.Add("FREQBANDLISTFILTERLTE?\n", value);
+                }
+
+                value = vGridControl_NR_Menu.GetCellValue(row_NR_PDUSessionEstablishment, 0)?.ToString() ?? "";
+                command_list.Add(string.Format("PDUEST {0}\n", value));
+                query_list.Add("PDUEST?\n");
+                dict_QueryAns.Add("PDUEST?\n", value);
+
+                
+                command_list.Add(string.Format("HOTYPE RECONNECT\n"));
+                query_list.Add("HOTYPE?\n");
+                dict_QueryAns.Add("HOTYPE?\n", "RECONNECT");
             }
             else
             {
                 command_list.Add("RANOP ENDC\n");   // RAN Operation
-                value = "ENDC";
+                query_list.Add("RANOP?\n");
+                dict_QueryAns.Add("RANOP?\n", "ENDC");
+
+                value = vGridControl_NR_Menu.GetCellValue(row_NR_LTEFrequencyBandListFilter, 0)?.ToString() ?? "";
+                //"Enable", "Disable", "Connected Band Only", "All Band"
+                if (value != "" && value == "Enable") value = "ENABLE";
+                else if (value != "" && value == "Disable") value = "DISABLE";
+                else if (value != "" && value == "Connected Band Only") value = "CONNECTED";
+                else if (value != "" && value == "All Band") value = "ALL";
+
+                if (value != "")
+                {
+                    command_list.Add(string.Format("FREQBANDLISTFILTERLTE {0}\n", value));
+                    query_list.Add("FREQBANDLISTFILTERLTE?\n");
+                    dict_QueryAns.Add("FREQBANDLISTFILTERLTE?\n", value);
+
+                }
+                command_list.Add(string.Format("HOTYPE NORMAL\n"));
+                query_list.Add("HOTYPE?\n");
+                dict_QueryAns.Add("HOTYPE?\n", "NORMAL");
             }
-            query_list.Add("RANOP?\n"); dict_QueryAns.Add("RANOP?\n", value);
+            command_list.Add(string.Format("CALLTHLD 1\n"));
+            query_list.Add("CALLTHLD?\n");
+            dict_QueryAns.Add("CALLTHLD?\n", "1");
+
+            command_list.Add(string.Format("T310 MS6000\n"));
+            query_list.Add("T310?\n");
+            dict_QueryAns.Add("T310?\n", "MS6000");
 
             string tmp = comboBoxEdit_AuthenticationKey.Text.ToString(); string[] tmpary = tmp.Split('-');
             command_list.Add(string.Format("AUTHENT_KEYALL {0},{1},{2},{3}\n", tmpary[0], tmpary[1], tmpary[2], tmpary[3]));   // Authentication Key
@@ -1961,7 +2042,7 @@ namespace Configurator
         }
         private void sendQueryLine(List<string> query_list, string mode, int count)
         {
-            if (count > 100)
+            if (count > 10)
             {
                 XtraMessageBox.Show(string.Format("{0} parameters are not fully applied.", mode));
                 return;
@@ -2054,80 +2135,7 @@ namespace Configurator
             //sendQueryLine("NR");
         }
 
-        //private void sendQueryLine(string mode)
-        //{
-        //    if (mode == "NR")
-        //    {
-        //        List<string> query_list_NR = new List<string>()
-        //        {
-        //            "RANOP?\n",
-        //            "AUTHENT_KEYALL\n",
-        //            "DLSCC?\n",
-
-        //            BAND PCC,71
-        //            ULRMC_RB PCC,106
-        //            ULRB_START PCC,0
-        //            DLRMC_RB PCC,104
-        //            DLRB_START PCC,2
-        //            ULWAVEFORM PCC,CPOFDM
-        //            ILVL PCC,23
-        //            OLVL PCC,-49.8
-        //            CSIRS PCC,OFF
-        //            TPCPAT PCC,ALL3
-        //            MAXULPWR PCC,33
-        //            ULCHAN PCC,136100
-        //            DLBANDWIDTH PCC,20MHZ
-        //            DLSCS PCC,15KHZ
-        //            ULAGGLVL PCC,LEVEL4
-        //            DLAGGLVL PCC,LEVEL4
-        //            SSBSCS PCC,15KHZ
-        //            DLNUMHARQPROCESS PCC,N4
-        //            PREAMBLEFORMAT FORMAT_A3
-        //            SSCANDIDATE_AL2 PCC,4
-        //            SSCANDIDATE_AL4 PCC,2
-        //            SSCANDIDATE_AL8 PCC,2
-        //            TXCONFIG PCC,CODEBOOK
-        //            NUMRBCORESET PCC,FULLBW
-        //            DLHARQACKCODEBOOK PCC,DYNAMIC
-        //            OCNG OFF
-        //            TPUT_SAMPLE 200
-        //            EARLY_DECISION OFF
-        //            EARLY_DECISION ON
-        //            PWR_MEAS ON
-        //            TPUT_MEAS OFF
-        //            ULMCS_TABLE PCC,64QAM
-        //            ULIMCS PCC,6
-        //            DLMCS_TABLE PCC,256QAM
-        //            DLIMCS PCC,4
-
-
-        //            BAND SCC1,71
-        //            ULRMC_RB SCC1,106
-        //            ULRB_START SCC1,0
-        //            DLRMC_RB SCC1,104
-        //            DLRB_START SCC1,2
-        //            ULCHAN SCC1,136100
-        //            DLBANDWIDTH SCC1,20MHZ
-        //            OCNG OFF
-        //            TPUT_SAMPLE 200
-        //            EARLY_DECISION OFF
-        //            EARLY_DECISION ON
-        //            PWR_MEAS ON
-        //            TPUT_MEAS OFF
-        //            ULMCS_TABLE SCC1,64QAM
-        //            ULIMCS SCC1,6
-        //            DLMCS_TABLE SCC1,256QAM
-        //            DLIMCS SCC1,4
-
-
-        //            DCIFORMAT FORMAT0_1_AND_1_1
-        //            CHANSETMODE LOWESTGSCN
-        //            PRACHCONFIGINDEX 160
-        //            PREAMBLEMAX N7
-        //        }
-        //    }
-        //}
-
+   
 
 
         private void simpleButton_MT8000A_Conn_Click(object sender, EventArgs e)
@@ -2308,6 +2316,23 @@ namespace Configurator
             simpleLabelItem4.Enabled = enable;  // external tool
             layoutControlItem8.Enabled = enable;    // compare
         }
+
+        private void comboBoxEdit_RanOperation_EditValueChanging(object sender, DevExpress.XtraEditors.Controls.ChangingEventArgs e)
+        {
+            //Console.WriteLine("comboBoxEdit_RanOperation_EditValueChanging");
+            if (e.NewValue.ToString() == "SA")
+            {
+                vGridControl_NR_Menu.SetCellValue(row_NR_PDUSessionEstablishment, 0, "OFF");
+
+                vGridControl_NR_Menu.SetCellValue(row_NR_FrequencyBandListFilter, 0, "Connected Band Only");
+            }
+            else if (e.NewValue.ToString() == "NSA")
+            {
+                vGridControl_NR_Menu.SetCellValue(row_NR_FrequencyBandListFilter, 0, "Connected Band Only");
+                vGridControl_NR_Menu.SetCellValue(row_NR_LTEFrequencyBandListFilter, 0, "Connected Band Only");
+                
+            }
+        }
     }
 
 
@@ -2335,6 +2360,7 @@ namespace Configurator
         public string LTE_UL_Starting_RB;
         public string LTE_UL_MCS_Table;
         public string LTE_UL_MCS_Index;
+        public string LTE_FreqBandListFilter;
         //NR Menu
         public string NR_Number_Of_DL_SCC;
         public string[] NR_Output_Level;
@@ -2356,6 +2382,11 @@ namespace Configurator
         public string[] NR_UL_Scs;
         public string[] NR_pMax;
         public string[] NR_CsiRs;
+        public string NR_PDUSessEstab;
+        public string NR_FreqBandListFilter;
+        public string NR_LteFreqBandListFilter;
+        public string NR_Mcc;
+        public string NR_Mnc;
     }
     public class InputRange
     {
@@ -2369,6 +2400,7 @@ namespace Configurator
         public string[] LTE_UL_Center_Channel_Mode;
         public string[] LTE_DL_MCS_Table;
         public string[] LTE_UL_MCS_Table;
+        public string[] LTE_FreqBandListFilter;
         //NR Menu
         public string[] NR_Number_Of_DL_SCC;
         public string[] NR_Operation_Band;
@@ -2383,6 +2415,10 @@ namespace Configurator
         public string[] NR_UL_Scs;
         public string[] NR_Aggregation_Level;
         public string[] NR_CORSET_RB;
+        public string[] NR_PDUSessEstab;
+        public string[] NR_FreqBandListFilter;
+        public string[] NR_LteFreqBandListFilter;
     }
 }
+
 

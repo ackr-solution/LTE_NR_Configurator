@@ -134,4 +134,7 @@
     <string>OFF</string>
     <string>OFF</string>
   </NR_CsiRs>
+  <NR_PDUSessEstab>OFF</NR_PDUSessEstab>
+  <NR_FreqBandListFilter>Connected Band Only</NR_FreqBandListFilter>
+  <NR_LteFreqBandListFilter>Connected Band Only</NR_LteFreqBandListFilter>
 </InputValue>

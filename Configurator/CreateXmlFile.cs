@@ -67,6 +67,9 @@ namespace Configurator
                     xp.NR_UL_Scs= Enumerable.Repeat<string>("30kHz", maxidx).ToArray<string>();
                     xp.NR_pMax = Enumerable.Repeat<string>("33", maxidx).ToArray<string>();
                     xp.NR_CsiRs = Enumerable.Repeat<string>("OFF", maxidx).ToArray<string>();
+                    xp.NR_FreqBandListFilter = "Connected Band Only";
+                    xp.NR_LteFreqBandListFilter= "Connected Band Only";
+                    xp.NR_PDUSessEstab = "OFF";
                 }
                 else return;
 
@@ -107,6 +110,9 @@ namespace Configurator
             xp.NR_UL_Waveform = new string[]    { "CP", "DFT" };
             xp.NR_UL_MCS_Table = new string[]   { "64QAM", "256QAM" };
             xp.NR_UL_Scs = new string[] { "" };
+            xp.NR_FreqBandListFilter = new string[] { "Enable", "Disable", "Connected Band Only", "All Band" };
+            xp.NR_LteFreqBandListFilter = new string[] { "Enable", "Disable", "Connected Band Only", "All Band" };
+            xp.NR_PDUSessEstab = new string[] { "ON", "OFF"};
             //xp.NR_Aggregation_Level = new string[] { "0", "1", "2", "3", "4", "5", "6", "8" };
             //xp.NR_CORSET_RB = new string[] { "24", "48", "96", "Full Bandwidth"};
 

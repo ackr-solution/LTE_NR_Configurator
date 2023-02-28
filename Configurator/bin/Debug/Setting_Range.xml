@@ -73,4 +73,20 @@
   <NR_UL_Scs>
     <string />
   </NR_UL_Scs>
+  <NR_PDUSessEstab>
+    <string>ON</string>
+    <string>OFF</string>
+  </NR_PDUSessEstab>
+  <NR_FreqBandListFilter>
+    <string>Enable</string>
+    <string>Disable</string>
+    <string>Connected Band Only</string>
+    <string>All Band</string>
+  </NR_FreqBandListFilter>
+  <NR_LteFreqBandListFilter>
+    <string>Enable</string>
+    <string>Disable</string>
+    <string>Connected Band Only</string>
+    <string>All Band</string>
+  </NR_LteFreqBandListFilter>
 </InputRange>

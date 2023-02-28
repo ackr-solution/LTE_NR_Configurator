@@ -114,8 +114,8 @@ namespace Configurator
             this.riToggleSwitch_NR_CsiRs2 = new DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch();
             this.riToggleSwitch_NR_CsiRs3 = new DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch();
             this.riToggleSwitch_NR_CsiRs4 = new DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch();
-            this.row_NR_Mcc = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.row_NR_Mnc = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.riComboBox_PDUSessEstab = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.riComboBox_NR_FreqBandListFilter = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.row_NR_NumOfDlScc = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.mrow_NR_ColName = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
             this.mrow_NR_ColName1 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
@@ -217,6 +217,10 @@ namespace Configurator
             this.mrow_NR_CsiRs2 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.mrow_NR_CsiRs3 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.mrow_NR_CsiRs4 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
+            this.row_NR_Mcc = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.row_NR_Mnc = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.row_NR_PDUSessionEstablishment = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.row_NR_FrequencyBandListFilter = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.vGridControl_LTE_Menu = new DevExpress.XtraVerticalGrid.VGridControl();
             this.riComboBox_LTE_ChBW = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.riComboBox_LTE_TPCPattern = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
@@ -281,15 +285,15 @@ namespace Configurator
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.textEdit_RanOperation = new DevExpress.XtraLayout.LayoutControlItem();
             this.textEdit_AuthenticationKey = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem17 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.simpleLabelItem3 = new DevExpress.XtraLayout.SimpleLabelItem();
-            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.simpleLabelItem2 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem19 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.tabPage_Recovery = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -299,6 +303,8 @@ namespace Configurator
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.row_NR_LTEFrequencyBandListFilter = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.riComboBox_LTE_FreqBandListFilter = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl_Main)).BeginInit();
             this.layoutControl_Main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl_NR_Menu)).BeginInit();
@@ -381,6 +387,8 @@ namespace Configurator
             ((System.ComponentModel.ISupportInitialize)(this.riToggleSwitch_NR_CsiRs2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riToggleSwitch_NR_CsiRs3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riToggleSwitch_NR_CsiRs4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riComboBox_PDUSessEstab)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riComboBox_NR_FreqBandListFilter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl_LTE_Menu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_ChBW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_TPCPattern)).BeginInit();
@@ -423,15 +431,15 @@ namespace Configurator
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit_RanOperation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit_AuthenticationKey)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPage_Recovery)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
@@ -439,6 +447,7 @@ namespace Configurator
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem4)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_FreqBandListFilter)).BeginInit();
             this.SuspendLayout();
             // 
             // simpleButton_InitializeParam
@@ -475,7 +484,7 @@ namespace Configurator
             this.layoutControl_Main.Name = "layoutControl_Main";
             this.layoutControl_Main.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1270, 354, 650, 400);
             this.layoutControl_Main.Root = this.Root;
-            this.layoutControl_Main.Size = new System.Drawing.Size(913, 718);
+            this.layoutControl_Main.Size = new System.Drawing.Size(944, 718);
             this.layoutControl_Main.TabIndex = 0;
             this.layoutControl_Main.Text = "layoutControl1";
             // 
@@ -484,7 +493,7 @@ namespace Configurator
             this.ucRecovery1.Location = new System.Drawing.Point(19, 158);
             this.ucRecovery1.MinimumSize = new System.Drawing.Size(170, 300);
             this.ucRecovery1.Name = "ucRecovery1";
-            this.ucRecovery1.Size = new System.Drawing.Size(565, 320);
+            this.ucRecovery1.Size = new System.Drawing.Size(585, 320);
             this.ucRecovery1.TabIndex = 30;
             // 
             // vGridControl_NR_Menu
@@ -533,9 +542,9 @@ namespace Configurator
             this.vGridControl_NR_Menu.Appearance.VertLine.BackColor = System.Drawing.Color.Gray;
             this.vGridControl_NR_Menu.Appearance.VertLine.Options.UseBackColor = true;
             this.vGridControl_NR_Menu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.vGridControl_NR_Menu.Cursor = System.Windows.Forms.Cursors.Default;
+            this.vGridControl_NR_Menu.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.vGridControl_NR_Menu.CustomizationFormBounds = new System.Drawing.Rectangle(547, 191, 235, 275);
-            this.vGridControl_NR_Menu.Location = new System.Drawing.Point(281, 243);
+            this.vGridControl_NR_Menu.Location = new System.Drawing.Point(296, 239);
             this.vGridControl_NR_Menu.Name = "vGridControl_NR_Menu";
             this.vGridControl_NR_Menu.RecordWidth = 458;
             this.vGridControl_NR_Menu.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -617,11 +626,12 @@ namespace Configurator
             this.riToggleSwitch_NR_CsiRs1,
             this.riToggleSwitch_NR_CsiRs2,
             this.riToggleSwitch_NR_CsiRs3,
-            this.riToggleSwitch_NR_CsiRs4});
+            this.riToggleSwitch_NR_CsiRs4,
+            this.riComboBox_PDUSessEstab,
+            this.riComboBox_NR_FreqBandListFilter,
+            this.riComboBox_LTE_FreqBandListFilter});
             this.vGridControl_NR_Menu.RowHeaderWidth = 150;
             this.vGridControl_NR_Menu.Rows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
-            this.row_NR_Mcc,
-            this.row_NR_Mnc,
             this.row_NR_NumOfDlScc,
             this.mrow_NR_ColName,
             this.mrow_NR_OutputLvl,
@@ -642,8 +652,13 @@ namespace Configurator
             this.mrow_NR_DL_MCSTable,
             this.mrow_NR_DL_MCSIndex,
             this.mrow_NR_pMax,
-            this.mrow_NR_CsiRs});
-            this.vGridControl_NR_Menu.Size = new System.Drawing.Size(613, 445);
+            this.mrow_NR_CsiRs,
+            this.row_NR_Mcc,
+            this.row_NR_Mnc,
+            this.row_NR_PDUSessionEstablishment,
+            this.row_NR_FrequencyBandListFilter,
+            this.row_NR_LTEFrequencyBandListFilter});
+            this.vGridControl_NR_Menu.Size = new System.Drawing.Size(629, 436);
             this.vGridControl_NR_Menu.TabIndex = 1;
             this.vGridControl_NR_Menu.RecordCellStyle += new DevExpress.XtraVerticalGrid.Events.GetCustomRowCellStyleEventHandler(this.vGridControl_NR_Menu_RecordCellStyle);
             this.vGridControl_NR_Menu.CellValueChanging += new DevExpress.XtraVerticalGrid.Events.CellValueChangedEventHandler(this.vGridControl_NR_Menu_CellValueChanging);
@@ -1366,22 +1381,21 @@ namespace Configurator
             this.riToggleSwitch_NR_CsiRs4.OnText = "ON";
             this.riToggleSwitch_NR_CsiRs4.Toggled += new System.EventHandler(this.riToggleSwitch_NR_CsiRs4_Toggled);
             // 
-            // row_NR_Mcc
+            // riComboBox_PDUSessEstab
             // 
-            this.row_NR_Mcc.AppearanceCell.Options.UseTextOptions = true;
-            this.row_NR_Mcc.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.row_NR_Mcc.Height = 17;
-            this.row_NR_Mcc.Name = "row_NR_Mcc";
-            this.row_NR_Mcc.Properties.Caption = "MCC";
-            this.row_NR_Mcc.Properties.RowEdit = this.riTextEdit_NR_Mcc;
+            this.riComboBox_PDUSessEstab.AutoHeight = false;
+            this.riComboBox_PDUSessEstab.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.riComboBox_PDUSessEstab.Name = "riComboBox_PDUSessEstab";
+            this.riComboBox_PDUSessEstab.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             // 
-            // row_NR_Mnc
+            // riComboBox_NR_FreqBandListFilter
             // 
-            this.row_NR_Mnc.AppearanceCell.Options.UseTextOptions = true;
-            this.row_NR_Mnc.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.row_NR_Mnc.Name = "row_NR_Mnc";
-            this.row_NR_Mnc.Properties.Caption = "MNC";
-            this.row_NR_Mnc.Properties.RowEdit = this.riTextEdit_NR_Mnc;
+            this.riComboBox_NR_FreqBandListFilter.AutoHeight = false;
+            this.riComboBox_NR_FreqBandListFilter.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.riComboBox_NR_FreqBandListFilter.Name = "riComboBox_NR_FreqBandListFilter";
+            this.riComboBox_NR_FreqBandListFilter.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             // 
             // row_NR_NumOfDlScc
             // 
@@ -2075,6 +2089,35 @@ namespace Configurator
             this.mrow_NR_CsiRs4.RowEdit = this.riToggleSwitch_NR_CsiRs4;
             this.mrow_NR_CsiRs4.Value = false;
             // 
+            // row_NR_Mcc
+            // 
+            this.row_NR_Mcc.AppearanceCell.Options.UseTextOptions = true;
+            this.row_NR_Mcc.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.row_NR_Mcc.Height = 17;
+            this.row_NR_Mcc.Name = "row_NR_Mcc";
+            this.row_NR_Mcc.Properties.Caption = "MCC";
+            this.row_NR_Mcc.Properties.RowEdit = this.riTextEdit_NR_Mcc;
+            // 
+            // row_NR_Mnc
+            // 
+            this.row_NR_Mnc.AppearanceCell.Options.UseTextOptions = true;
+            this.row_NR_Mnc.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.row_NR_Mnc.Name = "row_NR_Mnc";
+            this.row_NR_Mnc.Properties.Caption = "MNC";
+            this.row_NR_Mnc.Properties.RowEdit = this.riTextEdit_NR_Mnc;
+            // 
+            // row_NR_PDUSessionEstablishment
+            // 
+            this.row_NR_PDUSessionEstablishment.Name = "row_NR_PDUSessionEstablishment";
+            this.row_NR_PDUSessionEstablishment.Properties.Caption = "PDU Session Establishment";
+            this.row_NR_PDUSessionEstablishment.Properties.RowEdit = this.riComboBox_PDUSessEstab;
+            // 
+            // row_NR_FrequencyBandListFilter
+            // 
+            this.row_NR_FrequencyBandListFilter.Name = "row_NR_FrequencyBandListFilter";
+            this.row_NR_FrequencyBandListFilter.Properties.Caption = "NR-Frequency Band List Filter";
+            this.row_NR_FrequencyBandListFilter.Properties.RowEdit = this.riComboBox_NR_FreqBandListFilter;
+            // 
             // vGridControl_LTE_Menu
             // 
             this.vGridControl_LTE_Menu.Appearance.FocusedCell.BackColor = System.Drawing.Color.Yellow;
@@ -2090,8 +2133,8 @@ namespace Configurator
             this.vGridControl_LTE_Menu.Appearance.VertLine.BackColor = System.Drawing.Color.Gray;
             this.vGridControl_LTE_Menu.Appearance.VertLine.Options.UseBackColor = true;
             this.vGridControl_LTE_Menu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Style3D;
-            this.vGridControl_LTE_Menu.Cursor = System.Windows.Forms.Cursors.SizeNS;
-            this.vGridControl_LTE_Menu.Location = new System.Drawing.Point(19, 243);
+            this.vGridControl_LTE_Menu.Cursor = System.Windows.Forms.Cursors.Default;
+            this.vGridControl_LTE_Menu.Location = new System.Drawing.Point(19, 239);
             this.vGridControl_LTE_Menu.Name = "vGridControl_LTE_Menu";
             this.vGridControl_LTE_Menu.RecordWidth = 87;
             this.vGridControl_LTE_Menu.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -2110,7 +2153,7 @@ namespace Configurator
             this.riSpinEdit_LTE_UlNumOfRB,
             this.riSpinEdit_LTE_UlStartRb,
             this.riSpinEdit_LTE_DlStartRb});
-            this.vGridControl_LTE_Menu.RowHeaderWidth = 150;
+            this.vGridControl_LTE_Menu.RowHeaderWidth = 167;
             this.vGridControl_LTE_Menu.Rows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
             this.row_Lte_OulputLvl,
             this.row_Lte_InputLvl,
@@ -2127,7 +2170,7 @@ namespace Configurator
             this.row_Lte_DLStartRb,
             this.row_Lte_DLMcsTable,
             this.row_Lte_DLMcsIndex});
-            this.vGridControl_LTE_Menu.Size = new System.Drawing.Size(248, 293);
+            this.vGridControl_LTE_Menu.Size = new System.Drawing.Size(261, 314);
             this.vGridControl_LTE_Menu.TabIndex = 1;
             this.vGridControl_LTE_Menu.CellValueChanging += new DevExpress.XtraVerticalGrid.Events.CellValueChangedEventHandler(this.vGridControl_LTE_Menu_CellValueChanging);
             this.vGridControl_LTE_Menu.CellValueChanged += new DevExpress.XtraVerticalGrid.Events.CellValueChangedEventHandler(this.vGridControl_LTE_Menu_CellValueChanged);
@@ -2449,6 +2492,7 @@ namespace Configurator
             this.comboBoxEdit_RanOperation.Size = new System.Drawing.Size(125, 20);
             this.comboBoxEdit_RanOperation.StyleController = this.layoutControl_Main;
             this.comboBoxEdit_RanOperation.TabIndex = 9;
+            this.comboBoxEdit_RanOperation.EditValueChanging += new DevExpress.XtraEditors.Controls.ChangingEventHandler(this.comboBoxEdit_RanOperation_EditValueChanging);
             // 
             // comboBoxEdit_AuthenticationKey
             // 
@@ -2557,9 +2601,9 @@ namespace Configurator
             // 
             this.simpleButton1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
             this.simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter;
-            this.simpleButton1.Location = new System.Drawing.Point(19, 550);
+            this.simpleButton1.Location = new System.Drawing.Point(19, 581);
             this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(248, 138);
+            this.simpleButton1.Size = new System.Drawing.Size(261, 94);
             this.simpleButton1.StyleController = this.layoutControl_Main;
             this.simpleButton1.TabIndex = 28;
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
@@ -2591,7 +2635,7 @@ namespace Configurator
             this.simpleLabelItem4});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
-            this.Root.Size = new System.Drawing.Size(913, 718);
+            this.Root.Size = new System.Drawing.Size(944, 718);
             this.Root.TextVisible = false;
             // 
             // layoutControlItem3
@@ -2817,7 +2861,7 @@ namespace Configurator
             this.tab_Main.Location = new System.Drawing.Point(0, 115);
             this.tab_Main.Name = "tab_Main";
             this.tab_Main.SelectedTabPage = this.tabPage_Configurator;
-            this.tab_Main.Size = new System.Drawing.Size(903, 593);
+            this.tab_Main.Size = new System.Drawing.Size(934, 593);
             this.tab_Main.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.tabPage_Configurator,
             this.tabPage_Recovery});
@@ -2830,18 +2874,18 @@ namespace Configurator
             this.emptySpaceItem5,
             this.textEdit_RanOperation,
             this.textEdit_AuthenticationKey,
-            this.emptySpaceItem17,
             this.simpleLabelItem3,
-            this.emptySpaceItem2,
             this.simpleLabelItem2,
             this.layoutControlItem1,
             this.layoutControlItem6,
             this.emptySpaceItem3,
             this.layoutControlItem9,
-            this.emptySpaceItem19});
+            this.emptySpaceItem19,
+            this.emptySpaceItem9,
+            this.emptySpaceItem2});
             this.tabPage_Configurator.Location = new System.Drawing.Point(0, 0);
             this.tabPage_Configurator.Name = "tabPage_Configurator";
-            this.tabPage_Configurator.Size = new System.Drawing.Size(879, 545);
+            this.tabPage_Configurator.Size = new System.Drawing.Size(910, 545);
             this.tabPage_Configurator.Text = "Configurator";
             // 
             // emptySpaceItem1
@@ -2868,7 +2912,7 @@ namespace Configurator
             this.emptySpaceItem5.AllowHotTrack = false;
             this.emptySpaceItem5.Location = new System.Drawing.Point(740, 0);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(139, 52);
+            this.emptySpaceItem5.Size = new System.Drawing.Size(170, 48);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
             // textEdit_RanOperation
@@ -2881,7 +2925,7 @@ namespace Configurator
             this.textEdit_RanOperation.Location = new System.Drawing.Point(0, 24);
             this.textEdit_RanOperation.MinSize = new System.Drawing.Size(154, 24);
             this.textEdit_RanOperation.Name = "textEdit_RanOperation";
-            this.textEdit_RanOperation.Size = new System.Drawing.Size(229, 28);
+            this.textEdit_RanOperation.Size = new System.Drawing.Size(229, 24);
             this.textEdit_RanOperation.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.textEdit_RanOperation.Text = "RAN Operation";
             this.textEdit_RanOperation.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
@@ -2899,24 +2943,13 @@ namespace Configurator
             this.textEdit_AuthenticationKey.Location = new System.Drawing.Point(229, 24);
             this.textEdit_AuthenticationKey.MinSize = new System.Drawing.Size(174, 24);
             this.textEdit_AuthenticationKey.Name = "textEdit_AuthenticationKey";
-            this.textEdit_AuthenticationKey.Size = new System.Drawing.Size(511, 28);
+            this.textEdit_AuthenticationKey.Size = new System.Drawing.Size(511, 24);
             this.textEdit_AuthenticationKey.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.textEdit_AuthenticationKey.Text = "Authentication Key";
             this.textEdit_AuthenticationKey.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
             this.textEdit_AuthenticationKey.TextLocation = DevExpress.Utils.Locations.Left;
             this.textEdit_AuthenticationKey.TextSize = new System.Drawing.Size(120, 14);
             this.textEdit_AuthenticationKey.TextToControlDistance = 0;
-            // 
-            // emptySpaceItem17
-            // 
-            this.emptySpaceItem17.AllowHotTrack = false;
-            this.emptySpaceItem17.Location = new System.Drawing.Point(0, 52);
-            this.emptySpaceItem17.MaxSize = new System.Drawing.Size(0, 10);
-            this.emptySpaceItem17.MinSize = new System.Drawing.Size(10, 10);
-            this.emptySpaceItem17.Name = "emptySpaceItem17";
-            this.emptySpaceItem17.Size = new System.Drawing.Size(879, 10);
-            this.emptySpaceItem17.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpaceItem17.TextSize = new System.Drawing.Size(0, 0);
             // 
             // simpleLabelItem3
             // 
@@ -2929,25 +2962,13 @@ namespace Configurator
             this.simpleLabelItem3.AppearanceItemCaption.Options.UseForeColor = true;
             this.simpleLabelItem3.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem3.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem3.Location = new System.Drawing.Point(0, 62);
-            this.simpleLabelItem3.MaxSize = new System.Drawing.Size(252, 23);
-            this.simpleLabelItem3.MinSize = new System.Drawing.Size(252, 23);
+            this.simpleLabelItem3.Location = new System.Drawing.Point(0, 58);
+            this.simpleLabelItem3.MinSize = new System.Drawing.Size(128, 23);
             this.simpleLabelItem3.Name = "simpleLabelItem3";
-            this.simpleLabelItem3.Size = new System.Drawing.Size(252, 23);
+            this.simpleLabelItem3.Size = new System.Drawing.Size(265, 23);
             this.simpleLabelItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.simpleLabelItem3.Text = "LTE Menu";
             this.simpleLabelItem3.TextSize = new System.Drawing.Size(124, 19);
-            // 
-            // emptySpaceItem2
-            // 
-            this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(252, 62);
-            this.emptySpaceItem2.MaxSize = new System.Drawing.Size(10, 472);
-            this.emptySpaceItem2.MinSize = new System.Drawing.Size(10, 472);
-            this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 472);
-            this.emptySpaceItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // simpleLabelItem2
             // 
@@ -2960,11 +2981,10 @@ namespace Configurator
             this.simpleLabelItem2.AppearanceItemCaption.Options.UseForeColor = true;
             this.simpleLabelItem2.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem2.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem2.Location = new System.Drawing.Point(262, 62);
-            this.simpleLabelItem2.MaxSize = new System.Drawing.Size(605, 23);
-            this.simpleLabelItem2.MinSize = new System.Drawing.Size(605, 23);
+            this.simpleLabelItem2.Location = new System.Drawing.Point(277, 58);
+            this.simpleLabelItem2.MinSize = new System.Drawing.Size(128, 23);
             this.simpleLabelItem2.Name = "simpleLabelItem2";
-            this.simpleLabelItem2.Size = new System.Drawing.Size(617, 23);
+            this.simpleLabelItem2.Size = new System.Drawing.Size(633, 23);
             this.simpleLabelItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.simpleLabelItem2.Text = "NR Menu";
             this.simpleLabelItem2.TextSize = new System.Drawing.Size(124, 19);
@@ -2972,11 +2992,10 @@ namespace Configurator
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.vGridControl_LTE_Menu;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 85);
-            this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 297);
-            this.layoutControlItem1.MinSize = new System.Drawing.Size(104, 297);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 81);
+            this.layoutControlItem1.MinSize = new System.Drawing.Size(104, 24);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(252, 297);
+            this.layoutControlItem1.Size = new System.Drawing.Size(265, 318);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
@@ -2984,10 +3003,10 @@ namespace Configurator
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.vGridControl_NR_Menu;
-            this.layoutControlItem6.Location = new System.Drawing.Point(262, 85);
+            this.layoutControlItem6.Location = new System.Drawing.Point(277, 81);
             this.layoutControlItem6.MinSize = new System.Drawing.Size(104, 24);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(617, 449);
+            this.layoutControlItem6.Size = new System.Drawing.Size(633, 440);
             this.layoutControlItem6.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
@@ -2995,19 +3014,21 @@ namespace Configurator
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 382);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 399);
+            this.emptySpaceItem3.MaxSize = new System.Drawing.Size(265, 24);
+            this.emptySpaceItem3.MinSize = new System.Drawing.Size(265, 24);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(252, 10);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(265, 24);
+            this.emptySpaceItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem9
             // 
             this.layoutControlItem9.Control = this.simpleButton1;
-            this.layoutControlItem9.Location = new System.Drawing.Point(0, 392);
-            this.layoutControlItem9.MaxSize = new System.Drawing.Size(252, 142);
-            this.layoutControlItem9.MinSize = new System.Drawing.Size(252, 142);
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 423);
+            this.layoutControlItem9.MinSize = new System.Drawing.Size(226, 87);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(252, 142);
+            this.layoutControlItem9.Size = new System.Drawing.Size(265, 98);
             this.layoutControlItem9.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem9.TextVisible = false;
@@ -3015,13 +3036,28 @@ namespace Configurator
             // emptySpaceItem19
             // 
             this.emptySpaceItem19.AllowHotTrack = false;
-            this.emptySpaceItem19.Location = new System.Drawing.Point(0, 534);
-            this.emptySpaceItem19.MaxSize = new System.Drawing.Size(0, 11);
-            this.emptySpaceItem19.MinSize = new System.Drawing.Size(10, 11);
+            this.emptySpaceItem19.Location = new System.Drawing.Point(0, 521);
+            this.emptySpaceItem19.MinSize = new System.Drawing.Size(104, 24);
             this.emptySpaceItem19.Name = "emptySpaceItem19";
-            this.emptySpaceItem19.Size = new System.Drawing.Size(879, 11);
+            this.emptySpaceItem19.Size = new System.Drawing.Size(910, 24);
             this.emptySpaceItem19.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.emptySpaceItem19.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem9
+            // 
+            this.emptySpaceItem9.AllowHotTrack = false;
+            this.emptySpaceItem9.Location = new System.Drawing.Point(0, 48);
+            this.emptySpaceItem9.Name = "emptySpaceItem9";
+            this.emptySpaceItem9.Size = new System.Drawing.Size(910, 10);
+            this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.AllowHotTrack = false;
+            this.emptySpaceItem2.Location = new System.Drawing.Point(265, 58);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(12, 463);
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // tabPage_Recovery
             // 
@@ -3031,7 +3067,7 @@ namespace Configurator
             this.emptySpaceItem7});
             this.tabPage_Recovery.Location = new System.Drawing.Point(0, 0);
             this.tabPage_Recovery.Name = "tabPage_Recovery";
-            this.tabPage_Recovery.Size = new System.Drawing.Size(879, 545);
+            this.tabPage_Recovery.Size = new System.Drawing.Size(910, 545);
             this.tabPage_Recovery.Text = "Recovery";
             // 
             // layoutControlItem4
@@ -3039,16 +3075,16 @@ namespace Configurator
             this.layoutControlItem4.Control = this.ucRecovery1;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(569, 324);
+            this.layoutControlItem4.Size = new System.Drawing.Size(589, 324);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(569, 0);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(589, 0);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(310, 545);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(321, 545);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem7
@@ -3056,7 +3092,7 @@ namespace Configurator
             this.emptySpaceItem7.AllowHotTrack = false;
             this.emptySpaceItem7.Location = new System.Drawing.Point(0, 324);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(569, 221);
+            this.emptySpaceItem7.Size = new System.Drawing.Size(589, 221);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem4
@@ -3064,7 +3100,7 @@ namespace Configurator
             this.emptySpaceItem4.AllowHotTrack = false;
             this.emptySpaceItem4.Location = new System.Drawing.Point(891, 0);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(12, 115);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(43, 115);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // simpleLabelItem4
@@ -3107,13 +3143,27 @@ namespace Configurator
             this.toolStripMenuItem2.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem2.Text = "Remove";
             // 
+            // row_NR_LTEFrequencyBandListFilter
+            // 
+            this.row_NR_LTEFrequencyBandListFilter.Name = "row_NR_LTEFrequencyBandListFilter";
+            this.row_NR_LTEFrequencyBandListFilter.Properties.Caption = "LTE-Frequency Band List Filter";
+            this.row_NR_LTEFrequencyBandListFilter.Properties.RowEdit = this.riComboBox_LTE_FreqBandListFilter;
+            // 
+            // riComboBox_LTE_FreqBandListFilter
+            // 
+            this.riComboBox_LTE_FreqBandListFilter.AutoHeight = false;
+            this.riComboBox_LTE_FreqBandListFilter.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.riComboBox_LTE_FreqBandListFilter.Name = "riComboBox_LTE_FreqBandListFilter";
+            this.riComboBox_LTE_FreqBandListFilter.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            // 
             // Form_main
             // 
             this.Appearance.BackColor = System.Drawing.Color.WhiteSmoke;
             this.Appearance.Options.UseBackColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(913, 718);
+            this.ClientSize = new System.Drawing.Size(944, 718);
             this.Controls.Add(this.layoutControl_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("Form_main.IconOptions.Icon")));
@@ -3202,6 +3252,8 @@ namespace Configurator
             ((System.ComponentModel.ISupportInitialize)(this.riToggleSwitch_NR_CsiRs2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riToggleSwitch_NR_CsiRs3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riToggleSwitch_NR_CsiRs4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riComboBox_PDUSessEstab)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riComboBox_NR_FreqBandListFilter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl_LTE_Menu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_ChBW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_TPCPattern)).EndInit();
@@ -3244,15 +3296,15 @@ namespace Configurator
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit_RanOperation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit_AuthenticationKey)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPage_Recovery)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
@@ -3260,6 +3312,7 @@ namespace Configurator
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem4)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_FreqBandListFilter)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3518,9 +3571,7 @@ namespace Configurator
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraLayout.LayoutControlItem textEdit_RanOperation;
         private DevExpress.XtraLayout.LayoutControlItem textEdit_AuthenticationKey;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem17;
         private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem3;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
@@ -3533,6 +3584,14 @@ namespace Configurator
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox riComboBox_PDUSessEstab;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox riComboBox_NR_FreqBandListFilter;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow row_NR_PDUSessionEstablishment;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow row_NR_FrequencyBandListFilter;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem9;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox riComboBox_LTE_FreqBandListFilter;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow row_NR_LTEFrequencyBandListFilter;
     }
 }
 
