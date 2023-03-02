@@ -81,6 +81,7 @@ namespace RecoveryTool
             // check_Reboot_8821
             // 
             this.check_Reboot_8821.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.check_Reboot_8821.ForeColor = System.Drawing.Color.Black;
             this.check_Reboot_8821.Location = new System.Drawing.Point(3, 203);
             this.check_Reboot_8821.Name = "check_Reboot_8821";
             this.check_Reboot_8821.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
@@ -94,7 +95,7 @@ namespace RecoveryTool
             this.text_MeasSw.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.text_MeasSw.Location = new System.Drawing.Point(153, 279);
             this.text_MeasSw.Name = "text_MeasSw";
-            this.text_MeasSw.Size = new System.Drawing.Size(46, 20);
+            this.text_MeasSw.Size = new System.Drawing.Size(97, 20);
             this.text_MeasSw.TabIndex = 4;
             this.text_MeasSw.Text = "120";
             this.text_MeasSw.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -132,10 +133,13 @@ namespace RecoveryTool
             // 
             this.lcItem_MeasSw.Control = this.text_MeasSw;
             this.lcItem_MeasSw.Location = new System.Drawing.Point(0, 276);
+            this.lcItem_MeasSw.MaxSize = new System.Drawing.Size(251, 24);
+            this.lcItem_MeasSw.MinSize = new System.Drawing.Size(251, 24);
             this.lcItem_MeasSw.Name = "lcItem_MeasSw";
             this.lcItem_MeasSw.OptionsTableLayoutItem.RowIndex = 4;
             this.lcItem_MeasSw.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 2, 2, 2);
-            this.lcItem_MeasSw.Size = new System.Drawing.Size(200, 24);
+            this.lcItem_MeasSw.Size = new System.Drawing.Size(251, 24);
+            this.lcItem_MeasSw.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.lcItem_MeasSw.Text = "MX10A Starting Time (s)";
             this.lcItem_MeasSw.TextSize = new System.Drawing.Size(135, 14);
             // 
@@ -195,12 +199,9 @@ namespace RecoveryTool
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(200, 276);
-            this.emptySpaceItem2.MaxSize = new System.Drawing.Size(160, 0);
-            this.emptySpaceItem2.MinSize = new System.Drawing.Size(160, 10);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(251, 276);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(160, 24);
-            this.emptySpaceItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.emptySpaceItem2.Size = new System.Drawing.Size(109, 24);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // UcRecovery

@@ -21,6 +21,8 @@ namespace RecoveryTool
 
             UpdateControlEnable(false);
             label_Status.Text = "Disconnected";
+
+            new Logger();
         }
 
         public void SetInst(string _addr)
@@ -92,6 +94,7 @@ namespace RecoveryTool
             btn_Recover_S.Enabled = enable;
             btn_Recover_H.Enabled = enable;
             check_Reboot_8821.Enabled = enable;
+            text_MeasSw.Enabled = enable;
         }
 
         private void RunSoftRecover()

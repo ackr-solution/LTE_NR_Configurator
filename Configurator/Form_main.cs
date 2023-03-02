@@ -1,31 +1,26 @@
 ﻿using System;
 using System.IO;
-using System.Collections;
 using System.Reflection;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
-using DevExpress.Utils;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraVerticalGrid.Rows;
 using DevExpress.XtraVerticalGrid;
-using System.Xml.Serialization;
 using AclrLib_BandInfo;
 using DevExpress.XtraSplashScreen;
 using Configurator.Dialog;
 using NationalInstruments.VisaNS;
 using System.Threading;
-
+using DevExpress.XtraLayout.Utils;
+using System.Xml.Serialization;
 
 namespace Configurator
 {
-    public partial class Form_main : DevExpress.XtraEditors.XtraForm
+    public partial class Form_main : XtraForm
     {
         #region variables
 
@@ -70,7 +65,35 @@ namespace Configurator
             InitializeConfig();
             InitializeConfigValue();
 
+            GetVersion();
             tab_Main.SelectedTabPage = tabPage_Configurator;
+        }
+
+        private void GetVersion()
+        {
+            Version ver = Assembly.GetExecutingAssembly().GetName().Version;
+            this.Text = string.Format("RF Configurator v{0}.{1}.{2}", ver.Major, ver.Minor, ver.Build);
+            //SendLogMessage(this.Text);
+#if !DEBUG
+            GetVersion(@"lib\AckrLib_Common.dll");
+            GetVersion(@"lib\AckrLib_BandInfo.dll");
+            GetVersion(@"lib\RecoveryTool.dll");
+            GetVersion(@"Compare_tool.exe");
+#endif
+        }
+
+        private void GetVersion(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                Version ver = Assembly.LoadFrom(fileName).GetName().Version;
+                //SendLogMessage(string.Format("{0} v{1}.{2}.{3}", fileName, ver.Major, ver.Minor, ver.Build));
+            }
+            else
+            {
+                //SendLogMessage(fileName + " file does not exist");
+                //Form_Main_FormClosing(null, null);
+            }
         }
 
         #region Method
@@ -137,6 +160,7 @@ namespace Configurator
                 new string[] { "10MHz", "20MHz" }
             };
         }
+
         private void InitializeConfigValue()
         {
             //is_init = true;
@@ -162,7 +186,6 @@ namespace Configurator
             }
             comboBoxEdit_DefaultSetting.SelectedIndex = 0;
 
-
             //set initial parameter 
             InputValue inputInfo = Parsing_XmlInfo(comboBoxEdit_DefaultSetting.EditValue.ToString());
             SetConfiguratorParam_by_InputValue(inputInfo);
@@ -172,6 +195,7 @@ namespace Configurator
             Check_NR_SpinEdit_MinMax_StartRB();
             //is_init = false;
         }
+
         private void SetNRmenuByNumSCC(int cnt)
         {
             //is_init = true;
@@ -211,6 +235,7 @@ namespace Configurator
         }
 
         #endregion
+
         private void SetConfiguratorParam_by_InputRange()
         {
             string filepath = Environment.CurrentDirectory + "\\Setting_Range.xml";
@@ -288,6 +313,7 @@ namespace Configurator
                 }
             }
         }
+
         private void Check_NR_SpinEdit_MinMax_StartRB()
         {
             for (int i = 0; i < vGridControl_NR_Menu.Rows.Count; i++)
@@ -411,7 +437,6 @@ namespace Configurator
 
         private void SetConfiguratorParam_by_InputValue(InputValue inputInfo)
         {
-
             //cur_NR_OperBand_value = Enumerable.Repeat<string>(inputInfo.LTE_Operation_Band, 4).ToArray<string>();
             cur_NR_OperBand_value = inputInfo.NR_Operation_Band;
             cur_NR_SCS_value = new string[] { "", "", "", "" };
@@ -479,7 +504,7 @@ namespace Configurator
                         row.PropertiesCollection[j].Value = inputInfo.NR_Channel_BW.Length > j ? inputInfo.NR_Channel_BW[j] : null;
                         cur_NR_Bandwidth_value[j] = inputInfo.NR_Channel_BW[j];
                     }
-                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_TpcPattern") && inputInfo.NR_TPC_Pattern != null )
+                    else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_TpcPattern") && inputInfo.NR_TPC_Pattern != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_TPC_Pattern.Length > j ? inputInfo.NR_TPC_Pattern[j] : null;
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_DL_NumOfRB") && inputInfo.NR_DL_Number_Of_RB != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_DL_Number_Of_RB.Length > j ? inputInfo.NR_DL_Number_Of_RB[j] : null;
@@ -524,10 +549,10 @@ namespace Configurator
 
                     SetNRmenuByNumSCC(int.Parse(inputInfo.NR_Number_Of_DL_SCC));
                     Check_NR_SpinEdit_MinMax_StartRB();
-
                 }
             }
         }
+
         private void vGridControl_NR_Menu_CellValueChanging(object sender, DevExpress.XtraVerticalGrid.Events.CellValueChangedEventArgs e)
         {
             //if (e.Row.Name.ToString() == "row_NR_NumOfDlScc")
@@ -559,7 +584,6 @@ namespace Configurator
         {
             Set_DefaultSetting(e.NewValue.ToString());
         }
-
 
         private void Set_DefaultSetting(string name)
         {
@@ -736,7 +760,6 @@ namespace Configurator
             //comboBoxEdit_DefaultSetting.It
             comboBoxEdit_DefaultSetting.Properties.Items.Add(msg);
             comboBoxEdit_DefaultSetting.Text = msg;
-
         }
 
         private void vGridControl_NR_Menu_CellValueChanged(object sender, DevExpress.XtraVerticalGrid.Events.CellValueChangedEventArgs e)
@@ -803,7 +826,7 @@ namespace Configurator
                 }
             }
 
-                VGridControl vGrid = sender as VGridControl;
+            VGridControl vGrid = sender as VGridControl;
             string band = null, scs = null, bw = null;
 
             if(e.Row == mrow_NR_OperationBW || e.Row == mrow_NR_UL_Waveform)
@@ -1013,7 +1036,6 @@ namespace Configurator
                 Check_NR_SpinEdit_MinMax_StartRB();
             }
 
-
             else if(e.Row == mrow_NR_DL_MCSTable)
             {
                 for (int i = 0; i<mrow_NR_DL_MCSTable.PropertiesCollection.Count;i++)
@@ -1059,6 +1081,7 @@ namespace Configurator
                 }
             }
         }
+
         private void simpleButton_InitializeParam_Click(object sender, EventArgs e)
         {
             Set_DefaultSetting("Initial");
@@ -1082,6 +1105,7 @@ namespace Configurator
             }
             return bwList;
         }
+
         private void UpdateChannel_Nr(int lmh, string band, string scs, string bw, int scc_num)
         {
             try
@@ -1265,6 +1289,7 @@ namespace Configurator
                 }
             }
         }
+
         private void UpdateChannel_Lte(int lmh, string band, string bw)
         {
             try
@@ -1302,6 +1327,7 @@ namespace Configurator
                 }));
             }
         }
+
         private bool checkLteParameter()
         {
             int i;
@@ -1367,6 +1393,7 @@ namespace Configurator
             }
             return true;
         }
+
         private void applyLTEParameterToInst()
         {
             List<string> command_list = new List<string>();
@@ -1502,7 +1529,6 @@ namespace Configurator
             query_list.Add("DLIMCS_ALLSF?\n");
             dict_QueryAns.Add("DLIMCS_ALLSF?\n", tmp);
 
-
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_OulputLvl, 0).ToString();
             float nf = float.Parse(tmp);
             tmp = Math.Round(nf, 1).ToString();
@@ -1530,7 +1556,6 @@ namespace Configurator
             Console.WriteLine("Elapsed time for LTE setting is {0} ms", stopwatch.ElapsedMilliseconds);
             //XtraMessageBox.Show(string.Format("LTE Command Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds));
         }
-
 
         private void applyNrParameterToInst(string mode)
         {
@@ -1789,16 +1814,12 @@ namespace Configurator
                     command_list.Add(string.Format("MAXULPWR {0},{1} \n", ccName, tmp));
                     query_list.Add(string.Format("MAXULPWR? {0}\n", ccName));
                     dict_QueryAns.Add(string.Format("MAXULPWR? {0}\n", ccName), tmp);
-
                 }
-
 
                 tmp = mrow_NR_UlCenterCh.PropertiesCollection[i].Value.ToString();
                 command_list.Add(string.Format("ULCHAN {0},{1} \n", ccName, tmp));
                 query_list.Add(string.Format("ULCHAN? {0}\n", ccName));
                 dict_QueryAns.Add(string.Format("ULCHAN? {0}\n", ccName), tmp);
-
-
 
                 if (duplex == "TDD")
                 {
@@ -1938,9 +1959,7 @@ namespace Configurator
                         dict_QueryAns.Add(string.Format("CSIRSNRB? {0},3\n", ccName), "52");
 
                     }
-
                 }
-
                 if (mode == "TRP" && i == 0)
                 {
                     command_list.Add(string.Format("OCNG OFF\n"));              // OCNG
@@ -2051,8 +2070,6 @@ namespace Configurator
             else NrMbSession.Write("REM_DEST 8821C\n");
 
             List<string> requery_list = new List<string>();
-
-
             foreach (string command in query_list)
             {
                 NrMbSession.Write(command);
@@ -2081,7 +2098,6 @@ namespace Configurator
                     {
                         new_command = new_command_ary[0];
                     }
-
                 }
                 //Console.WriteLine(string.Format("\nquery = {0} , command = {1}",command,  new_command));
                 if (responseString != correct_value + "\n")
@@ -2094,6 +2110,7 @@ namespace Configurator
             }
             if (requery_list.Count != 0) sendQueryLine(requery_list, mode, count + 1);
         }
+
         private void sendCommandLine(List<string> command_list, string mode)
         {
             try
@@ -2134,9 +2151,6 @@ namespace Configurator
             }
             //sendQueryLine("NR");
         }
-
-   
-
 
         private void simpleButton_MT8000A_Conn_Click(object sender, EventArgs e)
         {
@@ -2290,31 +2304,23 @@ namespace Configurator
             if (e.Page == tabPage_Configurator)
             {
                 UpdateControlEnable(true);
-                this.Width = 915;
-                this.Height = 750;
+                this.Width = 913;
+                this.Height = 825;
             }
             else
             {
                 UpdateControlEnable(false);
-                this.Width = 610;
-                this.Height = 550;
+                this.Width = 500;
+                this.Height = 500;
             }
         }
 
         private void UpdateControlEnable(bool enable)
         {
-            simpleLabelItem5.Enabled = enable;  // default setting
-            layoutControlItem_DefaultSetting.Enabled = enable;  // comboBoxEdit_DefaultSetting
-            layoutControlItem2.Enabled = enable;    // add
-            layoutControlItem5.Enabled = enable;    // remove
-            layoutControlItem7.Enabled = enable;    // initialize
-
-            simpleLabelItem1.Enabled = enable;  // measurement type
-            layoutControlItem11.Enabled = enable;   // trp
-            layoutControlItem12.Enabled = enable;   // tis
-
-            simpleLabelItem4.Enabled = enable;  // external tool
-            layoutControlItem8.Enabled = enable;    // compare
+            LayoutVisibility visibility = enable ? LayoutVisibility.Always : LayoutVisibility.Never;
+            lcGroup_DefSetting.Visibility = visibility;
+            lcGroup_MeasType.Visibility = visibility;
+            lcGroup_ExtTool.Visibility = visibility;
         }
 
         private void comboBoxEdit_RanOperation_EditValueChanging(object sender, DevExpress.XtraEditors.Controls.ChangingEventArgs e)
@@ -2334,7 +2340,6 @@ namespace Configurator
             }
         }
     }
-
 
     public class InputValue
     {
@@ -2420,5 +2425,3 @@ namespace Configurator
         public string[] NR_LteFreqBandListFilter;
     }
 }
-
-

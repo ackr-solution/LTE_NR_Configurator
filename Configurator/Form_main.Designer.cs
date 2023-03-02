@@ -33,6 +33,7 @@ namespace Configurator
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_main));
             this.simpleButton_InitializeParam = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControl_Main = new DevExpress.XtraLayout.LayoutControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.ucRecovery1 = new RecoveryTool.UcRecovery();
             this.vGridControl_NR_Menu = new DevExpress.XtraVerticalGrid.VGridControl();
             this.riComboBox_NumOfDL_SCC = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
@@ -116,6 +117,7 @@ namespace Configurator
             this.riToggleSwitch_NR_CsiRs4 = new DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch();
             this.riComboBox_PDUSessEstab = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.riComboBox_NR_FreqBandListFilter = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.riComboBox_LTE_FreqBandListFilter = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.row_NR_NumOfDlScc = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.mrow_NR_ColName = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
             this.mrow_NR_ColName1 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
@@ -221,6 +223,7 @@ namespace Configurator
             this.row_NR_Mnc = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.row_NR_PDUSessionEstablishment = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.row_NR_FrequencyBandListFilter = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.row_NR_LTEFrequencyBandListFilter = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.vGridControl_LTE_Menu = new DevExpress.XtraVerticalGrid.VGridControl();
             this.riComboBox_LTE_ChBW = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.riComboBox_LTE_TPCPattern = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
@@ -262,49 +265,41 @@ namespace Configurator
             this.simpleButton_Tis = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton_Trp = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton_CompareTool = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.textEditrem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.simpleLabelItem1 = new DevExpress.XtraLayout.SimpleLabelItem();
-            this.layoutControlItem_DefaultSetting = new DevExpress.XtraLayout.LayoutControlItem();
-            this.simpleLabelItem_8000A_ConnStatus = new DevExpress.XtraLayout.SimpleLabelItem();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.RemoteAddress = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.simpleLabelItem5 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.tab_Main = new DevExpress.XtraLayout.TabbedControlGroup();
             this.tabPage_Configurator = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.textEdit_RanOperation = new DevExpress.XtraLayout.LayoutControlItem();
             this.textEdit_AuthenticationKey = new DevExpress.XtraLayout.LayoutControlItem();
-            this.simpleLabelItem3 = new DevExpress.XtraLayout.SimpleLabelItem();
-            this.simpleLabelItem2 = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem19 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.tabPage_Recovery = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.simpleLabelItem4 = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lcGroup_Remote = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.simpleLabelItem_8000A_ConnStatus = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.textEditrem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcGroup_MeasType = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcGroup_ExtTool = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcGroup_DefSetting = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem_DefaultSetting = new DevExpress.XtraLayout.LayoutControlItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.row_NR_LTEFrequencyBandListFilter = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.riComboBox_LTE_FreqBandListFilter = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl_Main)).BeginInit();
             this.layoutControl_Main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl_NR_Menu)).BeginInit();
@@ -389,6 +384,7 @@ namespace Configurator
             ((System.ComponentModel.ISupportInitialize)(this.riToggleSwitch_NR_CsiRs4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_PDUSessEstab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_NR_FreqBandListFilter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_FreqBandListFilter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl_LTE_Menu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_ChBW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_TPCPattern)).BeginInit();
@@ -410,51 +406,45 @@ namespace Configurator
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_AuthenticationKey.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_DefaultSetting.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEditrem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem_DefaultSetting)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem_8000A_ConnStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RemoteAddress)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tab_Main)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPage_Configurator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit_RanOperation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit_AuthenticationKey)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPage_Recovery)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcGroup_Remote)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem_8000A_ConnStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditrem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcGroup_MeasType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcGroup_ExtTool)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcGroup_DefSetting)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem_DefaultSetting)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_FreqBandListFilter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             this.SuspendLayout();
             // 
             // simpleButton_InitializeParam
             // 
-            this.simpleButton_InitializeParam.Location = new System.Drawing.Point(475, 93);
+            this.simpleButton_InitializeParam.Location = new System.Drawing.Point(465, 99);
             this.simpleButton_InitializeParam.Name = "simpleButton_InitializeParam";
-            this.simpleButton_InitializeParam.Size = new System.Drawing.Size(109, 22);
+            this.simpleButton_InitializeParam.Size = new System.Drawing.Size(111, 22);
             this.simpleButton_InitializeParam.StyleController = this.layoutControl_Main;
             this.simpleButton_InitializeParam.TabIndex = 26;
             this.simpleButton_InitializeParam.Text = "Initialize Parameter";
@@ -463,6 +453,7 @@ namespace Configurator
             // layoutControl_Main
             // 
             this.layoutControl_Main.BackColor = System.Drawing.Color.Transparent;
+            this.layoutControl_Main.Controls.Add(this.labelControl1);
             this.layoutControl_Main.Controls.Add(this.ucRecovery1);
             this.layoutControl_Main.Controls.Add(this.vGridControl_NR_Menu);
             this.layoutControl_Main.Controls.Add(this.vGridControl_LTE_Menu);
@@ -477,23 +468,33 @@ namespace Configurator
             this.layoutControl_Main.Controls.Add(this.simpleButton_Trp);
             this.layoutControl_Main.Controls.Add(this.simpleButton_InitializeParam);
             this.layoutControl_Main.Controls.Add(this.simpleButton_CompareTool);
-            this.layoutControl_Main.Controls.Add(this.simpleButton1);
             this.layoutControl_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl_Main.ForeColor = System.Drawing.Color.Transparent;
             this.layoutControl_Main.Location = new System.Drawing.Point(0, 0);
             this.layoutControl_Main.Name = "layoutControl_Main";
             this.layoutControl_Main.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1270, 354, 650, 400);
             this.layoutControl_Main.Root = this.Root;
-            this.layoutControl_Main.Size = new System.Drawing.Size(944, 718);
+            this.layoutControl_Main.Size = new System.Drawing.Size(928, 793);
             this.layoutControl_Main.TabIndex = 0;
             this.layoutControl_Main.Text = "layoutControl1";
             // 
+            // labelControl1
+            // 
+            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("labelControl1.ImageOptions.Image")));
+            this.labelControl1.Location = new System.Drawing.Point(19, 678);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(288, 96);
+            this.labelControl1.StyleController = this.layoutControl_Main;
+            this.labelControl1.TabIndex = 31;
+            // 
             // ucRecovery1
             // 
-            this.ucRecovery1.Location = new System.Drawing.Point(19, 158);
-            this.ucRecovery1.MinimumSize = new System.Drawing.Size(170, 300);
+            this.ucRecovery1.Location = new System.Drawing.Point(19, 169);
+            this.ucRecovery1.MaximumSize = new System.Drawing.Size(0, 320);
+            this.ucRecovery1.MinimumSize = new System.Drawing.Size(170, 320);
             this.ucRecovery1.Name = "ucRecovery1";
-            this.ucRecovery1.Size = new System.Drawing.Size(585, 320);
+            this.ucRecovery1.Size = new System.Drawing.Size(890, 320);
             this.ucRecovery1.TabIndex = 30;
             // 
             // vGridControl_NR_Menu
@@ -529,8 +530,6 @@ namespace Configurator
             this.vGridControl_NR_Menu.Appearance.ReadOnlyRow.Options.UseBackColor = true;
             this.vGridControl_NR_Menu.Appearance.ReadOnlyRow.Options.UseBorderColor = true;
             this.vGridControl_NR_Menu.Appearance.ReadOnlyRow.Options.UseForeColor = true;
-            this.vGridControl_NR_Menu.Appearance.RecordValue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.vGridControl_NR_Menu.Appearance.RecordValue.Options.UseBackColor = true;
             this.vGridControl_NR_Menu.Appearance.RowHeaderPanel.BackColor = System.Drawing.Color.Gainsboro;
             this.vGridControl_NR_Menu.Appearance.RowHeaderPanel.Options.UseBackColor = true;
             this.vGridControl_NR_Menu.Appearance.SelectedRow.BackColor = System.Drawing.Color.RoyalBlue;
@@ -544,9 +543,10 @@ namespace Configurator
             this.vGridControl_NR_Menu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.vGridControl_NR_Menu.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.vGridControl_NR_Menu.CustomizationFormBounds = new System.Drawing.Rectangle(547, 191, 235, 275);
-            this.vGridControl_NR_Menu.Location = new System.Drawing.Point(296, 239);
+            this.vGridControl_NR_Menu.LayoutStyle = DevExpress.XtraVerticalGrid.LayoutViewStyle.SingleRecordView;
+            this.vGridControl_NR_Menu.Location = new System.Drawing.Point(329, 259);
             this.vGridControl_NR_Menu.Name = "vGridControl_NR_Menu";
-            this.vGridControl_NR_Menu.RecordWidth = 458;
+            this.vGridControl_NR_Menu.RecordWidth = 132;
             this.vGridControl_NR_Menu.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.riComboBox_NumOfDL_SCC,
             this.riComboBox_NR_UlCenterCh1,
@@ -630,7 +630,7 @@ namespace Configurator
             this.riComboBox_PDUSessEstab,
             this.riComboBox_NR_FreqBandListFilter,
             this.riComboBox_LTE_FreqBandListFilter});
-            this.vGridControl_NR_Menu.RowHeaderWidth = 150;
+            this.vGridControl_NR_Menu.RowHeaderWidth = 68;
             this.vGridControl_NR_Menu.Rows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
             this.row_NR_NumOfDlScc,
             this.mrow_NR_ColName,
@@ -658,7 +658,7 @@ namespace Configurator
             this.row_NR_PDUSessionEstablishment,
             this.row_NR_FrequencyBandListFilter,
             this.row_NR_LTEFrequencyBandListFilter});
-            this.vGridControl_NR_Menu.Size = new System.Drawing.Size(629, 436);
+            this.vGridControl_NR_Menu.Size = new System.Drawing.Size(572, 507);
             this.vGridControl_NR_Menu.TabIndex = 1;
             this.vGridControl_NR_Menu.RecordCellStyle += new DevExpress.XtraVerticalGrid.Events.GetCustomRowCellStyleEventHandler(this.vGridControl_NR_Menu_RecordCellStyle);
             this.vGridControl_NR_Menu.CellValueChanging += new DevExpress.XtraVerticalGrid.Events.CellValueChangedEventHandler(this.vGridControl_NR_Menu_CellValueChanging);
@@ -1397,6 +1397,14 @@ namespace Configurator
             this.riComboBox_NR_FreqBandListFilter.Name = "riComboBox_NR_FreqBandListFilter";
             this.riComboBox_NR_FreqBandListFilter.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             // 
+            // riComboBox_LTE_FreqBandListFilter
+            // 
+            this.riComboBox_LTE_FreqBandListFilter.AutoHeight = false;
+            this.riComboBox_LTE_FreqBandListFilter.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.riComboBox_LTE_FreqBandListFilter.Name = "riComboBox_LTE_FreqBandListFilter";
+            this.riComboBox_LTE_FreqBandListFilter.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            // 
             // row_NR_NumOfDlScc
             // 
             this.row_NR_NumOfDlScc.Height = 18;
@@ -2118,6 +2126,12 @@ namespace Configurator
             this.row_NR_FrequencyBandListFilter.Properties.Caption = "NR-Frequency Band List Filter";
             this.row_NR_FrequencyBandListFilter.Properties.RowEdit = this.riComboBox_NR_FreqBandListFilter;
             // 
+            // row_NR_LTEFrequencyBandListFilter
+            // 
+            this.row_NR_LTEFrequencyBandListFilter.Name = "row_NR_LTEFrequencyBandListFilter";
+            this.row_NR_LTEFrequencyBandListFilter.Properties.Caption = "LTE-Frequency Band List Filter";
+            this.row_NR_LTEFrequencyBandListFilter.Properties.RowEdit = this.riComboBox_LTE_FreqBandListFilter;
+            // 
             // vGridControl_LTE_Menu
             // 
             this.vGridControl_LTE_Menu.Appearance.FocusedCell.BackColor = System.Drawing.Color.Yellow;
@@ -2133,8 +2147,9 @@ namespace Configurator
             this.vGridControl_LTE_Menu.Appearance.VertLine.BackColor = System.Drawing.Color.Gray;
             this.vGridControl_LTE_Menu.Appearance.VertLine.Options.UseBackColor = true;
             this.vGridControl_LTE_Menu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Style3D;
-            this.vGridControl_LTE_Menu.Cursor = System.Windows.Forms.Cursors.Default;
-            this.vGridControl_LTE_Menu.Location = new System.Drawing.Point(19, 239);
+            this.vGridControl_LTE_Menu.Cursor = System.Windows.Forms.Cursors.SizeNS;
+            this.vGridControl_LTE_Menu.LayoutStyle = DevExpress.XtraVerticalGrid.LayoutViewStyle.SingleRecordView;
+            this.vGridControl_LTE_Menu.Location = new System.Drawing.Point(27, 259);
             this.vGridControl_LTE_Menu.Name = "vGridControl_LTE_Menu";
             this.vGridControl_LTE_Menu.RecordWidth = 87;
             this.vGridControl_LTE_Menu.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -2153,7 +2168,7 @@ namespace Configurator
             this.riSpinEdit_LTE_UlNumOfRB,
             this.riSpinEdit_LTE_UlStartRb,
             this.riSpinEdit_LTE_DlStartRb});
-            this.vGridControl_LTE_Menu.RowHeaderWidth = 167;
+            this.vGridControl_LTE_Menu.RowHeaderWidth = 113;
             this.vGridControl_LTE_Menu.Rows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
             this.row_Lte_OulputLvl,
             this.row_Lte_InputLvl,
@@ -2170,7 +2185,7 @@ namespace Configurator
             this.row_Lte_DLStartRb,
             this.row_Lte_DLMcsTable,
             this.row_Lte_DLMcsIndex});
-            this.vGridControl_LTE_Menu.Size = new System.Drawing.Size(261, 314);
+            this.vGridControl_LTE_Menu.Size = new System.Drawing.Size(272, 292);
             this.vGridControl_LTE_Menu.TabIndex = 1;
             this.vGridControl_LTE_Menu.CellValueChanging += new DevExpress.XtraVerticalGrid.Events.CellValueChangedEventHandler(this.vGridControl_LTE_Menu_CellValueChanging);
             this.vGridControl_LTE_Menu.CellValueChanged += new DevExpress.XtraVerticalGrid.Events.CellValueChangedEventHandler(this.vGridControl_LTE_Menu_CellValueChanged);
@@ -2414,6 +2429,7 @@ namespace Configurator
             // 
             this.row_Lte_ULStartRb.AppearanceCell.Options.UseTextOptions = true;
             this.row_Lte_ULStartRb.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.row_Lte_ULStartRb.Height = 20;
             this.row_Lte_ULStartRb.Name = "row_Lte_ULStartRb";
             this.row_Lte_ULStartRb.Properties.Caption = "UL Starting RB";
             this.row_Lte_ULStartRb.Properties.RowEdit = this.riSpinEdit_LTE_UlStartRb;
@@ -2472,46 +2488,49 @@ namespace Configurator
             // textEdit_RemoteAddr_MT8000A
             // 
             this.textEdit_RemoteAddr_MT8000A.EditValue = "127.0.0.1";
-            this.textEdit_RemoteAddr_MT8000A.Location = new System.Drawing.Point(86, 37);
+            this.textEdit_RemoteAddr_MT8000A.Location = new System.Drawing.Point(136, 37);
             this.textEdit_RemoteAddr_MT8000A.Name = "textEdit_RemoteAddr_MT8000A";
             this.textEdit_RemoteAddr_MT8000A.Properties.Appearance.Options.UseTextOptions = true;
             this.textEdit_RemoteAddr_MT8000A.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.textEdit_RemoteAddr_MT8000A.Size = new System.Drawing.Size(231, 20);
+            this.textEdit_RemoteAddr_MT8000A.Properties.BeepOnError = false;
+            this.textEdit_RemoteAddr_MT8000A.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.SimpleMaskManager));
+            this.textEdit_RemoteAddr_MT8000A.Properties.MaskSettings.Set("mask", "###.###.###.###");
+            this.textEdit_RemoteAddr_MT8000A.Size = new System.Drawing.Size(180, 20);
             this.textEdit_RemoteAddr_MT8000A.StyleController = this.layoutControl_Main;
             this.textEdit_RemoteAddr_MT8000A.TabIndex = 7;
             // 
             // comboBoxEdit_RanOperation
             // 
-            this.comboBoxEdit_RanOperation.Location = new System.Drawing.Point(119, 182);
+            this.comboBoxEdit_RanOperation.Location = new System.Drawing.Point(148, 198);
             this.comboBoxEdit_RanOperation.Name = "comboBoxEdit_RanOperation";
             this.comboBoxEdit_RanOperation.Properties.Appearance.Options.UseTextOptions = true;
             this.comboBoxEdit_RanOperation.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.comboBoxEdit_RanOperation.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.comboBoxEdit_RanOperation.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.comboBoxEdit_RanOperation.Size = new System.Drawing.Size(125, 20);
+            this.comboBoxEdit_RanOperation.Size = new System.Drawing.Size(161, 20);
             this.comboBoxEdit_RanOperation.StyleController = this.layoutControl_Main;
             this.comboBoxEdit_RanOperation.TabIndex = 9;
             this.comboBoxEdit_RanOperation.EditValueChanging += new DevExpress.XtraEditors.Controls.ChangingEventHandler(this.comboBoxEdit_RanOperation_EditValueChanging);
             // 
             // comboBoxEdit_AuthenticationKey
             // 
-            this.comboBoxEdit_AuthenticationKey.Location = new System.Drawing.Point(368, 182);
+            this.comboBoxEdit_AuthenticationKey.Location = new System.Drawing.Point(444, 198);
             this.comboBoxEdit_AuthenticationKey.Name = "comboBoxEdit_AuthenticationKey";
             this.comboBoxEdit_AuthenticationKey.Properties.Appearance.Options.UseTextOptions = true;
             this.comboBoxEdit_AuthenticationKey.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.comboBoxEdit_AuthenticationKey.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.comboBoxEdit_AuthenticationKey.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.comboBoxEdit_AuthenticationKey.Size = new System.Drawing.Size(387, 20);
+            this.comboBoxEdit_AuthenticationKey.Size = new System.Drawing.Size(309, 20);
             this.comboBoxEdit_AuthenticationKey.StyleController = this.layoutControl_Main;
             this.comboBoxEdit_AuthenticationKey.TabIndex = 10;
             // 
             // simpleButton_MT8000A_Conn
             // 
-            this.simpleButton_MT8000A_Conn.Location = new System.Drawing.Point(321, 37);
+            this.simpleButton_MT8000A_Conn.Location = new System.Drawing.Point(320, 36);
             this.simpleButton_MT8000A_Conn.Name = "simpleButton_MT8000A_Conn";
-            this.simpleButton_MT8000A_Conn.Size = new System.Drawing.Size(108, 22);
+            this.simpleButton_MT8000A_Conn.Size = new System.Drawing.Size(105, 22);
             this.simpleButton_MT8000A_Conn.StyleController = this.layoutControl_Main;
             this.simpleButton_MT8000A_Conn.TabIndex = 15;
             this.simpleButton_MT8000A_Conn.Text = "Connect";
@@ -2519,23 +2538,23 @@ namespace Configurator
             // 
             // comboBoxEdit_DefaultSetting
             // 
-            this.comboBoxEdit_DefaultSetting.Location = new System.Drawing.Point(7, 93);
+            this.comboBoxEdit_DefaultSetting.Location = new System.Drawing.Point(15, 100);
             this.comboBoxEdit_DefaultSetting.Name = "comboBoxEdit_DefaultSetting";
             this.comboBoxEdit_DefaultSetting.Properties.Appearance.Options.UseTextOptions = true;
             this.comboBoxEdit_DefaultSetting.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.comboBoxEdit_DefaultSetting.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.comboBoxEdit_DefaultSetting.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.comboBoxEdit_DefaultSetting.Size = new System.Drawing.Size(310, 20);
+            this.comboBoxEdit_DefaultSetting.Size = new System.Drawing.Size(301, 20);
             this.comboBoxEdit_DefaultSetting.StyleController = this.layoutControl_Main;
             this.comboBoxEdit_DefaultSetting.TabIndex = 19;
             this.comboBoxEdit_DefaultSetting.EditValueChanging += new DevExpress.XtraEditors.Controls.ChangingEventHandler(this.comboBoxEdit_DefaultSetting_EditValueChanging);
             // 
             // simpleButton_AddSetting
             // 
-            this.simpleButton_AddSetting.Location = new System.Drawing.Point(321, 93);
+            this.simpleButton_AddSetting.Location = new System.Drawing.Point(320, 99);
             this.simpleButton_AddSetting.Name = "simpleButton_AddSetting";
-            this.simpleButton_AddSetting.Size = new System.Drawing.Size(74, 22);
+            this.simpleButton_AddSetting.Size = new System.Drawing.Size(72, 22);
             this.simpleButton_AddSetting.StyleController = this.layoutControl_Main;
             this.simpleButton_AddSetting.TabIndex = 20;
             this.simpleButton_AddSetting.Text = "Add";
@@ -2543,9 +2562,9 @@ namespace Configurator
             // 
             // simpleButton_RemoveSetting
             // 
-            this.simpleButton_RemoveSetting.Location = new System.Drawing.Point(399, 93);
+            this.simpleButton_RemoveSetting.Location = new System.Drawing.Point(396, 99);
             this.simpleButton_RemoveSetting.Name = "simpleButton_RemoveSetting";
-            this.simpleButton_RemoveSetting.Size = new System.Drawing.Size(72, 22);
+            this.simpleButton_RemoveSetting.Size = new System.Drawing.Size(65, 22);
             this.simpleButton_RemoveSetting.StyleController = this.layoutControl_Main;
             this.simpleButton_RemoveSetting.TabIndex = 21;
             this.simpleButton_RemoveSetting.Text = "Remove";
@@ -2560,9 +2579,9 @@ namespace Configurator
             this.simpleButton_Tis.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton_Tis.ImageOptions.Image")));
             this.simpleButton_Tis.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             this.simpleButton_Tis.ImageOptions.ImageToTextIndent = 0;
-            this.simpleButton_Tis.Location = new System.Drawing.Point(678, 37);
+            this.simpleButton_Tis.Location = new System.Drawing.Point(680, 36);
             this.simpleButton_Tis.Name = "simpleButton_Tis";
-            this.simpleButton_Tis.Size = new System.Drawing.Size(76, 81);
+            this.simpleButton_Tis.Size = new System.Drawing.Size(80, 85);
             this.simpleButton_Tis.StyleController = this.layoutControl_Main;
             this.simpleButton_Tis.TabIndex = 24;
             this.simpleButton_Tis.Text = "TIS";
@@ -2577,9 +2596,9 @@ namespace Configurator
             this.simpleButton_Trp.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton_Trp.ImageOptions.Image")));
             this.simpleButton_Trp.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             this.simpleButton_Trp.ImageOptions.ImageToTextIndent = 0;
-            this.simpleButton_Trp.Location = new System.Drawing.Point(598, 37);
+            this.simpleButton_Trp.Location = new System.Drawing.Point(596, 36);
             this.simpleButton_Trp.Name = "simpleButton_Trp";
-            this.simpleButton_Trp.Size = new System.Drawing.Size(76, 81);
+            this.simpleButton_Trp.Size = new System.Drawing.Size(80, 85);
             this.simpleButton_Trp.StyleController = this.layoutControl_Main;
             this.simpleButton_Trp.TabIndex = 24;
             this.simpleButton_Trp.Text = "TRP";
@@ -2589,24 +2608,13 @@ namespace Configurator
             // 
             this.simpleButton_CompareTool.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton_CompareTool.ImageOptions.Image")));
             this.simpleButton_CompareTool.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            this.simpleButton_CompareTool.Location = new System.Drawing.Point(768, 37);
+            this.simpleButton_CompareTool.Location = new System.Drawing.Point(780, 36);
             this.simpleButton_CompareTool.Name = "simpleButton_CompareTool";
-            this.simpleButton_CompareTool.Size = new System.Drawing.Size(126, 81);
+            this.simpleButton_CompareTool.Size = new System.Drawing.Size(133, 85);
             this.simpleButton_CompareTool.StyleController = this.layoutControl_Main;
             this.simpleButton_CompareTool.TabIndex = 27;
             this.simpleButton_CompareTool.Text = "Compare PRM";
             this.simpleButton_CompareTool.Click += new System.EventHandler(this.simpleButton_CompareTool_Click);
-            // 
-            // simpleButton1
-            // 
-            this.simpleButton1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
-            this.simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter;
-            this.simpleButton1.Location = new System.Drawing.Point(19, 581);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(261, 94);
-            this.simpleButton1.StyleController = this.layoutControl_Main;
-            this.simpleButton1.TabIndex = 28;
-            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // Root
             // 
@@ -2615,37 +2623,224 @@ namespace Configurator
             this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.Root.GroupBordersVisible = false;
             this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem3,
-            this.textEditrem1,
-            this.emptySpaceItem10,
-            this.layoutControlItem11,
-            this.layoutControlItem12,
-            this.emptySpaceItem8,
-            this.layoutControlItem8,
-            this.simpleLabelItem1,
-            this.layoutControlItem_DefaultSetting,
-            this.simpleLabelItem_8000A_ConnStatus,
-            this.layoutControlItem2,
-            this.layoutControlItem5,
-            this.layoutControlItem7,
-            this.RemoteAddress,
-            this.simpleLabelItem5,
             this.tab_Main,
-            this.emptySpaceItem4,
-            this.simpleLabelItem4});
+            this.lcGroup_Remote,
+            this.lcGroup_MeasType,
+            this.lcGroup_ExtTool,
+            this.lcGroup_DefSetting});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
-            this.Root.Size = new System.Drawing.Size(944, 718);
+            this.Root.Size = new System.Drawing.Size(928, 793);
             this.Root.TextVisible = false;
             // 
-            // layoutControlItem3
+            // tab_Main
             // 
-            this.layoutControlItem3.Control = this.simpleButton_MT8000A_Conn;
-            this.layoutControlItem3.Location = new System.Drawing.Point(314, 30);
-            this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(112, 26);
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem3.TextVisible = false;
+            this.tab_Main.Location = new System.Drawing.Point(0, 126);
+            this.tab_Main.Name = "tab_Main";
+            this.tab_Main.SelectedTabPage = this.tabPage_Recovery;
+            this.tab_Main.Size = new System.Drawing.Size(918, 657);
+            this.tab_Main.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.tabPage_Configurator,
+            this.tabPage_Recovery});
+            this.tab_Main.SelectedPageChanged += new DevExpress.XtraLayout.LayoutTabPageChangedEventHandler(this.tab_Main_SelectedPageChanged);
+            // 
+            // tabPage_Configurator
+            // 
+            this.tabPage_Configurator.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.emptySpaceItem3,
+            this.emptySpaceItem2,
+            this.layoutControlItem9,
+            this.layoutControlGroup2,
+            this.layoutControlGroup3,
+            this.layoutControlGroup4});
+            this.tabPage_Configurator.Location = new System.Drawing.Point(0, 0);
+            this.tabPage_Configurator.Name = "tabPage_Configurator";
+            this.tabPage_Configurator.Size = new System.Drawing.Size(894, 609);
+            this.tabPage_Configurator.Text = "Configurator";
+            // 
+            // emptySpaceItem5
+            // 
+            this.emptySpaceItem5.AllowHotTrack = false;
+            this.emptySpaceItem5.Location = new System.Drawing.Point(730, 0);
+            this.emptySpaceItem5.Name = "emptySpaceItem5";
+            this.emptySpaceItem5.Size = new System.Drawing.Size(148, 24);
+            this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem3
+            // 
+            this.emptySpaceItem3.AllowHotTrack = false;
+            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 394);
+            this.emptySpaceItem3.Name = "emptySpaceItem3";
+            this.emptySpaceItem3.Size = new System.Drawing.Size(292, 115);
+            this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.AllowHotTrack = false;
+            this.emptySpaceItem2.Location = new System.Drawing.Point(292, 61);
+            this.emptySpaceItem2.MaxSize = new System.Drawing.Size(10, 0);
+            this.emptySpaceItem2.MinSize = new System.Drawing.Size(10, 10);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 548);
+            this.emptySpaceItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.labelControl1;
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 509);
+            this.layoutControlItem9.MaxSize = new System.Drawing.Size(292, 100);
+            this.layoutControlItem9.MinSize = new System.Drawing.Size(292, 100);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(292, 100);
+            this.layoutControlItem9.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem9.TextVisible = false;
+            // 
+            // layoutControlGroup2
+            // 
+            this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.textEdit_RanOperation,
+            this.textEdit_AuthenticationKey,
+            this.emptySpaceItem5,
+            this.emptySpaceItem4});
+            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup2.Name = "layoutControlGroup2";
+            this.layoutControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(894, 61);
+            this.layoutControlGroup2.Text = "Common Menu";
+            // 
+            // textEdit_RanOperation
+            // 
+            this.textEdit_RanOperation.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.textEdit_RanOperation.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.textEdit_RanOperation.Control = this.comboBoxEdit_RanOperation;
+            this.textEdit_RanOperation.Location = new System.Drawing.Point(0, 0);
+            this.textEdit_RanOperation.Name = "textEdit_RanOperation";
+            this.textEdit_RanOperation.Size = new System.Drawing.Size(286, 24);
+            this.textEdit_RanOperation.Text = "RAN Operation";
+            this.textEdit_RanOperation.TextSize = new System.Drawing.Size(109, 14);
+            // 
+            // textEdit_AuthenticationKey
+            // 
+            this.textEdit_AuthenticationKey.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.textEdit_AuthenticationKey.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.textEdit_AuthenticationKey.Control = this.comboBoxEdit_AuthenticationKey;
+            this.textEdit_AuthenticationKey.Location = new System.Drawing.Point(296, 0);
+            this.textEdit_AuthenticationKey.Name = "textEdit_AuthenticationKey";
+            this.textEdit_AuthenticationKey.Size = new System.Drawing.Size(434, 24);
+            this.textEdit_AuthenticationKey.Text = "Authentication Key ";
+            this.textEdit_AuthenticationKey.TextSize = new System.Drawing.Size(109, 14);
+            // 
+            // layoutControlGroup3
+            // 
+            this.layoutControlGroup3.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            this.layoutControlGroup3.AppearanceGroup.FontStyleDelta = System.Drawing.FontStyle.Bold;
+            this.layoutControlGroup3.AppearanceGroup.Options.UseFont = true;
+            this.layoutControlGroup3.AppearanceGroup.Options.UseTextOptions = true;
+            this.layoutControlGroup3.AppearanceGroup.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1});
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 61);
+            this.layoutControlGroup3.Name = "layoutControlGroup3";
+            this.layoutControlGroup3.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(292, 333);
+            this.layoutControlGroup3.Text = "LTE Menu";
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.vGridControl_LTE_Menu;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 296);
+            this.layoutControlItem1.MinSize = new System.Drawing.Size(104, 296);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(276, 296);
+            this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextVisible = false;
+            // 
+            // layoutControlGroup4
+            // 
+            this.layoutControlGroup4.AppearanceGroup.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            this.layoutControlGroup4.AppearanceGroup.Options.UseFont = true;
+            this.layoutControlGroup4.AppearanceGroup.Options.UseTextOptions = true;
+            this.layoutControlGroup4.AppearanceGroup.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.layoutControlGroup4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem6});
+            this.layoutControlGroup4.Location = new System.Drawing.Point(302, 61);
+            this.layoutControlGroup4.Name = "layoutControlGroup4";
+            this.layoutControlGroup4.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(592, 548);
+            this.layoutControlGroup4.Text = "NR Menu";
+            // 
+            // layoutControlItem6
+            // 
+            this.layoutControlItem6.Control = this.vGridControl_NR_Menu;
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem6.MinSize = new System.Drawing.Size(104, 24);
+            this.layoutControlItem6.Name = "layoutControlItem6";
+            this.layoutControlItem6.Size = new System.Drawing.Size(576, 511);
+            this.layoutControlItem6.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem6.TextVisible = false;
+            // 
+            // tabPage_Recovery
+            // 
+            this.tabPage_Recovery.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem4,
+            this.emptySpaceItem1});
+            this.tabPage_Recovery.Location = new System.Drawing.Point(0, 0);
+            this.tabPage_Recovery.Name = "tabPage_Recovery";
+            this.tabPage_Recovery.Size = new System.Drawing.Size(894, 609);
+            this.tabPage_Recovery.Text = "Recovery";
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.ucRecovery1;
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem4.MinSize = new System.Drawing.Size(174, 304);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(894, 304);
+            this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem4.TextVisible = false;
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 304);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(894, 305);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // lcGroup_Remote
+            // 
+            this.lcGroup_Remote.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.simpleLabelItem_8000A_ConnStatus,
+            this.textEditrem1,
+            this.layoutControlItem3});
+            this.lcGroup_Remote.Location = new System.Drawing.Point(0, 0);
+            this.lcGroup_Remote.Name = "lcGroup_Remote";
+            this.lcGroup_Remote.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
+            this.lcGroup_Remote.Size = new System.Drawing.Size(581, 63);
+            this.lcGroup_Remote.Text = "Remote Access";
+            // 
+            // simpleLabelItem_8000A_ConnStatus
+            // 
+            this.simpleLabelItem_8000A_ConnStatus.AllowHotTrack = false;
+            this.simpleLabelItem_8000A_ConnStatus.AppearanceItemCaption.ForeColor = System.Drawing.Color.Black;
+            this.simpleLabelItem_8000A_ConnStatus.AppearanceItemCaption.Options.UseForeColor = true;
+            this.simpleLabelItem_8000A_ConnStatus.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.simpleLabelItem_8000A_ConnStatus.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.simpleLabelItem_8000A_ConnStatus.BestFitWeight = 50;
+            this.simpleLabelItem_8000A_ConnStatus.Location = new System.Drawing.Point(414, 0);
+            this.simpleLabelItem_8000A_ConnStatus.MaxSize = new System.Drawing.Size(0, 24);
+            this.simpleLabelItem_8000A_ConnStatus.MinSize = new System.Drawing.Size(128, 24);
+            this.simpleLabelItem_8000A_ConnStatus.Name = "simpleLabelItem_8000A_ConnStatus";
+            this.simpleLabelItem_8000A_ConnStatus.Size = new System.Drawing.Size(151, 26);
+            this.simpleLabelItem_8000A_ConnStatus.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.simpleLabelItem_8000A_ConnStatus.Text = "Disconnected";
+            this.simpleLabelItem_8000A_ConnStatus.TextSize = new System.Drawing.Size(109, 14);
             // 
             // textEditrem1
             // 
@@ -2656,98 +2851,125 @@ namespace Configurator
             this.textEditrem1.AppearanceItemCaption.Options.UseBorderColor = true;
             this.textEditrem1.AppearanceItemCaption.Options.UseTextOptions = true;
             this.textEditrem1.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.textEditrem1.ContentVertAlignment = DevExpress.Utils.VertAlignment.Center;
             this.textEditrem1.Control = this.textEdit_RemoteAddr_MT8000A;
             this.textEditrem1.CustomizationFormText = "MT8000A";
-            this.textEditrem1.Location = new System.Drawing.Point(0, 30);
+            this.textEditrem1.Location = new System.Drawing.Point(0, 0);
             this.textEditrem1.MaxSize = new System.Drawing.Size(0, 26);
             this.textEditrem1.MinSize = new System.Drawing.Size(133, 26);
             this.textEditrem1.Name = "textEditrem1";
-            this.textEditrem1.Size = new System.Drawing.Size(314, 26);
+            this.textEditrem1.Size = new System.Drawing.Size(305, 26);
             this.textEditrem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.textEditrem1.Text = "MT8000A";
-            this.textEditrem1.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
-            this.textEditrem1.TextSize = new System.Drawing.Size(79, 14);
-            this.textEditrem1.TextToControlDistance = 0;
+            this.textEditrem1.TextSize = new System.Drawing.Size(109, 14);
             // 
-            // emptySpaceItem10
+            // layoutControlItem3
             // 
-            this.emptySpaceItem10.AllowHotTrack = false;
-            this.emptySpaceItem10.Location = new System.Drawing.Point(581, 0);
-            this.emptySpaceItem10.MaxSize = new System.Drawing.Size(10, 0);
-            this.emptySpaceItem10.MinSize = new System.Drawing.Size(10, 24);
-            this.emptySpaceItem10.Name = "emptySpaceItem10";
-            this.emptySpaceItem10.Size = new System.Drawing.Size(10, 115);
-            this.emptySpaceItem10.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.Control = this.simpleButton_MT8000A_Conn;
+            this.layoutControlItem3.Location = new System.Drawing.Point(305, 0);
+            this.layoutControlItem3.Name = "layoutControlItem3";
+            this.layoutControlItem3.Size = new System.Drawing.Size(109, 26);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.TextVisible = false;
+            // 
+            // lcGroup_MeasType
+            // 
+            this.lcGroup_MeasType.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem12,
+            this.layoutControlItem11});
+            this.lcGroup_MeasType.Location = new System.Drawing.Point(581, 0);
+            this.lcGroup_MeasType.Name = "lcGroup_MeasType";
+            this.lcGroup_MeasType.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
+            this.lcGroup_MeasType.Size = new System.Drawing.Size(184, 126);
+            this.lcGroup_MeasType.Text = "Measurement Type";
+            // 
+            // layoutControlItem12
+            // 
+            this.layoutControlItem12.Control = this.simpleButton_Tis;
+            this.layoutControlItem12.Location = new System.Drawing.Point(84, 0);
+            this.layoutControlItem12.MaxSize = new System.Drawing.Size(84, 89);
+            this.layoutControlItem12.MinSize = new System.Drawing.Size(84, 89);
+            this.layoutControlItem12.Name = "layoutControlItem12";
+            this.layoutControlItem12.Size = new System.Drawing.Size(84, 89);
+            this.layoutControlItem12.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem12.TextVisible = false;
             // 
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.simpleButton_Trp;
             this.layoutControlItem11.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("layoutControlItem11.ImageOptions.Image")));
-            this.layoutControlItem11.Location = new System.Drawing.Point(591, 30);
-            this.layoutControlItem11.MaxSize = new System.Drawing.Size(80, 85);
-            this.layoutControlItem11.MinSize = new System.Drawing.Size(80, 85);
+            this.layoutControlItem11.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem11.MaxSize = new System.Drawing.Size(84, 89);
+            this.layoutControlItem11.MinSize = new System.Drawing.Size(84, 89);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(80, 85);
+            this.layoutControlItem11.Size = new System.Drawing.Size(84, 89);
             this.layoutControlItem11.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextVisible = false;
             // 
-            // layoutControlItem12
+            // lcGroup_ExtTool
             // 
-            this.layoutControlItem12.Control = this.simpleButton_Tis;
-            this.layoutControlItem12.Location = new System.Drawing.Point(671, 30);
-            this.layoutControlItem12.MaxSize = new System.Drawing.Size(80, 85);
-            this.layoutControlItem12.MinSize = new System.Drawing.Size(80, 85);
-            this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(80, 85);
-            this.layoutControlItem12.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem12.TextVisible = false;
-            // 
-            // emptySpaceItem8
-            // 
-            this.emptySpaceItem8.AllowHotTrack = false;
-            this.emptySpaceItem8.Location = new System.Drawing.Point(751, 0);
-            this.emptySpaceItem8.MaxSize = new System.Drawing.Size(10, 105);
-            this.emptySpaceItem8.MinSize = new System.Drawing.Size(10, 105);
-            this.emptySpaceItem8.Name = "emptySpaceItem8";
-            this.emptySpaceItem8.Size = new System.Drawing.Size(10, 115);
-            this.emptySpaceItem8.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
+            this.lcGroup_ExtTool.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem8});
+            this.lcGroup_ExtTool.Location = new System.Drawing.Point(765, 0);
+            this.lcGroup_ExtTool.Name = "lcGroup_ExtTool";
+            this.lcGroup_ExtTool.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
+            this.lcGroup_ExtTool.Size = new System.Drawing.Size(153, 126);
+            this.lcGroup_ExtTool.Text = "External Tool";
             // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.simpleButton_CompareTool;
             this.layoutControlItem8.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("layoutControlItem8.ImageOptions.Image")));
-            this.layoutControlItem8.Location = new System.Drawing.Point(761, 30);
-            this.layoutControlItem8.MaxSize = new System.Drawing.Size(130, 85);
-            this.layoutControlItem8.MinSize = new System.Drawing.Size(130, 85);
+            this.layoutControlItem8.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem8.MaxSize = new System.Drawing.Size(137, 89);
+            this.layoutControlItem8.MinSize = new System.Drawing.Size(137, 89);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(130, 85);
+            this.layoutControlItem8.Size = new System.Drawing.Size(137, 89);
             this.layoutControlItem8.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
             // 
-            // simpleLabelItem1
+            // lcGroup_DefSetting
             // 
-            this.simpleLabelItem1.AllowHotTrack = false;
-            this.simpleLabelItem1.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.simpleLabelItem1.AppearanceItemCaption.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.simpleLabelItem1.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleLabelItem1.AppearanceItemCaption.Options.UseBackColor = true;
-            this.simpleLabelItem1.AppearanceItemCaption.Options.UseBorderColor = true;
-            this.simpleLabelItem1.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem1.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.simpleLabelItem1.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem1.Location = new System.Drawing.Point(591, 0);
-            this.simpleLabelItem1.MaxSize = new System.Drawing.Size(149, 30);
-            this.simpleLabelItem1.MinSize = new System.Drawing.Size(149, 30);
-            this.simpleLabelItem1.Name = "simpleLabelItem1";
-            this.simpleLabelItem1.Size = new System.Drawing.Size(160, 30);
-            this.simpleLabelItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.simpleLabelItem1.Text = "Measurement Type";
-            this.simpleLabelItem1.TextSize = new System.Drawing.Size(124, 16);
+            this.lcGroup_DefSetting.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem7,
+            this.layoutControlItem2,
+            this.layoutControlItem5,
+            this.layoutControlItem_DefaultSetting});
+            this.lcGroup_DefSetting.Location = new System.Drawing.Point(0, 63);
+            this.lcGroup_DefSetting.Name = "lcGroup_DefSetting";
+            this.lcGroup_DefSetting.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
+            this.lcGroup_DefSetting.Size = new System.Drawing.Size(581, 63);
+            this.lcGroup_DefSetting.Text = "Default Setting";
+            // 
+            // layoutControlItem7
+            // 
+            this.layoutControlItem7.Control = this.simpleButton_InitializeParam;
+            this.layoutControlItem7.Location = new System.Drawing.Point(450, 0);
+            this.layoutControlItem7.Name = "layoutControlItem7";
+            this.layoutControlItem7.Size = new System.Drawing.Size(115, 26);
+            this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem7.TextVisible = false;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.simpleButton_AddSetting;
+            this.layoutControlItem2.Location = new System.Drawing.Point(305, 0);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(76, 26);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextVisible = false;
+            // 
+            // layoutControlItem5
+            // 
+            this.layoutControlItem5.Control = this.simpleButton_RemoveSetting;
+            this.layoutControlItem5.Location = new System.Drawing.Point(381, 0);
+            this.layoutControlItem5.Name = "layoutControlItem5";
+            this.layoutControlItem5.Size = new System.Drawing.Size(69, 26);
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem5.TextVisible = false;
             // 
             // layoutControlItem_DefaultSetting
             // 
@@ -2759,11 +2981,12 @@ namespace Configurator
             this.layoutControlItem_DefaultSetting.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem_DefaultSetting.AppearanceItemCaption.Options.UseTextOptions = true;
             this.layoutControlItem_DefaultSetting.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.layoutControlItem_DefaultSetting.ContentVertAlignment = DevExpress.Utils.VertAlignment.Center;
             this.layoutControlItem_DefaultSetting.Control = this.comboBoxEdit_DefaultSetting;
-            this.layoutControlItem_DefaultSetting.Location = new System.Drawing.Point(0, 86);
+            this.layoutControlItem_DefaultSetting.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem_DefaultSetting.MinSize = new System.Drawing.Size(54, 24);
             this.layoutControlItem_DefaultSetting.Name = "layoutControlItem_DefaultSetting";
-            this.layoutControlItem_DefaultSetting.Size = new System.Drawing.Size(314, 29);
+            this.layoutControlItem_DefaultSetting.Size = new System.Drawing.Size(305, 26);
             this.layoutControlItem_DefaultSetting.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem_DefaultSetting.Text = "Default Setting ";
             this.layoutControlItem_DefaultSetting.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
@@ -2771,357 +2994,6 @@ namespace Configurator
             this.layoutControlItem_DefaultSetting.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem_DefaultSetting.TextToControlDistance = 0;
             this.layoutControlItem_DefaultSetting.TextVisible = false;
-            // 
-            // simpleLabelItem_8000A_ConnStatus
-            // 
-            this.simpleLabelItem_8000A_ConnStatus.AllowHotTrack = false;
-            this.simpleLabelItem_8000A_ConnStatus.AppearanceItemCaption.ForeColor = System.Drawing.Color.Black;
-            this.simpleLabelItem_8000A_ConnStatus.AppearanceItemCaption.Options.UseForeColor = true;
-            this.simpleLabelItem_8000A_ConnStatus.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.simpleLabelItem_8000A_ConnStatus.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem_8000A_ConnStatus.BestFitWeight = 50;
-            this.simpleLabelItem_8000A_ConnStatus.Location = new System.Drawing.Point(426, 30);
-            this.simpleLabelItem_8000A_ConnStatus.MaxSize = new System.Drawing.Size(0, 24);
-            this.simpleLabelItem_8000A_ConnStatus.MinSize = new System.Drawing.Size(128, 24);
-            this.simpleLabelItem_8000A_ConnStatus.Name = "simpleLabelItem_8000A_ConnStatus";
-            this.simpleLabelItem_8000A_ConnStatus.Size = new System.Drawing.Size(155, 26);
-            this.simpleLabelItem_8000A_ConnStatus.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.simpleLabelItem_8000A_ConnStatus.Text = "Disconnected";
-            this.simpleLabelItem_8000A_ConnStatus.TextSize = new System.Drawing.Size(124, 14);
-            // 
-            // layoutControlItem2
-            // 
-            this.layoutControlItem2.Control = this.simpleButton_AddSetting;
-            this.layoutControlItem2.Location = new System.Drawing.Point(314, 86);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(78, 29);
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem2.TextVisible = false;
-            // 
-            // layoutControlItem5
-            // 
-            this.layoutControlItem5.Control = this.simpleButton_RemoveSetting;
-            this.layoutControlItem5.Location = new System.Drawing.Point(392, 86);
-            this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(76, 29);
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem5.TextVisible = false;
-            // 
-            // layoutControlItem7
-            // 
-            this.layoutControlItem7.Control = this.simpleButton_InitializeParam;
-            this.layoutControlItem7.Location = new System.Drawing.Point(468, 86);
-            this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(113, 29);
-            this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem7.TextVisible = false;
-            // 
-            // RemoteAddress
-            // 
-            this.RemoteAddress.AccessibleRole = System.Windows.Forms.AccessibleRole.WhiteSpace;
-            this.RemoteAddress.AllowHotTrack = false;
-            this.RemoteAddress.AppearanceItemCaption.BackColor = System.Drawing.Color.Gainsboro;
-            this.RemoteAddress.AppearanceItemCaption.BorderColor = System.Drawing.Color.Red;
-            this.RemoteAddress.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            this.RemoteAddress.AppearanceItemCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.RemoteAddress.AppearanceItemCaption.Options.UseBackColor = true;
-            this.RemoteAddress.AppearanceItemCaption.Options.UseBorderColor = true;
-            this.RemoteAddress.AppearanceItemCaption.Options.UseFont = true;
-            this.RemoteAddress.AppearanceItemCaption.Options.UseForeColor = true;
-            this.RemoteAddress.Location = new System.Drawing.Point(0, 0);
-            this.RemoteAddress.MaxSize = new System.Drawing.Size(581, 30);
-            this.RemoteAddress.MinSize = new System.Drawing.Size(581, 30);
-            this.RemoteAddress.Name = "RemoteAddress";
-            this.RemoteAddress.Size = new System.Drawing.Size(581, 30);
-            this.RemoteAddress.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.RemoteAddress.Text = "Remote Address";
-            this.RemoteAddress.TextSize = new System.Drawing.Size(124, 0);
-            this.RemoteAddress.TextVisible = true;
-            // 
-            // simpleLabelItem5
-            // 
-            this.simpleLabelItem5.AllowHotTrack = false;
-            this.simpleLabelItem5.AppearanceItemCaption.BackColor = System.Drawing.Color.Gainsboro;
-            this.simpleLabelItem5.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.simpleLabelItem5.AppearanceItemCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.simpleLabelItem5.AppearanceItemCaption.Options.UseBackColor = true;
-            this.simpleLabelItem5.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem5.AppearanceItemCaption.Options.UseForeColor = true;
-            this.simpleLabelItem5.Location = new System.Drawing.Point(0, 56);
-            this.simpleLabelItem5.MaxSize = new System.Drawing.Size(581, 30);
-            this.simpleLabelItem5.MinSize = new System.Drawing.Size(581, 23);
-            this.simpleLabelItem5.Name = "simpleLabelItem5";
-            this.simpleLabelItem5.Size = new System.Drawing.Size(581, 30);
-            this.simpleLabelItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.simpleLabelItem5.Text = "Default Setting";
-            this.simpleLabelItem5.TextSize = new System.Drawing.Size(124, 14);
-            // 
-            // tab_Main
-            // 
-            this.tab_Main.Location = new System.Drawing.Point(0, 115);
-            this.tab_Main.Name = "tab_Main";
-            this.tab_Main.SelectedTabPage = this.tabPage_Configurator;
-            this.tab_Main.Size = new System.Drawing.Size(934, 593);
-            this.tab_Main.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.tabPage_Configurator,
-            this.tabPage_Recovery});
-            this.tab_Main.SelectedPageChanged += new DevExpress.XtraLayout.LayoutTabPageChangedEventHandler(this.tab_Main_SelectedPageChanged);
-            // 
-            // tabPage_Configurator
-            // 
-            this.tabPage_Configurator.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.emptySpaceItem1,
-            this.emptySpaceItem5,
-            this.textEdit_RanOperation,
-            this.textEdit_AuthenticationKey,
-            this.simpleLabelItem3,
-            this.simpleLabelItem2,
-            this.layoutControlItem1,
-            this.layoutControlItem6,
-            this.emptySpaceItem3,
-            this.layoutControlItem9,
-            this.emptySpaceItem19,
-            this.emptySpaceItem9,
-            this.emptySpaceItem2});
-            this.tabPage_Configurator.Location = new System.Drawing.Point(0, 0);
-            this.tabPage_Configurator.Name = "tabPage_Configurator";
-            this.tabPage_Configurator.Size = new System.Drawing.Size(910, 545);
-            this.tabPage_Configurator.Text = "Configurator";
-            // 
-            // emptySpaceItem1
-            // 
-            this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.emptySpaceItem1.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            this.emptySpaceItem1.AppearanceItemCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.emptySpaceItem1.AppearanceItemCaption.Options.UseBackColor = true;
-            this.emptySpaceItem1.AppearanceItemCaption.Options.UseFont = true;
-            this.emptySpaceItem1.AppearanceItemCaption.Options.UseForeColor = true;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 0);
-            this.emptySpaceItem1.MaxSize = new System.Drawing.Size(740, 24);
-            this.emptySpaceItem1.MinSize = new System.Drawing.Size(740, 24);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(740, 24);
-            this.emptySpaceItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpaceItem1.Text = "Common Menu";
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(124, 0);
-            this.emptySpaceItem1.TextVisible = true;
-            // 
-            // emptySpaceItem5
-            // 
-            this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(740, 0);
-            this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(170, 48);
-            this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // textEdit_RanOperation
-            // 
-            this.textEdit_RanOperation.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textEdit_RanOperation.AppearanceItemCaption.Options.UseBackColor = true;
-            this.textEdit_RanOperation.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.textEdit_RanOperation.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.textEdit_RanOperation.Control = this.comboBoxEdit_RanOperation;
-            this.textEdit_RanOperation.Location = new System.Drawing.Point(0, 24);
-            this.textEdit_RanOperation.MinSize = new System.Drawing.Size(154, 24);
-            this.textEdit_RanOperation.Name = "textEdit_RanOperation";
-            this.textEdit_RanOperation.Size = new System.Drawing.Size(229, 24);
-            this.textEdit_RanOperation.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.textEdit_RanOperation.Text = "RAN Operation";
-            this.textEdit_RanOperation.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
-            this.textEdit_RanOperation.TextLocation = DevExpress.Utils.Locations.Left;
-            this.textEdit_RanOperation.TextSize = new System.Drawing.Size(100, 14);
-            this.textEdit_RanOperation.TextToControlDistance = 0;
-            // 
-            // textEdit_AuthenticationKey
-            // 
-            this.textEdit_AuthenticationKey.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textEdit_AuthenticationKey.AppearanceItemCaption.Options.UseBackColor = true;
-            this.textEdit_AuthenticationKey.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.textEdit_AuthenticationKey.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.textEdit_AuthenticationKey.Control = this.comboBoxEdit_AuthenticationKey;
-            this.textEdit_AuthenticationKey.Location = new System.Drawing.Point(229, 24);
-            this.textEdit_AuthenticationKey.MinSize = new System.Drawing.Size(174, 24);
-            this.textEdit_AuthenticationKey.Name = "textEdit_AuthenticationKey";
-            this.textEdit_AuthenticationKey.Size = new System.Drawing.Size(511, 24);
-            this.textEdit_AuthenticationKey.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.textEdit_AuthenticationKey.Text = "Authentication Key";
-            this.textEdit_AuthenticationKey.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
-            this.textEdit_AuthenticationKey.TextLocation = DevExpress.Utils.Locations.Left;
-            this.textEdit_AuthenticationKey.TextSize = new System.Drawing.Size(120, 14);
-            this.textEdit_AuthenticationKey.TextToControlDistance = 0;
-            // 
-            // simpleLabelItem3
-            // 
-            this.simpleLabelItem3.AllowHotTrack = false;
-            this.simpleLabelItem3.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.simpleLabelItem3.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.simpleLabelItem3.AppearanceItemCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.simpleLabelItem3.AppearanceItemCaption.Options.UseBackColor = true;
-            this.simpleLabelItem3.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem3.AppearanceItemCaption.Options.UseForeColor = true;
-            this.simpleLabelItem3.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.simpleLabelItem3.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem3.Location = new System.Drawing.Point(0, 58);
-            this.simpleLabelItem3.MinSize = new System.Drawing.Size(128, 23);
-            this.simpleLabelItem3.Name = "simpleLabelItem3";
-            this.simpleLabelItem3.Size = new System.Drawing.Size(265, 23);
-            this.simpleLabelItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.simpleLabelItem3.Text = "LTE Menu";
-            this.simpleLabelItem3.TextSize = new System.Drawing.Size(124, 19);
-            // 
-            // simpleLabelItem2
-            // 
-            this.simpleLabelItem2.AllowHotTrack = false;
-            this.simpleLabelItem2.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.simpleLabelItem2.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.simpleLabelItem2.AppearanceItemCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.simpleLabelItem2.AppearanceItemCaption.Options.UseBackColor = true;
-            this.simpleLabelItem2.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem2.AppearanceItemCaption.Options.UseForeColor = true;
-            this.simpleLabelItem2.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.simpleLabelItem2.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem2.Location = new System.Drawing.Point(277, 58);
-            this.simpleLabelItem2.MinSize = new System.Drawing.Size(128, 23);
-            this.simpleLabelItem2.Name = "simpleLabelItem2";
-            this.simpleLabelItem2.Size = new System.Drawing.Size(633, 23);
-            this.simpleLabelItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.simpleLabelItem2.Text = "NR Menu";
-            this.simpleLabelItem2.TextSize = new System.Drawing.Size(124, 19);
-            // 
-            // layoutControlItem1
-            // 
-            this.layoutControlItem1.Control = this.vGridControl_LTE_Menu;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 81);
-            this.layoutControlItem1.MinSize = new System.Drawing.Size(104, 24);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(265, 318);
-            this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem1.TextVisible = false;
-            // 
-            // layoutControlItem6
-            // 
-            this.layoutControlItem6.Control = this.vGridControl_NR_Menu;
-            this.layoutControlItem6.Location = new System.Drawing.Point(277, 81);
-            this.layoutControlItem6.MinSize = new System.Drawing.Size(104, 24);
-            this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(633, 440);
-            this.layoutControlItem6.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem6.TextVisible = false;
-            // 
-            // emptySpaceItem3
-            // 
-            this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 399);
-            this.emptySpaceItem3.MaxSize = new System.Drawing.Size(265, 24);
-            this.emptySpaceItem3.MinSize = new System.Drawing.Size(265, 24);
-            this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(265, 24);
-            this.emptySpaceItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // layoutControlItem9
-            // 
-            this.layoutControlItem9.Control = this.simpleButton1;
-            this.layoutControlItem9.Location = new System.Drawing.Point(0, 423);
-            this.layoutControlItem9.MinSize = new System.Drawing.Size(226, 87);
-            this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(265, 98);
-            this.layoutControlItem9.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem9.TextVisible = false;
-            // 
-            // emptySpaceItem19
-            // 
-            this.emptySpaceItem19.AllowHotTrack = false;
-            this.emptySpaceItem19.Location = new System.Drawing.Point(0, 521);
-            this.emptySpaceItem19.MinSize = new System.Drawing.Size(104, 24);
-            this.emptySpaceItem19.Name = "emptySpaceItem19";
-            this.emptySpaceItem19.Size = new System.Drawing.Size(910, 24);
-            this.emptySpaceItem19.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpaceItem19.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem9
-            // 
-            this.emptySpaceItem9.AllowHotTrack = false;
-            this.emptySpaceItem9.Location = new System.Drawing.Point(0, 48);
-            this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(910, 10);
-            this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem2
-            // 
-            this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(265, 58);
-            this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(12, 463);
-            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // tabPage_Recovery
-            // 
-            this.tabPage_Recovery.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem4,
-            this.emptySpaceItem6,
-            this.emptySpaceItem7});
-            this.tabPage_Recovery.Location = new System.Drawing.Point(0, 0);
-            this.tabPage_Recovery.Name = "tabPage_Recovery";
-            this.tabPage_Recovery.Size = new System.Drawing.Size(910, 545);
-            this.tabPage_Recovery.Text = "Recovery";
-            // 
-            // layoutControlItem4
-            // 
-            this.layoutControlItem4.Control = this.ucRecovery1;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(589, 324);
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem4.TextVisible = false;
-            // 
-            // emptySpaceItem6
-            // 
-            this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(589, 0);
-            this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(321, 545);
-            this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem7
-            // 
-            this.emptySpaceItem7.AllowHotTrack = false;
-            this.emptySpaceItem7.Location = new System.Drawing.Point(0, 324);
-            this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(589, 221);
-            this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem4
-            // 
-            this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(891, 0);
-            this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(43, 115);
-            this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // simpleLabelItem4
-            // 
-            this.simpleLabelItem4.AllowHotTrack = false;
-            this.simpleLabelItem4.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.simpleLabelItem4.AppearanceItemCaption.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.simpleLabelItem4.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
-            this.simpleLabelItem4.AppearanceItemCaption.Options.UseBackColor = true;
-            this.simpleLabelItem4.AppearanceItemCaption.Options.UseBorderColor = true;
-            this.simpleLabelItem4.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem4.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.simpleLabelItem4.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem4.Location = new System.Drawing.Point(761, 0);
-            this.simpleLabelItem4.MaxSize = new System.Drawing.Size(0, 30);
-            this.simpleLabelItem4.MinSize = new System.Drawing.Size(128, 30);
-            this.simpleLabelItem4.Name = "simpleLabelItem4";
-            this.simpleLabelItem4.Size = new System.Drawing.Size(130, 30);
-            this.simpleLabelItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.simpleLabelItem4.Text = "External Tool";
-            this.simpleLabelItem4.TextSize = new System.Drawing.Size(124, 16);
             // 
             // contextMenuStrip1
             // 
@@ -3143,19 +3015,13 @@ namespace Configurator
             this.toolStripMenuItem2.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem2.Text = "Remove";
             // 
-            // row_NR_LTEFrequencyBandListFilter
+            // emptySpaceItem4
             // 
-            this.row_NR_LTEFrequencyBandListFilter.Name = "row_NR_LTEFrequencyBandListFilter";
-            this.row_NR_LTEFrequencyBandListFilter.Properties.Caption = "LTE-Frequency Band List Filter";
-            this.row_NR_LTEFrequencyBandListFilter.Properties.RowEdit = this.riComboBox_LTE_FreqBandListFilter;
-            // 
-            // riComboBox_LTE_FreqBandListFilter
-            // 
-            this.riComboBox_LTE_FreqBandListFilter.AutoHeight = false;
-            this.riComboBox_LTE_FreqBandListFilter.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.riComboBox_LTE_FreqBandListFilter.Name = "riComboBox_LTE_FreqBandListFilter";
-            this.riComboBox_LTE_FreqBandListFilter.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.emptySpaceItem4.AllowHotTrack = false;
+            this.emptySpaceItem4.Location = new System.Drawing.Point(286, 0);
+            this.emptySpaceItem4.Name = "emptySpaceItem4";
+            this.emptySpaceItem4.Size = new System.Drawing.Size(10, 24);
+            this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // Form_main
             // 
@@ -3163,7 +3029,7 @@ namespace Configurator
             this.Appearance.Options.UseBackColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 718);
+            this.ClientSize = new System.Drawing.Size(928, 793);
             this.Controls.Add(this.layoutControl_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("Form_main.IconOptions.Icon")));
@@ -3254,6 +3120,7 @@ namespace Configurator
             ((System.ComponentModel.ISupportInitialize)(this.riToggleSwitch_NR_CsiRs4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_PDUSessEstab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_NR_FreqBandListFilter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_FreqBandListFilter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl_LTE_Menu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_ChBW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_TPCPattern)).EndInit();
@@ -3275,44 +3142,38 @@ namespace Configurator
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_AuthenticationKey.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit_DefaultSetting.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEditrem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem_DefaultSetting)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem_8000A_ConnStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RemoteAddress)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tab_Main)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPage_Configurator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit_RanOperation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit_AuthenticationKey)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPage_Recovery)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcGroup_Remote)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem_8000A_ConnStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditrem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcGroup_MeasType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcGroup_ExtTool)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcGroup_DefSetting)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem_DefaultSetting)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.riComboBox_LTE_FreqBandListFilter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3433,13 +3294,11 @@ namespace Configurator
         private DevExpress.XtraEditors.SimpleButton simpleButton_Trp;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem textEditrem1;
-        private DevExpress.XtraLayout.EmptySpaceItem RemoteAddress;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem_DefaultSetting;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
-        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow row_NR_Mcc;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow row_NR_Mnc;
@@ -3548,10 +3407,7 @@ namespace Configurator
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem_8000A_ConnStatus;
         private DevExpress.XtraEditors.SimpleButton simpleButton_Tis;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem10;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem8;
-        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem4;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit riSpinEdit_LTE_OutputLvl;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit riSpinEdit_LTE_InputLvl;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit riSpinEdit_LTE_DlNumOfRB;
@@ -3560,38 +3416,38 @@ namespace Configurator
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit riSpinEdit_LTE_DlStartRb;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow row_Lte_ULStartRb;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow row_Lte_DLStartRb;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
-        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem5;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private DevExpress.XtraLayout.TabbedControlGroup tab_Main;
         private DevExpress.XtraLayout.LayoutControlGroup tabPage_Configurator;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraLayout.LayoutControlItem textEdit_RanOperation;
         private DevExpress.XtraLayout.LayoutControlItem textEdit_AuthenticationKey;
-        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem3;
-        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem19;
         private DevExpress.XtraLayout.LayoutControlGroup tabPage_Recovery;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
         private RecoveryTool.UcRecovery ucRecovery1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox riComboBox_PDUSessEstab;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox riComboBox_NR_FreqBandListFilter;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow row_NR_PDUSessionEstablishment;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow row_NR_FrequencyBandListFilter;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem9;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox riComboBox_LTE_FreqBandListFilter;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow row_NR_LTEFrequencyBandListFilter;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
+        private DevExpress.XtraLayout.LayoutControlGroup lcGroup_Remote;
+        private DevExpress.XtraLayout.LayoutControlGroup lcGroup_MeasType;
+        private DevExpress.XtraLayout.LayoutControlGroup lcGroup_ExtTool;
+        private DevExpress.XtraLayout.LayoutControlGroup lcGroup_DefSetting;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
     }
 }
 

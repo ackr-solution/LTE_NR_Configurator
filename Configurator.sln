@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configurator", "Configurato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecoveryTool", "RecoveryTool\RecoveryTool.csproj", "{535555E0-559F-4302-AC48-1637705AE461}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup_Configurator", "Setup_Configurator\Setup_Configurator.vdproj", "{86BBD035-2B8F-4BD9-AA53-0D9549883A58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Simulation|Any CPU = Debug_Simulation|Any CPU
@@ -26,6 +28,9 @@ Global
 		{535555E0-559F-4302-AC48-1637705AE461}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{535555E0-559F-4302-AC48-1637705AE461}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{535555E0-559F-4302-AC48-1637705AE461}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86BBD035-2B8F-4BD9-AA53-0D9549883A58}.Debug_Simulation|Any CPU.ActiveCfg = Debug
+		{86BBD035-2B8F-4BD9-AA53-0D9549883A58}.Debug|Any CPU.ActiveCfg = Debug
+		{86BBD035-2B8F-4BD9-AA53-0D9549883A58}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

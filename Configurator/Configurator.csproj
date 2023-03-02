@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -73,8 +73,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Instrument\lib\NationalInstruments.VisaNS.dll</HintPath>
     </Reference>
-    <Reference Include="Serilog">
-      <HintPath>..\RecoveryTool\bin\Debug\Serilog.dll</HintPath>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.12.0\lib\net47\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=5.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.5.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -132,6 +135,7 @@
       <DependentUpon>WaitForm_Loading.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -143,12 +147,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AckrLib_Common.dll" />
-    <Content Include="AclrLib_BandInfo.dll" />
     <Content Include="logo.ico" />
-    <Content Include="NationalInstruments.Common.dll" />
-    <Content Include="NationalInstruments.Common.Native.dll" />
-    <Content Include="NationalInstruments.VisaNS.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RecoveryTool\RecoveryTool.csproj">
