@@ -1620,6 +1620,7 @@ namespace Configurator
                     query_list.Add("FREQBANDLISTFILTERLTE?\n");
                     dict_QueryAns.Add("FREQBANDLISTFILTERLTE?\n", value);
                 }
+
                 command_list.Add(string.Format("HOTYPE NORMAL\n"));
                 query_list.Add("HOTYPE?\n");
                 dict_QueryAns.Add("HOTYPE?\n", "NORMAL");

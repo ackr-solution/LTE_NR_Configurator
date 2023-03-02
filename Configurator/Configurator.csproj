@@ -98,6 +98,10 @@
     <Compile Include="Dialog\Configurator_Add_Setting.Designer.cs">
       <DependentUpon>Configurator_Add_Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialog\UcLoss_8000.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dialog\UcLoss_8000.Designer.cs" />
     <Compile Include="Form_main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +119,7 @@
     <EmbeddedResource Include="Dialog\Configurator_Add_Setting.resx">
       <DependentUpon>Configurator_Add_Setting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\UcLoss_8000.resx" />
     <EmbeddedResource Include="Form_main.resx">
       <DependentUpon>Form_main.cs</DependentUpon>
     </EmbeddedResource>
