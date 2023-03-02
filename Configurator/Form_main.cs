@@ -1601,6 +1601,19 @@ namespace Configurator
                     dict_QueryAns.Add("FREQBANDLISTFILTER?\n", value);
 
                 }
+                value = vGridControl_NR_Menu.GetCellValue(row_NR_LTEFrequencyBandListFilter, 0)?.ToString() ?? "";
+                //"Enable", "Disable", "Connected Band Only", "All Band"
+                if (value != "" && value == "Enable") value = "ENABLE";
+                else if (value != "" && value == "Disable") value = "DISABLE";
+                else if (value != "" && value == "Connected Band Only") value = "CONNECTED";
+                else if (value != "" && value == "All Band") value = "ALL";
+
+                if (value != "")
+                {
+                    command_list.Add(string.Format("FREQBANDLISTFILTERLTE {0}\n", value));
+                    query_list.Add("FREQBANDLISTFILTERLTE?\n");
+                    dict_QueryAns.Add("FREQBANDLISTFILTERLTE?\n", value);
+                }
 
                 value = vGridControl_NR_Menu.GetCellValue(row_NR_PDUSessionEstablishment, 0)?.ToString() ?? "";
                 command_list.Add(string.Format("PDUEST {0}\n", value));
@@ -1617,20 +1630,6 @@ namespace Configurator
                 command_list.Add("RANOP ENDC\n");   // RAN Operation
                 query_list.Add("RANOP?\n");
                 dict_QueryAns.Add("RANOP?\n", "ENDC");
-
-                value = vGridControl_NR_Menu.GetCellValue(row_NR_FrequencyBandListFilter, 0)?.ToString() ?? "";
-                //"Enable", "Disable", "Connected Band Only", "All Band"
-                if (value != "" && value == "Enable") value = "ENABLE";
-                else if (value != "" && value == "Disable") value = "DISABLE";
-                else if (value != "" && value == "Connected Band Only") value = "CONNECTED";
-                else if (value != "" && value == "All Band") value = "ALL";
-
-                if (value != "")
-                {
-                    command_list.Add(string.Format("FREQBANDLISTFILTER {0}\n", value));
-                    query_list.Add("FREQBANDLISTFILTER?\n");
-                    dict_QueryAns.Add("FREQBANDLISTFILTER?\n", value);
-                }
 
                 value = vGridControl_NR_Menu.GetCellValue(row_NR_LTEFrequencyBandListFilter, 0)?.ToString() ?? "";
                 //"Enable", "Disable", "Connected Band Only", "All Band"
