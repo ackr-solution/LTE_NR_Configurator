@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\AckrLib_Common.dll</HintPath>
     </Reference>
+    <Reference Include="AckrLib_Loss, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\AckrLib_Loss.dll</HintPath>
+    </Reference>
     <Reference Include="AclrLib_BandInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\AclrLib_BandInfo.dll</HintPath>
@@ -95,34 +99,30 @@
   <ItemGroup>
     <Compile Include="Connect.cs" />
     <Compile Include="CreateXmlFile.cs" />
-    <Compile Include="Dialog\Configurator_Add_Setting.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Dialog\Configurator_Add_Setting.cs" />
     <Compile Include="Dialog\Configurator_Add_Setting.Designer.cs">
       <DependentUpon>Configurator_Add_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialog\UcLoss_8000.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Dialog\Configurator_Loss_Setting.cs" />
+    <Compile Include="Dialog\Configurator_Loss_Setting.Designer.cs">
+      <DependentUpon>Configurator_Loss_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialog\UcLoss_8000.Designer.cs" />
-    <Compile Include="Form_main.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Form_main.cs" />
     <Compile Include="Form_main.Designer.cs">
       <DependentUpon>Form_main.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WaitForm_Loading.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="WaitForm_Loading.cs" />
     <Compile Include="WaitForm_Loading.designer.cs">
       <DependentUpon>WaitForm_Loading.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Dialog\Configurator_Add_Setting.resx">
       <DependentUpon>Configurator_Add_Setting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialog\UcLoss_8000.resx" />
+    <EmbeddedResource Include="Dialog\Configurator_Loss_Setting.resx">
+      <DependentUpon>Configurator_Loss_Setting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_main.resx">
       <DependentUpon>Form_main.cs</DependentUpon>
     </EmbeddedResource>

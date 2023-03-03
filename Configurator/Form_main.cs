@@ -30,6 +30,7 @@ namespace Configurator
         List<string[]> Lte_BwList = new List<string[]>();
         Thread trd = null;
         string measurement_type = null;
+        string cur_RanOperation = ""; //SA or NSA
         string[] cur_NR_OperBand_value = new string[] { "78", "78", "78", "78" };
         string[] cur_NR_SCS_value = new string[] { "30kHz", "30kHz", "30kHz", "30kHz" };
         string[] cur_NR_Bandwidth_value = new string[] { "100MHz", "100MHz", "100MHz", "100MHz" };
@@ -445,7 +446,6 @@ namespace Configurator
 
             //Common
             textEdit_RemoteAddr_MT8000A.Text = inputInfo.RemoteAddr_MT8000A;
-            //textEdit_RemoteAddr_MT8821C.Text = inputInfo.RemoteAddr_MT8821C;
             comboBoxEdit_RanOperation.Text = inputInfo.RanOperation;
             comboBoxEdit_AuthenticationKey.Text = inputInfo.Authentication_Key;
 
@@ -474,7 +474,6 @@ namespace Configurator
             vGridControl_NR_Menu.SetCellValue(row_NR_FrequencyBandListFilter, 0, inputInfo.NR_FreqBandListFilter);
             vGridControl_NR_Menu.SetCellValue(row_NR_LTEFrequencyBandListFilter, 0, inputInfo.NR_LteFreqBandListFilter);
             vGridControl_NR_Menu.SetCellValue(row_NR_NumOfDlScc, 0, inputInfo.NR_Number_Of_DL_SCC);
-            //SetNRmenuByNumSCC(int.Parse(inputInfo.NR_Number_Of_DL_SCC.ToString()));
             for (int i = 0; i < vGridControl_NR_Menu.Rows.Count; i++)
             {
                 MultiEditorRow row = vGridControl_NR_Menu.Rows[i] as MultiEditorRow;
@@ -497,7 +496,6 @@ namespace Configurator
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UlCenterCh"))
                     {
                         row.PropertiesCollection[j].Value = inputInfo.NR_UL_Center_Channel.Length > j ? inputInfo.NR_UL_Center_Channel[j] : null;
-                        //UpdateChannel_Nr(1, cur_NR_OperBand_value[j], cur_NR_SCS_value[j], cur_NR_Bandwidth_value[j], j);
                     }
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_ChBw"))
                     {
@@ -524,8 +522,6 @@ namespace Configurator
                         row.PropertiesCollection[j].Value = inputInfo.NR_UL_MCS_Table.Length > j ? inputInfo.NR_UL_MCS_Table[j] : null;
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_MCSIndex") && inputInfo.NR_UL_MCS_Index != null)
                         row.PropertiesCollection[j].Value = inputInfo.NR_UL_MCS_Index.Length > j ? inputInfo.NR_UL_MCS_Index[j] : null;
-                    //else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_CsiRs"))
-                    //    row.PropertiesCollection[j].Value = inputInfo.NR_CsiRs.Length > j ? inputInfo.NR_CsiRs[j] : null;
                     else if (row.PropertiesCollection[j].Name.Contains("mrow_NR_UL_Scs") && inputInfo.NR_UL_Scs != null)
                     {
                         row.PropertiesCollection[j].Value = inputInfo.NR_UL_Scs.Length > j ? inputInfo.NR_UL_Scs[j] : null;
@@ -555,12 +551,6 @@ namespace Configurator
 
         private void vGridControl_NR_Menu_CellValueChanging(object sender, DevExpress.XtraVerticalGrid.Events.CellValueChangedEventArgs e)
         {
-            //if (e.Row.Name.ToString() == "row_NR_NumOfDlScc")
-            //{
-            //    SetNRmenuByNumSCC(int.Parse(e.Value.ToString()));
-            //}
-
-
             VGridControl vGrid = sender as VGridControl;
             if (e.Row == row_NR_NumOfDlScc || 
                 e.Row == mrow_NR_OperationBW ||
@@ -644,6 +634,11 @@ namespace Configurator
             InputValue inputInfo = Parsing_XmlInfo(comboBoxEdit_DefaultSetting.EditValue.ToString());
             SetConfiguratorParam_by_InputValue(inputInfo);
         }
+        private void AddLossSettingInformation (string msg)
+        {
+            Console.WriteLine("AddLossSettingInformation" + msg);
+        }
+
 
         private void AddSettingInformation(string msg)
         {
@@ -845,30 +840,6 @@ namespace Configurator
                         SetNRmenuByNumSCC(tmp);
                         return;
                     }
-                    //RepositoryItemSpinEdit ri_UL_Nrb = mrow_NR_UL_NumOfRB.PropertiesCollection[i].RowEdit as RepositoryItemSpinEdit;
-                    //RepositoryItemSpinEdit ri_DL_Nrb = mrow_NR_DL_NumOfRB.PropertiesCollection[i].RowEdit as RepositoryItemSpinEdit;
-
-                    //string duplex = dict_OperBand[checkBand];
-                    //string waveform = mrow_NR_UL_Waveform.PropertiesCollection[i].Value.ToString();
-                    //if (duplex == "FDD" )
-                    //{
-                    //    ri_DL_Nrb.MaxValue = 106;
-                    //    if (waveform == "CP") ri_UL_Nrb.MaxValue = 106;
-                    //    else ri_UL_Nrb.MaxValue = 100; //DFT
-                        
-                    //}
-                    //else if (duplex == "TDD")
-                    //{
-                    //    ri_DL_Nrb.MaxValue = 273;
-                    //    if (waveform == "CP") ri_UL_Nrb.MaxValue = 273;
-                    //    else ri_UL_Nrb.MaxValue = 270; //DFT
-                    //}
-                    //int value = int.Parse(mrow_NR_UL_NumOfRB.PropertiesCollection[i].Value.ToString());
-                    //if (value > ri_UL_Nrb.MaxValue)
-                    //    mrow_NR_UL_NumOfRB.PropertiesCollection[i].Value = ri_UL_Nrb.MaxValue;
-                    //value = int.Parse(mrow_NR_DL_NumOfRB.PropertiesCollection[i].Value.ToString());
-                    //if (value > ri_UL_Nrb.MaxValue)
-                    //    mrow_NR_UL_NumOfRB.PropertiesCollection[i].Value = ri_DL_Nrb.MaxValue;
                 }
                 Check_NR_SpinEdit_MinMax_StartRB();
             }
@@ -887,40 +858,9 @@ namespace Configurator
                     {
                         //TIS/TRP 모드 지원하지 않는 밴드일 경우
                         string checkBand = OperRow.PropertiesCollection[i].Value.ToString();
-                        //if (dict_OperBand[checkBand].Contains("NotSupport"))
-                        //{
-                        //    XtraMessageBox.Show(string.Format("Band{0} does not support TIS/TRP.", OperRow.PropertiesCollection[i].Value.ToString()));
-                        //    OperRow.PropertiesCollection[i].Value = cur_NR_OperBand_value[i];
-                        //    break;
-                        //}
                         cur_NR_OperBand_value[i] = OperRow.PropertiesCollection[i].Value.ToString();
                         band = cur_NR_OperBand_value[i];
 
-                        ////AckrLib_Common, AclrLib_BandInfo 활용 코드
-                        //int index = bandInfo.scsIndexList_Nr[band]; 
-                        //string[] tmpary = Nr_ScsList[index];
-                        //scs = tmpary[0].ToString();
-
-                        //RepositoryItemComboBox ricomb = (RepositoryItemComboBox)ScsRow.PropertiesCollection[i].RowEdit;
-                        //ricomb.Items.Clear();
-                        //ricomb.Items.AddRange(tmpary);
-                        //ScsRow.PropertiesCollection[i].Value = scs;
-                        //cur_NR_SCS_value[i] = scs;
-
-                        //index = bandInfo.bwIndexList_Nr[Tuple.Create(band, scs)];
-                        //BandInfo_Nr bi_nr = Nr_BwList[index];
-                        //List<string> tmp_list = GetBwItemList_Nr(bi_nr);
-                        //bw = tmp_list[0];
-                        //ricomb = (RepositoryItemComboBox)BwRow.PropertiesCollection[i].RowEdit;
-                        //ricomb.Items.Clear();
-                        //ricomb.Items.AddRange(tmp_list);
-                        //BwRow.PropertiesCollection[i].Value = bw;
-                        //cur_NR_Bandwidth_value[i] = bw;
-                        //cur_NR_Lmh_value[i] = "Mid";
-                        //vGrid.SetCellValue(UlChRow, 0, i, "Mid");
-                        //UpdateChannel_Nr(2, band, scs, bw, i);
-
-                        ////AckrLib_Common, AclrLib_BandInfo 미적용
                         //Band 정보 기반 SCS/BW 결정
                         if (dict_OperBand[band].Contains("TDD"))
                         {
@@ -938,11 +878,6 @@ namespace Configurator
                         BwRow.PropertiesCollection[i].Value = bw;
                         UlChRow.PropertiesCollection[i].Value = "Mid";
 
-                        //RepositoryItemComboBox ricomb = (RepositoryItemComboBox)ScsRow.PropertiesCollection[i].RowEdit;
-                        //ricomb.Items.Clear(); ricomb.Items.Add(scs);
-                        //ricomb = (RepositoryItemComboBox)BwRow.PropertiesCollection[i].RowEdit;
-                        //ricomb.Items.Clear(); ricomb.Items.Add(bw);
-
                         cur_NR_SCS_value[i] = scs;
                         cur_NR_Bandwidth_value[i] = bw;
                         cur_NR_Lmh_value[i] = "Mid";
@@ -951,65 +886,8 @@ namespace Configurator
                     }
                 }
             }
-            ////AckrLib_Common, AclrLib_BandInfo 활용 코드
-            //else if (e.Row == mrow_NR_UL_Scs )
-            //{
-            //    MultiEditorRow ScsRow = vGridControl_NR_Menu.Rows["mrow_NR_UL_Scs"] as MultiEditorRow;
-            //    MultiEditorRow BwRow = vGridControl_NR_Menu.Rows["mrow_NR_ChBw"] as MultiEditorRow;
-            //    MultiEditorRow UlChRow = vGridControl_NR_Menu.Rows["mrow_NR_UlCenterChMode"] as MultiEditorRow;
-
-            //    for (int i = 0; i < ScsRow.RowPropertiesCount; i++)
-            //    {
-            //        if (ScsRow.PropertiesCollection[i].Value == null) continue;
-            //        if (cur_NR_SCS_value[i] != ScsRow.PropertiesCollection[i].Value.ToString())
-            //        {
-            //            cur_NR_SCS_value[i] = ScsRow.PropertiesCollection[i].Value.ToString();
-
-            //            band = cur_NR_OperBand_value[i];
-            //            scs = cur_NR_SCS_value[i];
-
-            //            int index = bandInfo.bwIndexList_Nr[Tuple.Create(band, scs)];
-            //            BandInfo_Nr bi_nr = Nr_BwList[index];
-            //            List<string> tmp_list = GetBwItemList_Nr(bi_nr);
-            //            bw = tmp_list[0];
-            //            RepositoryItemComboBox ricomb = (RepositoryItemComboBox)BwRow.PropertiesCollection[i].RowEdit;
-            //            ricomb.Items.Clear();
-            //            ricomb.Items.AddRange(tmp_list);
-            //            BwRow.PropertiesCollection[i].Value = bw;
-            //            cur_NR_Bandwidth_value[i] = bw;
-
-            //            vGrid.SetCellValue(UlChRow, 0, i, "Mid");
-            //            cur_NR_Lmh_value[i] = "Mid";
-            //            UpdateChannel_Nr(2, band, scs, bw, i);
-            //            break;
-            //        }
-            //    }
-            //}
-            //else if (e.Row == mrow_NR_ChBw )
-            //{
-            //    MultiEditorRow BwRow = vGridControl_NR_Menu.Rows["mrow_NR_ChBw"] as MultiEditorRow;
-            //    MultiEditorRow UlChRow = vGridControl_NR_Menu.Rows["mrow_NR_UlCenterChMode"] as MultiEditorRow;
-
-            //    for (int i = 0; i < BwRow.RowPropertiesCount; i++)
-            //    {
-            //        if (BwRow.PropertiesCollection[i].Value == null) continue;
-            //        if (cur_NR_Bandwidth_value[i] != BwRow.PropertiesCollection[i].Value.ToString())
-            //        {
-            //            cur_NR_Bandwidth_value[i] = BwRow.PropertiesCollection[i].Value.ToString();
-
-            //            band = cur_NR_OperBand_value[i];
-            //            scs = cur_NR_SCS_value[i];
-            //            bw = cur_NR_Bandwidth_value[i];
-            //            cur_NR_Lmh_value[i] = "Mid";
-            //            vGrid.SetCellValue(UlChRow, 0, i, "Mid");
-            //            UpdateChannel_Nr(2, band, scs, bw, i);
-            //            break;
-            //        }
-            //    }
-            //}
             else if (e.Row == mrow_NR_UlCenterChMode) // || e.Row == mrow_NR_UlCenterCh)
             {
-                //MultiEditorRow UlChRow = vGridControl_NR_Menu.Rows["mrow_NR_UlCenterChMode"] as MultiEditorRow;
                 MultiEditorRow UlChRow = e.Row as MultiEditorRow;
                 for (int i = 0; i < UlChRow.RowPropertiesCount; i++)
                 {
@@ -1021,7 +899,6 @@ namespace Configurator
                         band = cur_NR_OperBand_value[i];
                         scs = cur_NR_SCS_value[i];
                         bw = cur_NR_Bandwidth_value[i];
-                        //vGrid.SetCellValue(UlChRow, 0, i, cur_NR_Lmh_value[i]);
                         int index_lmh = 0;
                         if (cur_NR_Lmh_value[i] == "Low") index_lmh = 1;
                         else if (cur_NR_Lmh_value[i] == "Mid") index_lmh = 2;
@@ -1402,6 +1279,7 @@ namespace Configurator
             string tmp;
 
             command_list.Add("REM_DEST 8821C\n");
+            command_list.Add("PRESET\n");
 
             tmp = vGridControl_LTE_Menu.GetCellValue(row_Lte_TpcPattern, 0).ToString();
             if (tmp == "Auto")
@@ -1573,6 +1451,44 @@ namespace Configurator
             List<string> query_list = new List<string>();
             string value;
 
+            // NSA -> SA 모드 변경 시 MT8821C 출력레벨 OFF 
+            if (comboBoxEdit_RanOperation.Text.ToString() == "SA" && cur_RanOperation == "NSA")
+            {
+                NrMbSession.Write("REM_DEST 8821C\n");
+                int cnt = 0;
+                bool isLvlOff = true;
+                while (isLvlOff)
+                {
+                    isLvlOff = false;
+                    
+                    NrMbSession.Write("GTL\n");
+                    NrMbSession.Write("MS_OPEMODE?\n");
+                    string rcvd_msg = NrMbSession.ReadString();
+                    if (rcvd_msg != "OFF\n")
+                    {
+                        NrMbSession.Write("MS_OPEMODE OFF\n");
+                    }
+                    NrMbSession.Write("LVL?\n");
+                    rcvd_msg = NrMbSession.ReadString();
+                    if (rcvd_msg != "OFF\n")
+                    {
+                        NrMbSession.Write("LVL OFF\n");
+                        isLvlOff = true;
+                    }
+                    cnt++;
+                    if (cnt > 10)
+                    {
+                        NrMbSession.Write("LVL?\n");
+                        rcvd_msg = NrMbSession.ReadString();
+                        if (rcvd_msg != "OFF\n")
+                        {
+                            XtraMessageBox.Show("Fail to turn off the 8821C output level");
+                        }
+                        break;
+                    }
+                }
+            }
+
             command_list.Add("REM_DEST 8000A\n");
             command_list.Add("PRESET\n"); // Preset
             if (old_changed_ran_operation != comboBoxEdit_RanOperation.Text.ToString())
@@ -1583,6 +1499,7 @@ namespace Configurator
 
             if (comboBoxEdit_RanOperation.Text.ToString() == "SA")
             {
+                
                 command_list.Add("RANOP SA\n");     // RAN Operation
                 query_list.Add("RANOP?\n"); 
                 dict_QueryAns.Add("RANOP?\n", "SA");
@@ -1593,26 +1510,11 @@ namespace Configurator
                 else if (value != "" && value == "Disable") value = "DISABLE";
                 else if (value != "" && value == "Connected Band Only") value = "CONNECTED";
                 else if (value != "" && value == "All Band") value = "ALL";
-                
                 if(value != "")
                 {
                     command_list.Add(string.Format("FREQBANDLISTFILTER {0}\n",value));
                     query_list.Add("FREQBANDLISTFILTER?\n"); 
                     dict_QueryAns.Add("FREQBANDLISTFILTER?\n", value);
-
-                }
-                value = vGridControl_NR_Menu.GetCellValue(row_NR_LTEFrequencyBandListFilter, 0)?.ToString() ?? "";
-                //"Enable", "Disable", "Connected Band Only", "All Band"
-                if (value != "" && value == "Enable") value = "ENABLE";
-                else if (value != "" && value == "Disable") value = "DISABLE";
-                else if (value != "" && value == "Connected Band Only") value = "CONNECTED";
-                else if (value != "" && value == "All Band") value = "ALL";
-
-                if (value != "")
-                {
-                    command_list.Add(string.Format("FREQBANDLISTFILTERLTE {0}\n", value));
-                    query_list.Add("FREQBANDLISTFILTERLTE?\n");
-                    dict_QueryAns.Add("FREQBANDLISTFILTERLTE?\n", value);
                 }
 
                 value = vGridControl_NR_Menu.GetCellValue(row_NR_PDUSessionEstablishment, 0)?.ToString() ?? "";
@@ -1624,6 +1526,8 @@ namespace Configurator
                 command_list.Add(string.Format("HOTYPE RECONNECT\n"));
                 query_list.Add("HOTYPE?\n");
                 dict_QueryAns.Add("HOTYPE?\n", "RECONNECT");
+
+                cur_RanOperation = "SA";
             }
             else
             {
@@ -1631,13 +1535,25 @@ namespace Configurator
                 query_list.Add("RANOP?\n");
                 dict_QueryAns.Add("RANOP?\n", "ENDC");
 
+                value = vGridControl_NR_Menu.GetCellValue(row_NR_FrequencyBandListFilter, 0)?.ToString() ?? "";
+                //"Enable", "Disable", "Connected Band Only", "All Band"
+                if (value != "" && value == "Enable") value = "ENABLE";
+                else if (value != "" && value == "Disable") value = "DISABLE";
+                else if (value != "" && value == "Connected Band Only") value = "CONNECTED";
+                else if (value != "" && value == "All Band") value = "ALL";
+                if (value != "")
+                {
+                    command_list.Add(string.Format("FREQBANDLISTFILTER {0}\n", value));
+                    query_list.Add("FREQBANDLISTFILTER?\n");
+                    dict_QueryAns.Add("FREQBANDLISTFILTER?\n", value);
+                }
+
                 value = vGridControl_NR_Menu.GetCellValue(row_NR_LTEFrequencyBandListFilter, 0)?.ToString() ?? "";
                 //"Enable", "Disable", "Connected Band Only", "All Band"
                 if (value != "" && value == "Enable") value = "ENABLE";
                 else if (value != "" && value == "Disable") value = "DISABLE";
                 else if (value != "" && value == "Connected Band Only") value = "CONNECTED";
                 else if (value != "" && value == "All Band") value = "ALL";
-
                 if (value != "")
                 {
                     command_list.Add(string.Format("FREQBANDLISTFILTERLTE {0}\n", value));
@@ -1648,7 +1564,9 @@ namespace Configurator
                 command_list.Add(string.Format("HOTYPE NORMAL\n"));
                 query_list.Add("HOTYPE?\n");
                 dict_QueryAns.Add("HOTYPE?\n", "NORMAL");
-            }
+
+                cur_RanOperation = "NSA";
+            } 
             command_list.Add(string.Format("CALLTHLD 1\n"));
             query_list.Add("CALLTHLD?\n");
             dict_QueryAns.Add("CALLTHLD?\n", "1");
@@ -2130,26 +2048,13 @@ namespace Configurator
                         string responseString = NrMbSession.ReadString();
                         //Console.Write(responseString);
                     }
-                    int cmd_start_line = mode == "NR" ? 5 : 1;
-                    for (int i = cmd_start_line; i<command_list.Count;i++)
-                    {
-                        NrMbSession.Write(command_list[i]);
-                        Console.Write(command_list[i]);
-                        NrMbSession.Write("*OPC?\n");
-
-                        //Read the response
-                        string responseString = NrMbSession.ReadString();
-                        //Console.Write(responseString);
-                    }
                 }
              }
             catch (Exception e)
             {
                 XtraMessageBox.Show(string.Format("Command Error___ {0}", e.Message.ToString()));
-                //simpleLabelItem_8000A_ConnStatus.Text = "Disconnected";
                 return;
             }
-            //sendQueryLine("NR");
         }
 
         private void simpleButton_MT8000A_Conn_Click(object sender, EventArgs e)
@@ -2172,25 +2077,6 @@ namespace Configurator
             SplashScreenManager.CloseForm(false);
         }
 
-        //private void simpleButton_MT8821C_Conn_Click(object sender, EventArgs e)
-        //{
-        //    SplashScreenManager.ShowForm(this, typeof(WaitForm_Loading), true, true, false);
-
-        //    var conn = new Connect();
-        //    LteMbSession = conn.Connect_Instruments(textEdit_RemoteAddr_MT8821C.Text);
-
-        //    if (LteMbSession == null)
-        //    {
-        //        XtraMessageBox.Show("Connection failed", "Error");
-        //        simpleLabelItem_8821C_ConnStatus.Text = "Disconnected";
-        //    }
-        //    else
-        //    {
-        //        simpleLabelItem_8821C_ConnStatus.Text = "Connected";
-        //    }
-        //    SplashScreenManager.CloseForm(false);
-        //}
-
         private void simpleButton_Trp_Click(object sender, EventArgs e)
         {
 
@@ -2204,17 +2090,6 @@ namespace Configurator
             {
                 XtraMessageBox.Show(string.Format("{0} is already applied to simulator",measurement_type));
             }
-
-            //SplashScreenManager.ShowForm(this, typeof(WaitForm_Loading), true, true, false);
-            //if (checkNrParameter())
-            //{
-            //    applyNrParameterToInst("TRP");
-
-            //    string tmp = comboBoxEdit_RanOperation.Text.ToString();
-            //    if (checkLteParameter() && tmp == "NSA")
-            //        applyLTEParameterToInst();
-            //}
-            //SplashScreenManager.CloseForm(false);
         }
         private void applyParameter(string mode)
         {
@@ -2242,16 +2117,6 @@ namespace Configurator
             {
                 XtraMessageBox.Show(string.Format("{0} is already applied to simulator", measurement_type));
             }
-            //SplashScreenManager.ShowForm(this, typeof(WaitForm_Loading), true, true, false);
-            //if (checkNrParameter())
-            //{
-            //    applyNrParameterToInst("TIS");
-
-            //    string tmp = comboBoxEdit_RanOperation.Text.ToString();
-            //    if(checkLteParameter() && tmp == "NSA")
-            //        applyLTEParameterToInst();
-            //}
-            //SplashScreenManager.CloseForm(false);
         }
 
         private void riToggleSwitch_NR_CsiRs1_Toggled(object sender, EventArgs e)
@@ -2338,6 +2203,13 @@ namespace Configurator
                 vGridControl_NR_Menu.SetCellValue(row_NR_LTEFrequencyBandListFilter, 0, "Connected Band Only");
                 
             }
+        }
+
+        private void simpleButton_SetLossTable_Click(object sender, EventArgs e)
+        {
+            Configurator_Loss_Setting dialog_cls = new Configurator_Loss_Setting();
+            dialog_cls.FormSendEvent += new FormSendLossDataHandler(this.AddLossSettingInformation);
+            dialog_cls.Show();
         }
     }
 
