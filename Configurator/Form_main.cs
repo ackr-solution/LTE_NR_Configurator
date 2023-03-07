@@ -2208,7 +2208,8 @@ namespace Configurator
         private void simpleButton_SetLossTable_Click(object sender, EventArgs e)
         {
             Configurator_Loss_Setting dialog_cls = new Configurator_Loss_Setting();
-            dialog_cls.FormSendEvent += new FormSendLossDataHandler(this.AddLossSettingInformation);
+            //dialog_cls.FormSendEvent += new FormSendLossDataHandler(this.AddLossSettingInformation);
+            //Loss 세팅 커맨드 추가 필요 
             dialog_cls.Show();
         }
     }

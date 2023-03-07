@@ -99,21 +99,29 @@
   <ItemGroup>
     <Compile Include="Connect.cs" />
     <Compile Include="CreateXmlFile.cs" />
-    <Compile Include="Dialog\Configurator_Add_Setting.cs" />
+    <Compile Include="Dialog\Configurator_Add_Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialog\Configurator_Add_Setting.Designer.cs">
       <DependentUpon>Configurator_Add_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialog\Configurator_Loss_Setting.cs" />
+    <Compile Include="Dialog\Configurator_Loss_Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialog\Configurator_Loss_Setting.Designer.cs">
       <DependentUpon>Configurator_Loss_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_main.cs" />
+    <Compile Include="Form_main.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form_main.Designer.cs">
       <DependentUpon>Form_main.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WaitForm_Loading.cs" />
+    <Compile Include="WaitForm_Loading.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="WaitForm_Loading.designer.cs">
       <DependentUpon>WaitForm_Loading.cs</DependentUpon>
     </Compile>
