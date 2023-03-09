@@ -3,6 +3,7 @@ using Serilog;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -14,6 +15,8 @@ namespace RecoveryTool
 
         private Inst inst;
         private string addr;
+        private string ran_Last;
+        private bool connected;
 
         public UcRecovery()
         {
@@ -21,8 +24,17 @@ namespace RecoveryTool
 
             UpdateControlEnable(false);
             label_Status.Text = "Disconnected";
+            ran_Last = "";
 
             new Logger();
+
+            GetVersion();
+        }
+
+        private void GetVersion()
+        {
+            Version ver = Assembly.GetExecutingAssembly().GetName().Version;
+            SendLogMessage($"Recovery Tool v{ver.Major}.{ver.Minor}.{ver.Build}");
         }
 
         public void SetInst(string _addr)
@@ -33,6 +45,7 @@ namespace RecoveryTool
             inst.SendLogMessage += new EventHandler<SendLogMessageEventArgs>(this.SendLogMessage);
 
             addr = _addr;
+            connected = true;
             UpdateControlEnable(true);
             SendLogMessage("[Status] Connected");
         }
@@ -152,6 +165,13 @@ namespace RecoveryTool
         {
             try
             {
+                if (!connected)
+                {
+                    inst.ConnectInstrument(addr, "inst0");
+                    connected = true;
+                }
+
+                ran_Last = inst.Query(0, "RANOP?");
                 for (int i = 0; i < 3; i++)
                 {
                     if (killAl)
@@ -284,6 +304,14 @@ namespace RecoveryTool
             {
                 inst.Send(0, "REM_DEST NR");
                 string ran = inst.Query(0, "RANOP?");
+                if (ran_Last != ran)
+                {
+                    inst.Send(0, $"RANOP {ran_Last}");
+                    ran = ran_Last;
+                    Sleep(3);
+                    inst.CheckStatus(0, 1000, 1000, "1", "*OPC?");
+                }
+
                 if (ran == "ENDC")
                 {
                     inst.Send(0, "REM_DEST LTE");
@@ -315,6 +343,7 @@ namespace RecoveryTool
                 inst.Send(0, "GTL");
                 inst.DisconnectInstrument(0);
                 UpdateControlEnable(false);
+                connected = false;
 
                 SendLogMessage("[Status] Disconnected");
             }
